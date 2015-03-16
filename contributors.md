@@ -1,3 +1,3 @@
-Jonathan Tan
-Daryl Ho
-Martin Yim
+* Jonathan Tan
+* Daryl Ho
+* Martin Yim
