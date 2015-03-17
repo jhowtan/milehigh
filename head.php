@@ -1,3 +1,4 @@
+<?php require 'config.php' ?>
 <head>
     <!-- Page Title -->
     <title>Mile High Club | Online Airline Ticketing</title>

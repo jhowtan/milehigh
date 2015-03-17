@@ -3,7 +3,12 @@
 ?>
 <!DOCTYPE html>
 <html>
-<?php include 'head.php'; ?>
+<?php include 'head.php';
+    //connection to the database
+    $dbhandle = mysql_connect($db_host, $db_user, $db_pass)
+      or die("Unable to connect to MySQL");
+    echo "Connected to MySQL<br>";
+?>
 <body>
     <div id="page-wrapper">
         <?php include 'header.php'; ?>
