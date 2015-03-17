@@ -19,11 +19,32 @@
     $db = mysql_select_db($db_name, $dbhandle)
       or die("Unable to select " + $db_name);
 
-    $query = "SELECT f.flightNumber, a1.name, a2.name, f.departureDate, " .
-                "f.arrivalDate, f.departureTime, f.arrivalTime, f.price, c1.name, c2.name " .
+    $query = "SELECT f.flightNumber, a1.name as srcA, a2.name as destA, f.departureDate, " .
+                "f.arrivalDate, f.departureTime, f.arrivalTime, f.price, c1.name as srcC, c2.name as destC " .
                 "FROM flight f, airport a1, airport a2, country c1, country c2 " .
                 "WHERE f.departure = a1.id AND c1.id = a1.country " .
-                "AND f.arrival = a2.id AND c2.id = a2.country; ";
+                "AND f.arrival = a2.id AND c2.id = a2.country ";
+
+    if ($fs_from != "") {
+        $query .= "AND c1.name LIKE '%" . $fs_from . "%' ";
+    }
+    if ($fs_to != "") {
+        $query .= "AND c2.name LIKE '%" . $fs_to . "%' ";
+    }
+    if ($fs_fromDate != "") {
+        if (preg_match('~([0-9]{2})[-/]([0-9]{2})[-/]([0-9]{4})~', $fs_fromDate, $matches)) {
+            $fs_fromDate = $matches[3].'-'.$matches[1].'-'.$matches[2];
+        }
+        $query .= "AND f.departureDate = '" . $fs_fromDate . "' "; 
+    }
+    if ($fs_toDate != "") {
+        if (preg_match('~([0-9]{2})[-/]([0-9]{2})[-/]([0-9]{4})~', $fs_toDate, $matches)) {
+            $fs_toDate = $matches[3].'-'.$matches[1].'-'.$matches[2];
+        }
+        $query .= "AND f.arrivalDate = '" . $fs_toDate . "' "; 
+    }
+
+    $query .= ";";
     
     $flights = mysql_query($query) or die($query."<br/><br/>".mysql_error());
     echo mysql_result($flights, 0, "flightNumber");
