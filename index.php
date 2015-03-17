@@ -11,6 +11,12 @@
     $db = mysql_select_db($db_name, $dbhandle)
       or die("Unable to select " + $db_name);
     echo "Database";
+
+    $countries_query = "SELECT name FROM country";
+    $countries = mysql_query($countries_query);
+    foreach ($countries as $value) {
+        echo "$value <br>";
+    }
 ?>
 <body>
     <div id="page-wrapper">
@@ -30,9 +36,6 @@
             </div>
         </div>
         <!-- FORM FOR FLIGHT SEARCH -->
-        <?php
-            $_SESSION["username"] = "test_username";
-        ?>
         <section id="content">
             <div class="search-box-wrapper">
                 <div class="search-box container">
