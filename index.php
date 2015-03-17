@@ -13,18 +13,7 @@
                             <!-- MAIN IMAGE -->
                             <img src="http://placehold.it/2080x646" alt="">
                         </li>
-                        
-                        <!-- Slide2 -->
-                        <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1500">
-                            <!-- MAIN IMAGE -->
-                            <img src="http://placehold.it/2080x646" alt="">
-                        </li>
-                        
-                        <!-- Slide3 -->
-                        <li data-transition="slidedown" data-slotamount="7" data-masterspeed="1500">
-                            <!-- MAIN IMAGE -->
-                            <img src="http://placehold.it/2080x646" alt="">
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -36,7 +25,7 @@
                         <li class="active"><a href="#flights-tab" data-toggle="tab">FLIGHTS</a></li>
                         <li><a href="#flight-status-tab" data-toggle="tab">Check flights status</a></li>
                         <li><a href="#online-checkin-tab" data-toggle="tab">Online Checkin</a></li>
-                    </ul> 
+                    </ul>
                     <div class="search-tab-content">
                         <div class="tab-pane fade active in" id="flights-tab">
                             <form action="flights.php" method="post">
@@ -52,7 +41,7 @@
                                             <input type="text" class="input-text full-width" placeholder="city, distirct or specific airpot" />
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-2">
                                         <h4 class="title">When</h4>
                                         <label>Departing On</label>
@@ -72,7 +61,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-2">
                                         <h4 class="title">Who</h4>
                                         <div class="form-group row">
@@ -98,7 +87,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-xs-6">
@@ -159,7 +148,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-xs-6 col-md-2">
                                         <h4 class="title">When</h4>
                                         <div class="form-group">
@@ -169,7 +158,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-xs-6 col-md-2">
                                         <h4 class="title">Who</h4>
                                         <div class="form-group">
@@ -200,7 +189,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-xs-6 col-md-2">
                                         <h4 class="title">When</h4>
                                         <div class="form-group">
@@ -210,7 +199,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-xs-6 col-md-2">
                                         <h4 class="title">Who</h4>
                                         <div class="form-group">
@@ -228,7 +217,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- FROM HERE IS CUSTOMIZE HOMEPAGE -->
             <div class="section">
                 <div class="container">
@@ -309,7 +298,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <h2>Cheap Flights &amp; Air Tickets</h2>
                     <div class="image-carousel style2 block" data-animation="slide" data-item-width="270" data-item-margin="30">
                         <ul class="slides image-box listing-style2 flight">
@@ -387,7 +376,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <h2>Before you Fly</h2>
                             <div class="toggle-container with-image block" id="accordion3" data-image-animation-type="fadeIn" data-image-animation-duration="2">
                                 <div class="panel style1">
@@ -401,7 +390,7 @@
                                         </div><!-- end content -->
                                     </div>
                                 </div>
-                                
+
                                 <div class="panel style1">
                                     <img src="http://placehold.it/370x160" alt="" />
                                     <h4 class="panel-title">
@@ -413,7 +402,7 @@
                                         </div><!-- end content -->
                                     </div>
                                 </div>
-                                
+
                                 <div class="panel style1">
                                     <img src="http://placehold.it/370x160" alt="" />
                                     <h4 class="panel-title">
@@ -427,7 +416,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <h2>Top Flight Routes</h2>
                             <div class="flight-routes image-box style13 block">
                                 <div class="box">
@@ -492,36 +481,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <h2>Get Travel Insurance</h2>
-                            <div class="icon-box style7 border-bottom">
-                                <i class="soap-icon-user yellow-bg"></i>
-                                <div class="description">
-                                    <h4 class="box-title"><a href="#">Single Trip Plans</a></h4>
-                                    <ul class="circle">
-                                        <li>Trip Protector</li>
-                                        <li>Rental Car Damage Protector</li>
-                                    </ul>
-                                    <a class="view" href="#">View Single Trip Plan Options »</a>
-                                </div>
-                            </div>
-                            <div class="icon-box style7">
-                                <i class="soap-icon-friends yellow-bg"></i>
-                                <div class="description">
-                                    <h4 class="box-title"><a href="#">Multi-Trip (Annual) Plans</a></h4>
-                                    <ul class="circle">
-                                        <li>Best value for frequent travelers</li>
-                                        <li>Coverage for non-award</li>
-                                    </ul>
-                                    <a class="view" href="#">View Annual Trip Plan Options »</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>            
+            </div>
             <!-- CUSTOMIZE HOMEPAGE END HERE-->
-        </section>        
+        </section>
         <?php include 'footer.php'; ?>
     </div>
     <script type="text/javascript">
