@@ -4,10 +4,29 @@
 <!DOCTYPE html>
 <html>
 <?php include 'head.php';
-    $SRC = $_POST['fs_from'];
-    $DEST = $_POST('fs_to');
-    echo $SRC;
-    echo $DEST;
+    $fs_from = $_POST['fs_from'];
+    $fs_to = $_POST['fs_to'];
+    $fs_fromDate = $_POST['fs_fromDate'];
+    $fs_toDate = $_POST['fs_toDate'];
+    $fs_adults = $_POST['fs_adults'];
+    $fs_children = $_POST['fs_children'];
+    $fs_class = $_POST['fs_class'];
+    $fs_promo = $_POST['fs_promo'];
+
+    $dbhandle = mysql_connect($db_host, $db_user, $db_pass)
+      or die("Unable to connect to MySQL");
+    echo "Connected to MySQL<br>";
+    $db = mysql_select_db($db_name, $dbhandle)
+      or die("Unable to select " + $db_name);
+
+    $query = "SELECT f.flightNumber, a1.name, a2.name, f.departureDate, " .
+                "f.arrivalDate, f.departureTime, f.arrivalTime, f.price, c1.name, c2.name " .
+                "FROM flight f, airport a1, airport a2, country c1, country c2 " .
+                "WHERE f.departure = a1.id AND c1.id = a1.country " .
+                "AND f.arrival = a2.id AND c2.id = a2.country; ";
+    
+    $flights = mysql_query($query) or die($query."<br/><br/>".mysql_error());
+    echo mysql_result($flights, 0, "flightNumber");
 ?>
 <body>
     <div id="page-wrapper">
