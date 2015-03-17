@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <?php include 'head.php';
-    echo $_SESSION['fs_to'];
+    echo $_POST['fs_from'];
 ?>
 <body>
     <div id="page-wrapper">

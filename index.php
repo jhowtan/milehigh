@@ -133,16 +133,7 @@
                             </form>
                         </div>
                         <!-- FORM FOR FLIGHT SEARCH -->
-                        <?php
-                            $_SESSION['fs_from'] = $_POST['fs_from'];
-                            $_SESSION['fs_to'] = 'test';
-                            $_SESSION['fs_fromDate'] = "test";
-                            $_SESSION['fs_toDate'] = "test";
-                            $_SESSION['fs_adults'] = "test";
-                            $_SESSION['fs_children'] = "test";
-                            $_SESSION['fs_class'] = "test";
-                            $_SESSION['fs_promo'] = "test";
-                        ?>
+
                         <div class="tab-pane fade" id="flight-status-tab">
                             <form action="flights.php" method="post">
                                 <div class="row">
