@@ -4,7 +4,10 @@
 <!DOCTYPE html>
 <html>
 <?php include 'head.php';
-    echo $_POST['fs_from'];
+    $SRC = $_POST['fs_from'];
+    $DEST = $_POST('fs_to');
+    echo $SRC;
+    echo $DEST;
 ?>
 <body>
     <div id="page-wrapper">

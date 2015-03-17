@@ -8,6 +8,9 @@
     $dbhandle = mysql_connect($db_host, $db_user, $db_pass)
       or die("Unable to connect to MySQL");
     echo "Connected to MySQL<br>";
+    $db = mysql_select_db($db_name, $dbhandle)
+      or die("Unable to select " + $db_name);
+    echo "Database";
 ?>
 <body>
     <div id="page-wrapper">
