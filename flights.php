@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <?php include 'head.php';
-    echo $_SESSION["username"];
+    echo $_SESSION['fs_to'];
 ?>
 <body>
     <div id="page-wrapper">

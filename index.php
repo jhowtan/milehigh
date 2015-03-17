@@ -46,11 +46,11 @@
                                         <h4 class="title">Where</h4>
                                         <div class="form-group">
                                             <label>Leaving From</label>
-                                            <input type="text" class="input-text full-width" placeholder="city, distirct or specific airpot" />
+                                            <input type="text" name="fs_from" class="input-text full-width" placeholder="city, distirct or specific airpot" />
                                         </div>
                                         <div class="form-group">
                                             <label>Going To</label>
-                                            <input type="text" class="input-text full-width" placeholder="city, distirct or specific airpot" />
+                                            <input type="text" name="fs_to" class="input-text full-width" placeholder="city, distirct or specific airpot" />
                                         </div>
                                     </div>
 
@@ -60,7 +60,7 @@
                                         <div class="form-group row">
                                             <div class="col-xs-12">
                                                 <div class="datepicker-wrap">
-                                                    <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                    <input type="text" name="fs_fromDate" class="input-text full-width" placeholder="mm/dd/yy" />
                                                 </div>
                                             </div>
                                         </div>
@@ -68,7 +68,7 @@
                                         <div class="form-group row">
                                             <div class="col-xs-12">
                                                 <div class="datepicker-wrap">
-                                                    <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                    <input type="text" name="fs_toDate" class="input-text full-width" placeholder="mm/dd/yy" />
                                                 </div>
                                             </div>
                                         </div>
@@ -80,7 +80,7 @@
                                             <div class="col-xs-6">
                                                 <label>Adults</label>
                                                 <div class="selector">
-                                                    <select class="full-width">
+                                                    <select name="fs_adults" class="full-width">
                                                         <option value="0">0</option>
                                                         <option value="1">01</option>
                                                         <option value="2">02</option>
@@ -92,7 +92,7 @@
                                             <div class="col-xs-6">
                                                 <label>Children</label>
                                                 <div class="selector">
-                                                    <select class="full-width">
+                                                    <select name="fs_children" class="full-width">
                                                         <option value="0">0</option>
                                                         <option value="1">01</option>
                                                         <option value="2">02</option>
@@ -110,7 +110,7 @@
                                             <div class="col-xs-6">
                                                 <label>Class Type</label>
                                                 <div class="selector">
-                                                    <select class="full-width">
+                                                    <select name="fs_class" class="full-width">
                                                         <option value="Economy">Economy</option>
                                                         <option value="Business">Business</option>
                                                         <option value="First Class">First Class</option>
@@ -119,7 +119,7 @@
                                             </div>
                                             <div class="col-xs-6">
                                                 <label>Promo Code</label>
-                                                <input type="text" class="input-text full-width" placeholder="type here" />
+                                                <input type="text" name="fs_promo" class="input-text full-width" placeholder="type here" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -132,6 +132,17 @@
                                 </div>
                             </form>
                         </div>
+                        <!-- FORM FOR FLIGHT SEARCH -->
+                        <?php
+                            $_SESSION['fs_from'] = $_POST['fs_from'];
+                            $_SESSION['fs_to'] = 'test';
+                            $_SESSION['fs_fromDate'] = "test";
+                            $_SESSION['fs_toDate'] = "test";
+                            $_SESSION['fs_adults'] = "test";
+                            $_SESSION['fs_children'] = "test";
+                            $_SESSION['fs_class'] = "test";
+                            $_SESSION['fs_promo'] = "test";
+                        ?>
                         <div class="tab-pane fade" id="flight-status-tab">
                             <form action="flights.php" method="post">
                                 <div class="row">
