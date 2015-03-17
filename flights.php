@@ -1,6 +1,11 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
-<?php include 'head.php'; ?>
+<?php include 'head.php';
+    echo $_SESSION["username"];
+?>
 <body>
     <div id="page-wrapper">
         <?php include 'header.php'; ?>
@@ -36,7 +41,7 @@
                                         </div><!-- end content -->
                                     </div>
                                 </div>
-                                
+
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" href="#flight-times-filter" class="collapsed">Flight Times</a>
@@ -69,7 +74,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" href="#flight-type-filter" class="collapsed">Flight Type</a>
@@ -102,7 +107,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" href="#modify-search-panel" class="collapsed">Modify Search</a>
@@ -341,7 +346,7 @@
                 step: 5,
                 values: [ 360, 1200 ],
                 slide: function( event, ui ) {
-                    
+
                     tjq(".start-time-label").html( convertTimeToHHMM(ui.values[0]) );
                     tjq(".end-time-label").html( convertTimeToHHMM(ui.values[1]) );
                 }

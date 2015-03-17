@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
 <?php include 'head.php'; ?>
@@ -18,6 +21,10 @@
                 </div>
             </div>
         </div>
+        <!-- FORM FOR FLIGHT SEARCH -->
+        <?php
+            $_SESSION["username"] = "test_username";
+        ?>
         <section id="content">
             <div class="search-box-wrapper">
                 <div class="search-box container">
@@ -69,6 +76,7 @@
                                                 <label>Adults</label>
                                                 <div class="selector">
                                                     <select class="full-width">
+                                                        <option value="0">0</option>
                                                         <option value="1">01</option>
                                                         <option value="2">02</option>
                                                         <option value="3">03</option>
@@ -77,9 +85,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
-                                                <label>Kids</label>
+                                                <label>Children</label>
                                                 <div class="selector">
                                                     <select class="full-width">
+                                                        <option value="0">0</option>
                                                         <option value="1">01</option>
                                                         <option value="2">02</option>
                                                         <option value="3">03</option>
@@ -88,19 +97,6 @@
                                                 </div>
                                             </div>
 
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-xs-6">
-                                                <label>Infants</label>
-                                                <div class="selector">
-                                                    <select class="full-width">
-                                                        <option value="1">01</option>
-                                                        <option value="2">02</option>
-                                                        <option value="3">03</option>
-                                                        <option value="4">04</option>
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -111,7 +107,6 @@
                                                 <div class="selector">
                                                     <select class="full-width">
                                                         <option value="Economy">Economy</option>
-                                                        <option value="Premium Economy">Premium Economy</option>
                                                         <option value="Business">Business</option>
                                                         <option value="First Class">First Class</option>
                                                     </select>
