@@ -30,12 +30,13 @@
                                 <th>SeatNum</th>
                                 <th>Date Purchased</th>
                                 <th>Baggage Type</th>
+                                <th>CheckIn</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if(mysql_num_rows($ticket_result) == 0){ ?>
-                                <tr class="odd gradeX"><td colspan="6">No result shown</td></tr>
+                                <tr class="odd gradeX"><td colspan="6" align="center">No result shown</td></tr>
                             <?php 
                             } 
                             else { 
@@ -46,6 +47,14 @@
                                     <td><?php echo $row['seatNumber'] ; ?></td>
                                     <td><?php echo $row['datePurchased']; ?></td>
                                     <td><?php echo $row['baggageType']; ?></td>
+                                    <td><?php
+                                            if ($row['checkedIn'] == 0){
+                                                echo "No";
+                                            }else{
+                                                echo "Yes";
+                                            }
+                                        ?>
+                                    </td>
                                     <td>
                                         <button class="btn btn-small btn-orange" name="ticketId" value="<?php echo $row['id']; ?>">Manage</button>
                                     </td>

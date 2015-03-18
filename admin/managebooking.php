@@ -1,3 +1,22 @@
+<?php
+    include 'controller.php';
+    
+    $checked0 = "";
+    $checked1 = "";
+    
+    if(!isset($_SESSION['login'])){
+        header("Location: index.php");
+    }
+    
+    $booking_query = "SELECT ft.*, c.name, f.flightNumber "
+            . "FROM flightticket ft, customer c, flight f "
+            . "WHERE ft.owner = c.id AND ft.flight = f.id";
+    //$booking_query = "SELECT ft.*, c.name, f.flightNumber "
+    //        . "FROM flightticket ft, customer c, flight f "
+    //        . "WHERE ft.owner = c.id AND ft.flight = f.id AND ft.id = ".$_GET['ticketId']."";
+    $booking_result = mysql_query($booking_query);
+    $row = mysql_fetch_assoc($booking_result);
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,47 +27,40 @@
             <div class="portlet-content">
 		<form action="#" method="post" class="form label-inline">
                     <div class="field">
-                        <label>First Name </label> <input id="fname" name="fname" size="50" type="text" class="medium" />
+                        <label>Customer</label> <p><?php echo $row['name']; ?></p>
                     </div>
                     <div class="field">
-                        <label >Last Name </label> <input id="lname" name="lname" size="50" type="text" class="medium" />
-                        <p class="field_help">Field help text.</p>
-                    </div>
-                    <div class="field phone_field">
-                        <label>Telephone</label> 
-                        <input id="telephone" size="3" type="text" class="xsmall" /> - <input size="3" type="text" class="xsmall" /> 
-                            - <input size="4" type="text" class="xsmall" />
-                            <p class="field_help">(###) - ### - ####</p>
+                        <label>Flight Number</label> <p><?php echo $row['flightNumber']; ?></p>
                     </div>
                     <div class="field">
-			<label>Type </label>
-			<select id="type" class="medium" name="">
-                            <option selected="selected" value="">Corporate</option>
-                            <option value="">Individual</option>
-			</select>
+                        <label>Seat Number</label> <p><?php echo $row['seatNumber']; ?></p>
+                    </div>
+                    <div class="field">
+                        <label>Date Purchased</label> <p><?php echo $row['datePurchased']; ?></p>
+                    </div>
+                    <div class="field">
+                        <label>Baggage Type</label> <p><?php echo $row['baggageType']; ?></p>
                     </div>
                     <div class="controlset field">
-			<span class="label">Preferred Location</span>
+			<span class="label">Checked In</span>
                         <div class="controlset-pad">
-                            <input name="radio" id="radio1" value="1" type="radio" /> <label>Option 1</label><br />
-                            <input name="radio" id="radio2" value="2" type="radio" /> <label>Option 2</label><br />
-                            <input name="radio" id="radio3" value="3" type="radio" /> <label>Option 3</label><br />
-			</div>
-                    </div>			
-                    <div class="controlset field">
-                        <span class="label">Something Else </span>
-			<div class="controlset-pad">
-                            <input name="option[]" id="check1" value="1" type="checkbox" />  <label>Some Option 1</label><br />
-                            <input name="option[]" id="check2" value="2" type="checkbox" />  <label>Some Option 2</label><br />
-                            <input name="option[]" id="check3" value="3" type="checkbox" /> <label>Some Option 3</label><br />
+                            <?php 
+                                if ($row['checkedIn'] == 0){
+                                    echo '<input name="checkin" value="0" type="radio" checked/><label>No</label><br />';
+                                }else{
+                                    echo '<input name="checkin" value="0" type="radio"/><label>No</label><br />';
+                                }
+                                 if ($row['checkedIn'] == 1){
+                                    echo '<input name="checkin" value="1" type="radio" checked/><label>Yes</label><br />';
+                                }else{
+                                    echo '<input name="checkin" value="1" type="radio"/><label>Yes</label><br />';
+                                }
+                            ?>
                         </div>
-                    </div>	
-                    <div class="field">
-                        <label>Description</label> <textarea rows="7" cols="50" name="description"></textarea>
                     </div>
                     <br />
                     <div class="buttonrow">
-			<button class="btn btn-orange">Add</button>
+			<button class="btn btn-orange" name="update">Update</button>
                     </div>
                 </form>
                 <br /><br />	

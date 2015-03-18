@@ -31,7 +31,7 @@
                         </thead>
                         <tbody>
                             <?php if(mysql_num_rows($customer_result) == 0){ ?>
-                                <tr class="odd gradeX"><td colspan="5">No result shown</td></tr>
+                                <tr class="odd gradeX"><td colspan="5" align="center">No result shown</td></tr>
                             <?php 
                             } 
                             else { 

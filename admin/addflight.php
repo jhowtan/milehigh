@@ -23,7 +23,7 @@
             <div class="portlet-content">
 		<form action="#" method="post" class="form label-inline">
                     <div class="field">
-                        <label>Flight Number</label> <input name="flightNum" size="50" type="text" class="medium" />
+                        <label>Flight Number</label> <input name="flightNum" size="5" type="text" class="medium" />
                     </div>
                     <div class="field">
                         <label>Departure Date</label> <input name="departDate" type="date" class="medium"/>
@@ -81,7 +81,7 @@
                     </div>
                     <br />
                     <div class="buttonrow">
-			<button class="btn btn-orange">Add</button>
+			<button class="btn btn-orange" name="addflight">Add</button>
                     </div>
                 </form>
                 <br /><br />	

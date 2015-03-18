@@ -5,7 +5,7 @@
         header("Location: index.php");
     }
     
-    $flight_query = "SELECT * FROM flight";
+    $flight_query = "SELECT f.*, a.name FROM flight f, airline a WHERE f.airline = a.id";
     $flight_result = mysql_query($flight_query);
 ?>
 
@@ -18,40 +18,46 @@
             <div class="portlet-header"><h4>View Flights</h4></div>
             <div class="portlet-content"><br />
                 <h2>Flights</h2>
-                <table cellpadding="0" cellspacing="0" border="0" class="display" rel="datatable" id="example">
-                    <thead>
-                        <tr>
-                            <th>FlightNum</th>
-                            <th>Departure Date/Time</th>
-                            <th>Arrival Date/Time</th>
-                            <th>Airline</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if(mysql_num_rows($flight_result) == 0){ ?>
-                            <tr class="odd gradeX"><td colspan="6">No result shown</td></tr>
-                        <?php 
-                        } 
-                        else { 
-                            while($row = mysql_fetch_assoc($flight_result)){ ?>
-                            <tr class="odd gradeX">
-                                <td><?php echo $row['flightNumber']; ?></td>
-                                <td><?php echo $row['departureDate'] ."<br/>". $row['departureTime']; ?></td>
-                                <td><?php echo $row['arrivalDate'] ."<br/>". $row['arrivalTime']; ?></td>
-                                <td><?php echo $row['airline']; ?></td>
-                                <td><?php echo $row['status']; ?></td>
-                                <td>
-                                    <button class="btn btn-small btn-orange" name="manage" value="<?php echo $row['id']; ?>">Manage</button>
-                                    <button class="btn btn-small btn-red" name="delete" value="<?php echo $row['id']; ?>">Delete</button>
-                                </td>
+                <form action="manageflight.php" method="get" class="form label-inline">
+                    <table cellpadding="0" cellspacing="0" border="0" class="display" rel="datatable" id="example">
+                        <thead>
+                            <tr>
+                                <th>FlightNum</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Departure Date/Time</th>
+                                <th>Arrival Date/Time</th>
+                                <th>Airline</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
-                        <?php 
-                        } 
-                        }?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php if(mysql_num_rows($flight_result) == 0){ ?>
+                                <tr class="odd gradeX"><td colspan="6" align="center">No result shown</td></tr>
+                            <?php 
+                            } 
+                            else { 
+                                while($row = mysql_fetch_assoc($flight_result)){ ?>
+                                <tr class="odd gradeX">
+                                    <td><?php echo $row['flightNumber']; ?></td>
+                                    <td><?php echo $row['departure']; ?></td>
+                                    <td><?php echo $row['arrival']; ?></td>
+                                    <td><?php echo $row['departureDate'] ."<br/>". $row['departureTime']; ?></td>
+                                    <td><?php echo $row['arrivalDate'] ."<br/>". $row['arrivalTime']; ?></td>
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['status']; ?></td>
+                                    <td>
+                                        <button class="btn btn-small btn-orange" name="id" value="<?php echo $row['id']; ?>">Manage</button>
+                                        <button class="btn btn-small btn-red" name="delete" value="<?php echo $row['id']; ?>">Delete</button>
+                                    </td>
+                                </tr>
+                            <?php 
+                            } 
+                            }?>
+                        </tbody>
+                    </table>
+                </form>
             </div>
 	</div>
     </div> <!-- #content -->
