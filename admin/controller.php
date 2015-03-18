@@ -38,7 +38,7 @@
             $departureTime = $_POST["departTime"];
             $arrivalDate = $_POST["arrivalDate"];
             $arrivalTime = $_POST["arrivalTime"];
-            $price = $_POST["price"];
+            $price = test_input($_POST["price"]);
             $airline = $_POST["airline"];
             $from = $_POST["departure"];
             $to = $_POST["arrival"];
@@ -53,6 +53,30 @@
             }
             else{
                 $message = "Error!". mysql_error();
+            }
+        } else if($_SERVER["PHP_SELF"] == $url."manageflight.php"){
+            $flightNum = test_input($_POST["flightNum"]);
+            $departureDate = $_POST["departDate"];
+            $departureTime = $_POST["departTime"];
+            $arrivalDate = $_POST["arrivalDate"];
+            $arrivalTime = $_POST["arrivalTime"];
+            $price = test_input($_POST["price"]);
+            $airline = $_POST["airline"];
+            $from = $_POST["departure"];
+            $to = $_POST["arrival"];
+            $status = $_POST["status"];
+            $id = $_POST["updateId"];
+            
+            $update_flight_query = "UPDATE flight SET status = '$status', departure = '$from', arrival = '$to',"
+                    . "airline = '$airline', price = '$price', departureTime = '$departureTime', "
+                    . "departureDate = '$departureDate', arrivalTime = '$arrivalTime', arrivalDate = '$arrivalDate', "
+                    . "flightNumber = '$flightNum' WHERE id = '$id'";
+            
+            if(mysql_query($update_flight_query)){
+                header("Location: viewflight.php");
+            }
+            else{
+                die("Error!". mysql_error());
             }
         }
     }

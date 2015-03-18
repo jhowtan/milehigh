@@ -5,7 +5,11 @@
         header("Location: index.php");
     }
     
-    $flight_query = "SELECT * FROM flight WHERE id=".$_GET['id']."";
+    if(isset($_GET["id"])){
+        $flightId = $_GET["id"];
+    }
+    
+    $flight_query = "SELECT * FROM flight WHERE id = '$flightId'";
     $flight_result = mysql_query($flight_query);
     $row = mysql_fetch_assoc($flight_result);
     
@@ -24,10 +28,10 @@
         <div class="portlet x6">
             <div class="portlet-header"><h4>Manage Flights</h4></div>
             <div class="portlet-content">
-		<form action="#" method="post" class="form label-inline">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="form label-inline">
                     <div class="field">
                         <label>Flight Number</label>
-                        <input name="flightNum" size="5" type="text" class="medium" value="<?php echo $row['flightNumber']; ?>"/>
+                        <input name="flightNum" size="5" type="text" class="medium" value="<?php echo $row['flightNumber']; ?>" required/>
                     </div>
                     <div class="field">
                         <label>Departure Date</label> 
@@ -46,7 +50,7 @@
                     </div>
                     <div class="field">
                         <label>Price</label> 
-                        <input name="flightNum" size="5" type="text" class="medium" value="<?php echo $row['price']; ?>"/>
+                        <input name="price" size="5" type="text" class="medium" value="<?php echo $row['price']; ?>" required/>
                     </div>
                     <div class="field">
 			<label>Airline</label>
@@ -98,27 +102,27 @@
 			<select class="medium" name="status">
                             <?php 
                                 if($row['status'] == "On Schedule"){
-                                    echo '<option value="On Schedule" checked>On Schedule</option>';
+                                    echo '<option value="On Schedule" selected>On Schedule</option>';
                                 } else {
                                     echo '<option value="On Schedule">On Schedule</option>';
                                 }
                                 if($row['status'] == "Delayed"){
-                                    echo '<option value="Delayed" checked>Delayed</option>';
+                                    echo '<option value="Delayed" selected>Delayed</option>';
                                 } else {
                                     echo '<option value="Delayed">Delayed</option>';
                                 }   
                                 if($row['status'] == "Arrived"){
-                                    echo '<option value="Arrived" checked>Arrived</option>';
+                                    echo '<option value="Arrived" selected>Arrived</option>';
                                 } else {
                                     echo '<option value="Arrived">Arrived</option>';
                                 }   
                                 if($row['status'] == "Canceled"){
-                                    echo '<option value="Canceled" checked>Canceled</option>';
+                                    echo '<option value="Canceled" selected>Canceled</option>';
                                 } else {
                                     echo '<option value="Canceled">Canceled</option>';
                                 } 
                                 if($row['status'] == "Postponed"){
-                                    echo '<option value="Postponed" checked>Postponed</option>';
+                                    echo '<option value="Postponed" selected>Postponed</option>';
                                 } else {
                                     echo '<option value="Postponed">Postponed</option>';
                             }?>
@@ -126,7 +130,7 @@
                     </div>
                     <br />
                     <div class="buttonrow">
-			<button class="btn btn-orange" name="update">Update</button>
+			<button class="btn btn-orange" name="updateId" value="<?php echo $flightId; ?>">Update</button>
                     </div>
                 </form>
                 <br /><br />	
