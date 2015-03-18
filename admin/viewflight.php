@@ -5,8 +5,8 @@
         header("Location: index.php");
     }
     
-    $sql = "SELECT * FROM flight";
-    $query = mysql_query($sql);
+    $flight_query = "SELECT * FROM flight";
+    $flight_result = mysql_query($flight_query);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -30,12 +30,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if(mysql_num_rows($query) == 0){ ?>
+                        <?php if(mysql_num_rows($flight_result) == 0){ ?>
                             <tr class="odd gradeX"><td colspan="6">No result shown</td></tr>
                         <?php 
                         } 
                         else { 
-                            while($row = mysql_fetch_assoc($query)){ ?>
+                            while($row = mysql_fetch_assoc($flight_result)){ ?>
                             <tr class="odd gradeX">
                                 <td><?php echo $row['flightNumber']; ?></td>
                                 <td><?php echo $row['departureDate'] ."<br/>". $row['departureTime']; ?></td>

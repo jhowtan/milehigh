@@ -1,3 +1,18 @@
+<?php
+    include 'controller.php';
+
+    if(!isset($_SESSION['login'])){
+        header("Location: index.php");
+    }
+    
+    $airline_query = "SELECT * FROM airline ORDER BY name ASC";
+    $airline_result = mysql_query($airline_query);
+    
+    $airport_query = "SELECT * FROM airport ORDER BY name ASC";
+    $airport_result = mysql_query($airport_query);
+    $airport_result2 = mysql_query($airport_query);
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,43 +23,61 @@
             <div class="portlet-content">
 		<form action="#" method="post" class="form label-inline">
                     <div class="field">
-                        <label>First Name </label> <input id="fname" name="fname" size="50" type="text" class="medium" />
+                        <label>Flight Number</label> <input name="flightNum" size="50" type="text" class="medium" />
                     </div>
                     <div class="field">
-                        <label >Last Name </label> <input id="lname" name="lname" size="50" type="text" class="medium" />
-                        <p class="field_help">Field help text.</p>
-                    </div>
-                    <div class="field phone_field">
-                        <label>Telephone</label> 
-                        <input id="telephone" size="3" type="text" class="xsmall" /> - <input size="3" type="text" class="xsmall" /> 
-                            - <input size="4" type="text" class="xsmall" />
-                            <p class="field_help">(###) - ### - ####</p>
+                        <label>Departure Date</label> <input name="departDate" type="date" class="medium"/>
                     </div>
                     <div class="field">
-			<label>Type </label>
-			<select id="type" class="medium" name="">
-                            <option selected="selected" value="">Corporate</option>
-                            <option value="">Individual</option>
+                        <label>Departure Time</label> 
+                        <input name="departTime" type="time" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" class="medium"/>
+                    </div>
+                    <div class="field">
+                        <label>Arrival Date</label> <input name="arrivalDate" type="date" class="medium"/>
+                    </div>
+                    <div class="field">
+                        <label>Arrival Time</label> 
+                        <input name="arrivalTime" type="time" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" class="medium"/>
+                    </div>
+                    <div class="field">
+                        <label>Price</label> <input name="flightNum" size="5" type="text" class="medium" />
+                    </div>
+                    <div class="field">
+			<label>Airline</label>
+			<select class="medium" name="airline">
+                            <?php while($row = mysql_fetch_assoc($airline_result)){
+                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                            }
+                            ?>
 			</select>
                     </div>
-                    <div class="controlset field">
-			<span class="label">Preferred Location</span>
-                        <div class="controlset-pad">
-                            <input name="radio" id="radio1" value="1" type="radio" /> <label>Option 1</label><br />
-                            <input name="radio" id="radio2" value="2" type="radio" /> <label>Option 2</label><br />
-                            <input name="radio" id="radio3" value="3" type="radio" /> <label>Option 3</label><br />
-			</div>
-                    </div>			
-                    <div class="controlset field">
-                        <span class="label">Something Else </span>
-			<div class="controlset-pad">
-                            <input name="option[]" id="check1" value="1" type="checkbox" />  <label>Some Option 1</label><br />
-                            <input name="option[]" id="check2" value="2" type="checkbox" />  <label>Some Option 2</label><br />
-                            <input name="option[]" id="check3" value="3" type="checkbox" /> <label>Some Option 3</label><br />
-                        </div>
-                    </div>	
                     <div class="field">
-                        <label>Description</label> <textarea rows="7" cols="50" name="description"></textarea>
+			<label>Departure</label>
+			<select class="medium" name="departure">
+                            <?php while($row = mysql_fetch_assoc($airport_result)){
+                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                            }
+                            ?>
+			</select>
+                    </div>
+                    <div class="field">
+			<label>Arrival</label>
+			<select class="medium" name="arrival">
+                            <?php while($row = mysql_fetch_assoc($airport_result2)){
+                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                            }
+                            ?>
+			</select>
+                    </div>
+                    <div class="field">
+			<label>Status</label>
+			<select class="medium" name="status">
+                            <option value="On Schedule">On Schedule</option>
+                            <option value="Delayed">Delayed</option>
+                            <option value="Arrived">Arrived</option>
+                            <option value="Canceled">Canceled</option>
+                            <option value="Postponed">Postponed</option>
+			</select>
                     </div>
                     <br />
                     <div class="buttonrow">
