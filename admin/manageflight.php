@@ -131,6 +131,7 @@
                     <br />
                     <div class="buttonrow">
 			<button class="btn btn-orange" name="updateId" value="<?php echo $flightId; ?>">Update</button>
+                        <button class="btn btn-red" name="deleteId" value="<?php echo $flightId; ?>">Delete</button>
                     </div>
                 </form>
                 <br /><br />	
