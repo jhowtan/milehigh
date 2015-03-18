@@ -1,11 +1,12 @@
 <?php
     include 'controller.php';
-    
-    $checked0 = "";
-    $checked1 = "";
-    
+
     if(!isset($_SESSION['login'])){
         header("Location: index.php");
+    }
+    
+    if(isset($_GET["id"])){
+        $bookingId = $_GET["id"];
     }
     
     $booking_query = "SELECT ft.*, c.name, f.flightNumber "
@@ -13,7 +14,7 @@
             . "WHERE ft.owner = c.id AND ft.flight = f.id";
     //$booking_query = "SELECT ft.*, c.name, f.flightNumber "
     //        . "FROM flightticket ft, customer c, flight f "
-    //        . "WHERE ft.owner = c.id AND ft.flight = f.id AND ft.id = ".$_GET['ticketId']."";
+    //        . "WHERE ft.owner = c.id AND ft.flight = f.id AND ft.id = '$bookingId'";
     $booking_result = mysql_query($booking_query);
     $row = mysql_fetch_assoc($booking_result);
 ?>
@@ -25,7 +26,7 @@
         <div class="portlet x6">
             <div class="portlet-header"><h4>Manage Booking</h4></div>
             <div class="portlet-content">
-		<form action="#" method="post" class="form label-inline">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="form label-inline">
                     <div class="field">
                         <label>Customer</label> <p><?php echo $row['name']; ?></p>
                     </div>
@@ -60,7 +61,7 @@
                     </div>
                     <br />
                     <div class="buttonrow">
-			<button class="btn btn-orange" name="update">Update</button>
+			<button class="btn btn-orange" name="updateId" value="<?php echo $bookingId; ?>">Update</button>
                     </div>
                 </form>
                 <br /><br />	

@@ -78,6 +78,18 @@
             else{
                 die("Error!". mysql_error());
             }
+        } else if($_SERVER["PHP_SELF"] == $url."managebooking.php"){
+            $checkIn = $_POST["checkin"];
+            $id = $_POST["updateId"];
+            
+            $update_booking_query = "UPDATE flightticket SET checkedIn = '$checkIn' WHERE id = '$id'";
+            
+            if(mysql_query($update_booking_query)){
+                header("Location: viewbooking.php");
+            }
+            else{
+                die("Error!". mysql_error());
+            }
         }
     }
 ?>

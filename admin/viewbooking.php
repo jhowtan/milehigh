@@ -56,7 +56,7 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-small btn-orange" name="ticketId" value="<?php echo $row['id']; ?>">Manage</button>
+                                        <button class="btn btn-small btn-orange" name="id" value="<?php echo $row['id']; ?>">Manage</button>
                                     </td>
                                 </tr>
                             <?php 
