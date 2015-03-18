@@ -6,7 +6,19 @@
     }
     
     $flight_query = "SELECT f.*, a.name FROM flight f, airline a WHERE f.airline = a.id";
+    //$flight_query = "SELECT f.*, a.name, ap.name AS depart"
+    //        . "FROM flight f, airline a, airport ap"
+    //        . "WHERE f.airline = a.id AND f.arrival = ap.id";
     $flight_result = mysql_query($flight_query);
+    /*$flight_result2 = mysql_query($flight_query);
+    
+    $result = mysql_fetch_assoc($flight_result2);
+    
+    $airport_query = "SELECT name FROM airport WHERE id = ".$result['departure']." OR id = ".$result['arrival']."";
+    $airport_result = mysql_query($airport_query);
+    $airport = mysql_fetch_assoc($airport_result);
+    echo print_r($airport);
+     */
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -34,7 +46,7 @@
                         </thead>
                         <tbody>
                             <?php if(mysql_num_rows($flight_result) == 0){ ?>
-                                <tr class="odd gradeX"><td colspan="6" align="center">No result shown</td></tr>
+                                <tr class="odd gradeX"><td colspan="8" align="center">No result shown</td></tr>
                             <?php 
                             } 
                             else { 

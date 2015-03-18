@@ -1,4 +1,5 @@
 <?php
+    $message = "";
     include 'controller.php';
 
     if(!isset($_SESSION['login'])){
@@ -21,9 +22,10 @@
         <div class="portlet x6">
             <div class="portlet-header"><h4>Add New Flights</h4></div>
             <div class="portlet-content">
-		<form action="#" method="post" class="form label-inline">
+                <h2><?php echo $message; ?></h2>
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="form label-inline">
                     <div class="field">
-                        <label>Flight Number</label> <input name="flightNum" size="5" type="text" class="medium" />
+                        <label>Flight Number</label> <input name="flightNum" size="5" type="text" class="medium" required/>
                     </div>
                     <div class="field">
                         <label>Departure Date</label> <input name="departDate" type="date" class="medium"/>
@@ -40,7 +42,7 @@
                         <input name="arrivalTime" type="time" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" class="medium"/>
                     </div>
                     <div class="field">
-                        <label>Price</label> <input name="flightNum" size="5" type="text" class="medium" />
+                        <label>Price</label> <input name="price" size="5" type="text" class="medium" required/>
                     </div>
                     <div class="field">
 			<label>Airline</label>

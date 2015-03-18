@@ -40,7 +40,7 @@
                                     <td><?php echo $row['name']; ?></td>
                                     <td><?php echo $row['passport']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
-                                    <td><?php echo "contact num"; ?></td>
+                                    <td><?php echo $row['contact']; ?></td>
                                 </tr>
                             <?php 
                             } 
