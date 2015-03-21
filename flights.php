@@ -5,21 +5,43 @@
     
     include 'controller.php';
     
-    $airline_query = "SELECT * FROM airline";
-    $airline_result = mysql_query($airline_query);
-    
     $fs_from = $_GET['fs_from'];
     $fs_to = $_GET['fs_to'];
     $fs_fromDate = $_GET['fs_fromDate'];
     $fs_toDate = $_GET['fs_toDate'];
     $fs_adults = $_GET['fs_adults'];
     $fs_children = $_GET['fs_children'];
-    $fs_class = $_GET['fs_class'];
     $fs_promo = $_GET['fs_promo'];
     
-    echo $fs_from ."<br/>". $fs_to ."<br/>". $fs_fromDate ."<br/>". $fs_toDate ."<br/>". $fs_adults 
-            ."<br/>". $fs_children ."<br/>". $fs_class ."<br/>". $fs_promo;
+    //echo $fs_from ."<br/>". $fs_to ."<br/>". $fs_fromDate ."<br/>". $fs_toDate ."<br/>". $fs_adults 
+    //        ."<br/>". $fs_children ."<br/>". $fs_promo;
     
+    $price_query = "SELECT DISTINCT f.price"
+            . " FROM flight f, airport a"
+            . " WHERE (f.departure = a.id AND a.country = '$fs_from')"
+            . " AND (f.arrival = a.id AND a.country = '$fs_to')";
+    $price_result = mysql_query($price_query);
+    
+    $departureTime_query = "SELECT DISTINCT f.departureTime"
+            . " FROM flight f, airport a"
+            . " WHERE f.departure = a.id AND a.country = '$fs_from'";
+    $departureTime_result = mysql_query($departureTime_query);
+    
+    $arrivalTime_query = "SELECT DISTINCT f.arrivalTime "
+            . " FROM flight f, airport a"
+            . " WHERE f.arrival = a.id AND a.country = '$fs_to'";
+    $arrivalTime_result = mysql_query($arrivalTime_query);
+    
+    $airline_query = "SELECT DISTINCT a.* "
+            . " FROM airline a, flight f, airport ap"
+            . " WHERE (f.departure = ap.id AND ap.country = '$fs_from')"
+            . " AND (f.arrival = ap.id AND ap.country = '$fs_to')"
+            . " AND f.airline = a.id";
+    $airline_result = mysql_query($airline_query);
+    
+    $countries_query = "SELECT * FROM country";
+    $countries_result = mysql_query($countries_query);
+    $countries_result2 = mysql_query($countries_query);
     
     /*$query = "SELECT f.flightNumber, a1.name as srcA, a2.name as destA, f.departureDate, " .
                 "f.arrivalDate, f.departureTime, f.arrivalTime, f.price, c1.name as srcC, c2.name as destC " .
@@ -87,26 +109,56 @@
                                     </h4>
                                     <div id="price-filter" class="panel-collapse collapse">
                                         <div class="panel-content">
-                                            <div id="price-range"></div>
-                                            <br />
-                                            <span class="min-price-label pull-left"></span>
-                                            <span class="max-price-label pull-right"></span>
-                                            <div class="clearer"></div>
+                                            <div class="selector">
+                                                <select name="price_fliter" class="full-width">
+                                                    <option value="">ALL</option>
+                                                    <?php
+                                                        while($row = mysql_fetch_assoc($price_result)){
+                                                            echo "<option value=".$row['price'].">SGD".$row['price']."</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
                                         </div><!-- end content -->
                                     </div>
                                 </div>
 
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" href="#flight-times-filter" class="collapsed">Flight Times</a>
+                                        <a data-toggle="collapse" href="#departure-times-filter" class="collapsed">Departure Times</a>
                                     </h4>
-                                    <div id="flight-times-filter" class="panel-collapse collapse">
+                                    <div id="departure-times-filter" class="panel-collapse collapse">
                                         <div class="panel-content">
-                                            <div id="flight-times" class="slider-color-yellow"></div>
-                                            <br />
-                                            <span class="start-time-label pull-left"></span>
-                                            <span class="end-time-label pull-right"></span>
-                                            <div class="clearer"></div>
+                                            <div class="selector">
+                                                <select name="departureTime" class="full-width">
+                                                    <option value="">ALL</option>
+                                                    <?php
+                                                        while($row = mysql_fetch_assoc($departureTime_result)){
+                                                            echo "<option value=".$row['departureTime'].">".$row['departureTime']."</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div><!-- end content -->
+                                    </div>
+                                </div>
+                                
+                                <div class="panel style1 arrow-right">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#arrival-times-filter" class="collapsed">Arrival Times</a>
+                                    </h4>
+                                    <div id="arrival-times-filter" class="panel-collapse collapse">
+                                        <div class="panel-content">
+                                            <div class="selector">
+                                                <select name="arrivalTime" class="full-width">
+                                                    <option value="">ALL</option>
+                                                    <?php
+                                                        while($row = mysql_fetch_assoc($arrivalTime_result)){
+                                                            echo "<option value=".$row['arrivalTime'].">".$row['arrivalTime']."</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
                                         </div><!-- end content -->
                                     </div>
                                 </div>
@@ -118,7 +170,8 @@
                                     <div id="airlines-filter" class="panel-collapse collapse">
                                         <div class="panel-content">
                                             <div class="selector">
-                                                <select name="fs_from" class="full-width">
+                                                <select name="airline_fliter" class="full-width">
+                                                    <option value="">ALL</option>
                                                     <?php
                                                         while($row = mysql_fetch_assoc($airline_result)){
                                                             echo "<option value=".$row['id'].">".$row['name']."</option>";
@@ -132,40 +185,57 @@
 
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" href="#flight-type-filter" class="collapsed">Flight Type</a>
-                                    </h4>
-                                    <div id="flight-type-filter" class="panel-collapse collapse">
-                                        <div class="panel-content">
-                                            <ul class="check-square filters-option">
-                                                <li class="active"><a href="#">Economy</a></li>
-                                                <li><a href="#">Business</a></li>
-                                                <li><a href="#">First class</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel style1 arrow-right">
-                                    <h4 class="panel-title">
                                         <a data-toggle="collapse" href="#modify-search-panel" class="collapsed">Modify Search</a>
                                     </h4>
                                     <div id="modify-search-panel" class="panel-collapse collapse">
                                         <div class="panel-content">
-                                            <form method="post">
+                                            <form method="GET">
                                                 <div class="form-group">
                                                     <label>Leaving from</label>
-                                                    <input type="text" class="input-text full-width" placeholder="" value="city, district, or specific airpot" />
+                                                    <div class="selector">
+                                                        <select name="from_fliter" class="full-width">
+                                                            <?php
+                                                                while($row = mysql_fetch_assoc($countries_result)){
+                                                                    if($row['id'] == $fs_from){
+                                                                        echo "<option value=".$row['id']." selected>".$row['name']."</option>";
+                                                                    }
+                                                                    else{
+                                                                        echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                                    }
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Going To</label>
+                                                    <div class="selector">
+                                                        <select name="to_fliter" class="full-width">
+                                                            <?php
+                                                                while($row = mysql_fetch_assoc($countries_result2)){
+                                                                    if($row['id'] == $fs_to){
+                                                                        echo "<option value=".$row['id']." selected>".$row['name']."</option>";
+                                                                    }
+                                                                    else{
+                                                                        echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                                    }
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Departure on</label>
                                                     <div class="datepicker-wrap">
-                                                        <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                        <input type="text" name="fromDate_fliter" class="input-text full-width" 
+                                                               value="<?php echo $fs_fromDate; ?>"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Arriving On</label>
                                                     <div class="datepicker-wrap">
-                                                        <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                        <input type="text" name="toDate_fliter" class="input-text full-width" 
+                                                               value="<?php echo $fs_toDate; ?>"/>
                                                     </div>
                                                 </div>
                                                 <br />
@@ -182,14 +252,6 @@
                             </div>
                         </div>
                         <div class="col-sm-8 col-md-9">
-                            <div class="sort-by-section clearfix box">
-                                <h4 class="sort-by-title block-sm">Sort results by:</h4>
-                                <ul class="sort-bar clearfix block-sm">
-                                    <li class="sort-by-name"><a class="sort-by-container" href="#"><span>name</span></a></li>
-                                    <li class="sort-by-price"><a class="sort-by-container" href="#"><span>price</span></a></li>
-                                    <li class="sort-by-rating active"><a class="sort-by-container" href="#"><span>duration</span></a></li>
-                                </ul>
-                            </div>
                             <div class="flight-list listing-style3 flight">
                                 <article class="box">
                                     <figure class="col-xs-3 col-sm-2">

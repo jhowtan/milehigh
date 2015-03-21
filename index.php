@@ -106,30 +106,18 @@
                                                 <input type="text" name="fs_adults" class="input-text full-width" value="1" />
                                             </div>
                                             <div class="col-xs-6">
-                                                <label>Adults</label>
+                                                <label>Children</label>
                                                 <input type="text" name="fs_children" class="input-text full-width" value="0" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <h4 class="title">Cabin Class</h4>
+                                        <h4 class="title">Offer</h4>
                                         <div class="form-group row">
-                                            <div class="col-xs-6">
-                                                <label>Class Type</label>
-                                                <div class="selector">
-                                                    <select name="fs_class" class="full-width">
-                                                        <option value="Economy">Economy</option>
-                                                        <option value="Business">Business</option>
-                                                        <option value="First Class">First Class</option>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div class="col-xs-6">
                                                 <label>Promo Code</label>
                                                 <input type="text" name="fs_promo" class="input-text full-width" placeholder="type here" />
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <div class="col-xs-6 pull-right">
                                                 <label>&nbsp;</label>
                                                 <button class="full-width icon-check">SEARCH NOW</button>
