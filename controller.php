@@ -26,7 +26,7 @@
                 
                 if (mysql_num_rows($login_result) > 0) {
                     $result = mysql_fetch_assoc($login_result);
-                    $_SESSION["login"] = $result["id"];
+                    setcookie("user", $result['id'], time()+3600, "/");
                     header ("Location: index.php");
                 }
                 else {

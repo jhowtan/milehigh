@@ -1,6 +1,10 @@
 <?php
     include 'controller.php';
     
+    if(isset($_COOKIE["user"])){
+        $user = $_COOKIE["user"];
+    }
+        
     $countries_query = "SELECT name FROM country";
     $countries = mysql_query($countries_query);
 ?>

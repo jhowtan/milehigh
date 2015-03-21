@@ -1,4 +1,8 @@
 <?php
+    if(isset($_COOKIE["user"])){
+        header("Location: index.php");
+    }
+    
     $message = "";
     include 'controller.php';
 ?>

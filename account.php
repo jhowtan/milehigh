@@ -1,3 +1,13 @@
+<?php
+    if(isset($_COOKIE["user"])){
+        $user = $_COOKIE["user"];
+    } else{
+        header("Location: login.php");
+    }
+
+    include 'controller.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <?php include 'head.php'; ?>
@@ -14,7 +24,7 @@
                                 <li><a href="#profile" class="location-reload">Profile</a></li>
                                 <li><a href="#booking" class="location-reload">Bookings</a></li>
                                 <li><a href="#settings" class="location-reload">settings</a></li>
-                                <li><a href="index.php">signout</a></li>
+                                <li><a href="logout.php">logout</a></li>
                             </ul>
                         </li>
                     </ul>

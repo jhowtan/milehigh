@@ -2,9 +2,13 @@
     <div class="topnav hidden-xs">
         <div class="container">
             <ul class="quick-menu pull-right">
-                <li><a href="login.php">LOGIN</a></li>
-                <li><a href="signup.php" >SIGNUP</a></li>
-            </ul>
+                <?php if(isset($_COOKIE["user"])) { ?>
+                    <li><a href="account.php" >MY ACCOUNT</a></li>
+                <?php } else { ?>
+                    <li><a href="login.php">LOGIN</a></li>
+                    <li><a href="signup.php" >SIGNUP</a></li>
+            <?php } ?>
+            </ul>            
         </div>
     </div>
     <div class="main-header">
