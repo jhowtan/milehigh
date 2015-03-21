@@ -1,12 +1,13 @@
 <?php
-    include 'controller.php';
-    
     if(isset($_COOKIE["user"])){
         $user = $_COOKIE["user"];
     }
+    
+    include 'controller.php';
         
-    $countries_query = "SELECT name FROM country";
-    $countries = mysql_query($countries_query);
+    $countries_query = "SELECT * FROM country";
+    $countries_result = mysql_query($countries_query);
+    $countries_result2 = mysql_query($countries_query);
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,17 +39,42 @@
                     </ul>
                     <div class="search-tab-content">
                         <div class="tab-pane fade active in" id="flights-tab">
-                            <form action="flights.php" method="post">
+                            <form action="flights.php" method="get">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h4 class="title">Where</h4>
-                                        <div class="form-group">
-                                            <label>Leaving From</label>
-                                            <input type="text" name="fs_from" class="input-text full-width" placeholder="city, distirct or specific airpot" />
+                                        <div class="form-group row">
+                                            <div class="col-xs-12">
+                                                <label>Flying From</label>
+                                                <div class="selector">
+                                                    <select name="fs_from" class="full-width">
+                                                        <?php
+                                                            while($row = mysql_fetch_assoc($countries_result)){
+                                                                if($row['name'] == "Singapore"){
+                                                                    echo "<option value=".$row['id']." selected>".$row['name']."</option>";
+                                                                }
+                                                                else{
+                                                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Going To</label>
-                                            <input type="text" name="fs_to" class="input-text full-width" placeholder="city, distirct or specific airpot" />
+                                        <div class="form-group row">
+                                            <div class="col-xs-12">
+                                                <label>Going To</label>
+                                                <div class="selector">
+                                                    <select name="fs_to" class="full-width">
+                                                        <?php
+                                                            while($row = mysql_fetch_assoc($countries_result2)){
+                                                                echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -77,29 +103,12 @@
                                         <div class="form-group row">
                                             <div class="col-xs-6">
                                                 <label>Adults</label>
-                                                <div class="selector">
-                                                    <select name="fs_adults" class="full-width">
-                                                        <option value="0">0</option>
-                                                        <option value="1">01</option>
-                                                        <option value="2">02</option>
-                                                        <option value="3">03</option>
-                                                        <option value="4">04</option>
-                                                    </select>
-                                                </div>
+                                                <input type="text" name="fs_adults" class="input-text full-width" value="1" />
                                             </div>
                                             <div class="col-xs-6">
-                                                <label>Children</label>
-                                                <div class="selector">
-                                                    <select name="fs_children" class="full-width">
-                                                        <option value="0">0</option>
-                                                        <option value="1">01</option>
-                                                        <option value="2">02</option>
-                                                        <option value="3">03</option>
-                                                        <option value="4">04</option>
-                                                    </select>
-                                                </div>
+                                                <label>Adults</label>
+                                                <input type="text" name="fs_children" class="input-text full-width" value="0" />
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="col-md-4">

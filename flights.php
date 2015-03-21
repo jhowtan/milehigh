@@ -1,25 +1,27 @@
 <?php
-    session_start();
-?>
-<!DOCTYPE html>
-<html>
-<?php include 'head.php';
-    $fs_from = $_POST['fs_from'];
-    $fs_to = $_POST['fs_to'];
-    $fs_fromDate = $_POST['fs_fromDate'];
-    $fs_toDate = $_POST['fs_toDate'];
-    $fs_adults = $_POST['fs_adults'];
-    $fs_children = $_POST['fs_children'];
-    $fs_class = $_POST['fs_class'];
-    $fs_promo = $_POST['fs_promo'];
-
-    $dbhandle = mysql_connect($db_host, $db_user, $db_pass)
-      or die("Unable to connect to MySQL");
-
-    $db = mysql_select_db($db_name, $dbhandle)
-      or die("Unable to select " + $db_name);
-
-    $query = "SELECT f.flightNumber, a1.name as srcA, a2.name as destA, f.departureDate, " .
+    if(isset($_COOKIE["user"])){
+        $user = $_COOKIE["user"];
+    }
+    
+    include 'controller.php';
+    
+    $airline_query = "SELECT * FROM airline";
+    $airline_result = mysql_query($airline_query);
+    
+    $fs_from = $_GET['fs_from'];
+    $fs_to = $_GET['fs_to'];
+    $fs_fromDate = $_GET['fs_fromDate'];
+    $fs_toDate = $_GET['fs_toDate'];
+    $fs_adults = $_GET['fs_adults'];
+    $fs_children = $_GET['fs_children'];
+    $fs_class = $_GET['fs_class'];
+    $fs_promo = $_GET['fs_promo'];
+    
+    echo $fs_from ."<br/>". $fs_to ."<br/>". $fs_fromDate ."<br/>". $fs_toDate ."<br/>". $fs_adults 
+            ."<br/>". $fs_children ."<br/>". $fs_class ."<br/>". $fs_promo;
+    
+    
+    /*$query = "SELECT f.flightNumber, a1.name as srcA, a2.name as destA, f.departureDate, " .
                 "f.arrivalDate, f.departureTime, f.arrivalTime, f.price, c1.name as srcC, c2.name as destC " .
                 "FROM flight f, airport a1, airport a2, country c1, country c2 " .
                 "WHERE f.departure = a1.id AND c1.id = a1.country " .
@@ -47,8 +49,17 @@
     $query .= ";";
     
     $flights = mysql_query($query) or die($query."<br/><br/>".mysql_error());
-    echo mysql_result($flights, 0, "flightNumber");
+    $flights_result = mysql_fetch_assoc($flights);
+    
+    echo "<pre>";
+    echo print_r($flights_result);
+    echo "</pre>"
+     */
+    //echo mysql_result($flights, 0, "flightNumber");
 ?>
+<!DOCTYPE html>
+<html>
+<?php include 'head.php'; ?>
 <body>
     <div id="page-wrapper">
         <?php include 'header.php'; ?>
@@ -99,21 +110,22 @@
                                         </div><!-- end content -->
                                     </div>
                                 </div>
+                                
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" href="#airlines-filter" class="collapsed">Airlines</a>
                                     </h4>
                                     <div id="airlines-filter" class="panel-collapse collapse">
                                         <div class="panel-content">
-                                            <ul class="check-square filters-option">
-                                                <li><a href="#">Major Airline<small>($620)</small></a></li>
-                                                <li><a href="#">United Airlines<small>($982)</small></a></li>
-                                                <li class="active"><a href="#">delta airlines<small>($1,127)</small></a></li>
-                                                <li><a href="#">Alitalia<small>($2,322)</small></a></li>
-                                                <li><a href="#">US airways<small>($3,158)</small></a></li>
-                                                <li><a href="#">Air France<small>($4,239)</small></a></li>
-                                                <li><a href="#">Air tahiti nui<small>($5,872)</small></a></li>
-                                            </ul>
+                                            <div class="selector">
+                                                <select name="fs_from" class="full-width">
+                                                    <?php
+                                                        while($row = mysql_fetch_assoc($airline_result)){
+                                                            echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -126,26 +138,8 @@
                                         <div class="panel-content">
                                             <ul class="check-square filters-option">
                                                 <li class="active"><a href="#">Economy</a></li>
-                                                <li><a href="#">Premium Economy</a></li>
                                                 <li><a href="#">Business</a></li>
                                                 <li><a href="#">First class</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel style1 arrow-right">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" href="#inflight-experience-filter" class="collapsed">Inflight Experience</a>
-                                    </h4>
-                                    <div id="inflight-experience-filter" class="panel-collapse collapse">
-                                        <div class="panel-content">
-                                            <ul class="check-square filters-option">
-                                                <li><a href="#">Inflight Dining</a></li>
-                                                <li><a href="#">Music</a></li>
-                                                <li><a href="#">Sky Shopping</a></li>
-                                                <li><a href="#">Wi-fi</a></li>
-                                                <li><a href="#">Seats &amp; Cabin</a></li>
                                             </ul>
                                         </div>
                                     </div>
