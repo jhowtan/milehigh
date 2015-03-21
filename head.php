@@ -1,4 +1,3 @@
-<?php require 'config.php' ?>
 <head>
     <!-- Page Title -->
     <title>Mile High Club | Online Airline Ticketing</title>
@@ -67,4 +66,12 @@
     <!-- load page Javascript -->
     <script type="text/javascript" src="js/theme-scripts.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
+    
+    <script type="text/javascript">
+        function isNumber(e){
+            e = e || window.event;
+            var charCode = e.which ? e.which : e.keyCode;
+            return /\d/.test(String.fromCharCode(charCode));
+        }
+    </script>
 </head>

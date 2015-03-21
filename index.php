@@ -1,19 +1,12 @@
 <?php
-    session_start();
-?>
-<!DOCTYPE html>
-<html>
-<?php include 'head.php';
-    //connection to the database
-    $dbhandle = mysql_connect($db_host, $db_user, $db_pass)
-      or die("Unable to connect to MySQL");
+    include 'controller.php';
     
-    $db = mysql_select_db($db_name, $dbhandle)
-      or die("Unable to select " + $db_name);
-
     $countries_query = "SELECT name FROM country";
     $countries = mysql_query($countries_query);
 ?>
+<!DOCTYPE html>
+<html>
+<?php include 'head.php'; ?>
 <body>
     <div id="page-wrapper">
         <?php include 'header.php'; ?>
@@ -38,7 +31,6 @@
                     <ul class="search-tabs clearfix">
                         <li class="active"><a href="#flights-tab" data-toggle="tab">FLIGHTS</a></li>
                         <li><a href="#flight-status-tab" data-toggle="tab">Check flights status</a></li>
-                        <li><a href="#online-checkin-tab" data-toggle="tab">Online Checkin</a></li>
                     </ul>
                     <div class="search-tab-content">
                         <div class="tab-pane fade active in" id="flights-tab">
@@ -168,47 +160,6 @@
                                         <div class="form-group">
                                             <label>Flight Number</label>
                                             <input type="text" class="input-text full-width" placeholder="enter flight number" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-2 fixheight">
-                                        <label class="hidden-xs">&nbsp;</label>
-                                        <button class="icon-check full-width">SEARCH NOW</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="online-checkin-tab">
-                            <form action="flights.php" method="post">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4 class="title">Where</h4>
-                                        <div class="form-group row">
-                                            <div class="col-xs-6">
-                                                <label>Leaving From</label>
-                                                <input type="text" class="input-text full-width" placeholder="enter a city or place name" />
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <label>Going To</label>
-                                                <input type="text" class="input-text full-width" placeholder="enter a city or place name" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-6 col-md-2">
-                                        <h4 class="title">When</h4>
-                                        <div class="form-group">
-                                            <label>Departure Date</label>
-                                            <div class="datepicker-wrap">
-                                                <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-6 col-md-2">
-                                        <h4 class="title">Who</h4>
-                                        <div class="form-group">
-                                            <label>Full Name</label>
-                                            <input type="text" class="input-text full-width" placeholder="enter your full name" />
                                         </div>
                                     </div>
                                     <div class="form-group col-md-2 fixheight">

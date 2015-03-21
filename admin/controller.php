@@ -1,7 +1,7 @@
 <?php 
     session_start();
     include '../config.php';
-    include 'function.php';
+    include '../function.php';
     
     //connection to server
     $dbhandle = mysql_connect($db_host, $db_user, $db_pass)
@@ -20,13 +20,12 @@
             $user = test_input($_POST["user"]);
             $password = test_input($_POST["password"]);
 
-            $sql = "SELECT * FROM admin WHERE user = '$user' AND password = '$password'";
-            $query = mysql_query($sql);
+            $login_query = "SELECT * FROM admin WHERE user = '$user' AND password = '$password'";
+            $login_result = mysql_query($login_query);
 
-            if (mysql_num_rows($query) > 0) {
-                $result = mysql_fetch_assoc($query);
+            if (mysql_num_rows($login_result) > 0) {
+                $result = mysql_fetch_assoc($login_result);
                 $_SESSION["login"] = $result["id"];
-                echo "hello";
                 header ("Location: main.php");
             }
             else {
