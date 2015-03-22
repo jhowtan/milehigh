@@ -13,24 +13,21 @@
     $fs_children = $_GET['fs_children'];
     $fs_promo = $_GET['fs_promo'];
     
-    //echo $fs_from ."<br/>". $fs_to ."<br/>". $fs_fromDate ."<br/>". $fs_toDate ."<br/>". $fs_adults 
-    //        ."<br/>". $fs_children ."<br/>". $fs_promo;
-    
-    $price_query = "SELECT DISTINCT f.price"
-            . " FROM flight f, airport a"
-            . " WHERE (f.departure = a.id AND a.country = '$fs_from')"
-            . " AND (f.arrival = a.id AND a.country = '$fs_to')";
-    $price_result = mysql_query($price_query);
-    
-    $departureTime_query = "SELECT DISTINCT f.departureTime"
-            . " FROM flight f, airport a"
-            . " WHERE f.departure = a.id AND a.country = '$fs_from'";
-    $departureTime_result = mysql_query($departureTime_query);
-    
-    $arrivalTime_query = "SELECT DISTINCT f.arrivalTime "
-            . " FROM flight f, airport a"
-            . " WHERE f.arrival = a.id AND a.country = '$fs_to'";
-    $arrivalTime_result = mysql_query($arrivalTime_query);
+    $flightArr = array();
+    $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
+            . " al.name AS airlineName"
+            . " FROM flight f, airport a, country c1, country c2, airline al"
+            . " WHERE f.departure = a.id AND a.country = '$fs_from'"
+            . " AND f.arrival = a.id AND a.country = '$fs_to'"
+            . " AND c1.id = '$fs_from' AND c2.id = '$fs_to'"
+            . " AND f.airline = al.id";
+    $flightArr_result = mysql_query($flightArr_query);
+    while($result = mysql_fetch_assoc($flightArr_result)){
+        $flightArr[] = $result;
+    }
+    //echo "<pre>";
+    //echo print_r($flightArr);
+    //echo "<pre>";
     
     $airline_query = "SELECT DISTINCT a.* "
             . " FROM airline a, flight f, airport ap"
@@ -42,7 +39,7 @@
     $countries_query = "SELECT * FROM country";
     $countries_result = mysql_query($countries_query);
     $countries_result2 = mysql_query($countries_query);
-    
+        
     /*$query = "SELECT f.flightNumber, a1.name as srcA, a2.name as destA, f.departureDate, " .
                 "f.arrivalDate, f.departureTime, f.arrivalTime, f.price, c1.name as srcC, c2.name as destC " .
                 "FROM flight f, airport a1, airport a2, country c1, country c2 " .
@@ -73,11 +70,8 @@
     $flights = mysql_query($query) or die($query."<br/><br/>".mysql_error());
     $flights_result = mysql_fetch_assoc($flights);
     
-    echo "<pre>";
-    echo print_r($flights_result);
-    echo "</pre>"
+    echo mysql_result($flights, 0, "flightNumber");
      */
-    //echo mysql_result($flights, 0, "flightNumber");
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,7 +95,17 @@
                 <div id="main">
                     <div class="row">
                         <div class="col-sm-4 col-md-3">
-                            <h4 class="search-results-title"><i class="soap-icon-search"></i><b>1,984</b> results found.</h4>
+                            <h4 class="search-results-title"><i class="soap-icon-search"></i>
+                                <b><?php echo sizeOf($flightArr); ?></b> results found.
+                                <p class="panel-title">
+                                    <b>From:</b> <?php echo $flightArr[0]['fromCountry']; ?><br/>
+                                    <b>To:</b> <?php echo $flightArr[0]['toCountry']; ?><br/>
+                                    <b>On:</b> <?php echo $fs_fromDate; ?><br/>
+                                    <b>Till:</b> <?php echo $fs_toDate; ?> <br/>
+                                    <b>Adult:</b> <?php echo $fs_adults; ?> <br/>
+                                    <b>Children:</b> <?php echo $fs_children; ?> <br/>
+                                </p>
+                            </h4>
                             <div class="toggle-container filters-container">
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
@@ -113,8 +117,9 @@
                                                 <select name="price_fliter" class="full-width">
                                                     <option value="">ALL</option>
                                                     <?php
-                                                        while($row = mysql_fetch_assoc($price_result)){
-                                                            echo "<option value=".$row['price'].">SGD".$row['price']."</option>";
+                                                        for($i=0; $i<sizeOf($flightArr); $i++){
+                                                            echo "<option value=".$flightArr[$i]['price'].">SGD".
+                                                                    $flightArr[$i]['price']."</option>";
                                                         }
                                                     ?>
                                                 </select>
@@ -133,8 +138,9 @@
                                                 <select name="departureTime" class="full-width">
                                                     <option value="">ALL</option>
                                                     <?php
-                                                        while($row = mysql_fetch_assoc($departureTime_result)){
-                                                            echo "<option value=".$row['departureTime'].">".$row['departureTime']."</option>";
+                                                        for($i=0; $i<sizeOf($flightArr); $i++){
+                                                            echo "<option value=".$flightArr[$i]['departureTime'].">".
+                                                                    $flightArr[$i]['departureTime']."</option>";
                                                         }
                                                     ?>
                                                 </select>
@@ -153,8 +159,9 @@
                                                 <select name="arrivalTime" class="full-width">
                                                     <option value="">ALL</option>
                                                     <?php
-                                                        while($row = mysql_fetch_assoc($arrivalTime_result)){
-                                                            echo "<option value=".$row['arrivalTime'].">".$row['arrivalTime']."</option>";
+                                                        for($i=0; $i<sizeOf($flightArr); $i++){
+                                                            echo "<option value=".$flightArr[$i]['arrivalTime'].">".
+                                                                    $flightArr[$i]['arrivalTime']."</option>";
                                                         }
                                                     ?>
                                                 </select>
@@ -179,6 +186,22 @@
                                                     ?>
                                                 </select>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="panel style1 arrow-right">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#people-filter" class="collapsed">Passengers</a>
+                                    </h4>
+                                    <div id="people-filter" class="panel-collapse collapse">
+                                        <div class="panel-content">
+                                            <label>Adults</label>
+                                            <input type="text" name="adult_filter" class="input-text" value="<?php echo $fs_adults ?>" 
+                                                   size="3" onkeypress="return isNumber(event);"/>
+                                            <label>Children</label>
+                                            <input type="text" name="children_filter" class="input-text" value="<?php echo $fs_children ?>" 
+                                                   size="3" onkeypress="return isNumber(event);"/>
                                         </div>
                                     </div>
                                 </div>
@@ -253,6 +276,7 @@
                         </div>
                         <div class="col-sm-8 col-md-9">
                             <div class="flight-list listing-style3 flight">
+                                <?php for($i=0; $i<sizeOf($flightArr); $i++) { ?>
                                 <article class="box">
                                     <figure class="col-xs-3 col-sm-2">
                                         <span><img alt="" src="http://placehold.it/270x160"></span>
@@ -261,8 +285,10 @@
                                         <div class="details-wrapper">
                                             <div class="first-row">
                                                 <div>
-                                                    <h4 class="box-title">Indianapolis to Paris<small>Oneway flight</small></h4>
-                                                    <a class="button btn-mini stop">1 STOP</a>
+                                                    <h4 class="box-title"><?php echo $flightArr[$i]['fromCountry']." to ". 
+                                                        $flightArr[$i]['toCountry'];?>
+                                                        <small>Oneway flight</small></h4>
+                                                    <a class="button stop">1 STOP</a>
                                                     <div class="amenities">
                                                         <i class="soap-icon-wifi circle"></i>
                                                         <i class="soap-icon-entertainment circle"></i>
@@ -271,141 +297,51 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <span class="price"><small>AVG/PERSON</small>$320</span>
+                                                    <span class="price"><small>ADULT/PERSON</small>SGD<?php echo $flightArr[$i]['price']; ?></span>
+                                                    <br/>
+                                                    <span class="price"><small>CHILDREN/PERSON</small>$320</span>
                                                 </div>
                                             </div>
                                             <div class="second-row">
                                                 <div class="time">
-                                                    <div class="take-off col-sm-4">
+                                                    <div class="take-off col-sm-3">
                                                         <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
                                                         <div>
-                                                            <span class="skin-color">Take off</span><br />Wed Nov 13, 2013 7:50 Am
+                                                            <span class="skin-color">Departure</span><br />
+                                                            Date: <?php echo $flightArr[$i]['departureDate']. "<br/> Time: " .$flightArr[$i]['departureTime'];?>
                                                         </div>
                                                     </div>
-                                                    <div class="landing col-sm-4">
+                                                    <div class="landing col-sm-3">
                                                         <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
                                                         <div>
-                                                            <span class="skin-color">landing</span><br />Wed Nov 13, 2013 9:20 am
+                                                            <span class="skin-color">Arrival</span><br />
+                                                            Date: <?php echo $flightArr[$i]['arrivalDate']. "<br/> Time: " .$flightArr[$i]['arrivalTime'];?>
                                                         </div>
                                                     </div>
-                                                    <div class="total-time col-sm-4">
+                                                    <div class="total-time col-sm-3">
                                                         <div class="icon"><i class="soap-icon-clock yellow-color"></i></div>
                                                         <div>
-                                                            <span class="skin-color">total time</span><br />13 Hour, 40 minutes
+                                                            <span class="skin-color">Duration</span><br />Number of day
+                                                        </div>
+                                                    </div>
+                                                    <div class="total-time col-sm-3">
+                                                        <div class="icon"><i class="soap-icon-plane yellow-color"></i></div>
+                                                        <div>
+                                                            <span class="skin-color">Airline</span><br />
+                                                            <?php echo $flightArr[$i]['airlineName']; ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="action">
                                                     <form action="flightDetails.php" method="get">
-                                                        <button class="btn-small uppercase full-width">select</button>
+                                                        <button class="btn-small uppercase full-width" name="<?php echo $flightArr[$i]['id']; ?>">select</button>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </article>
-                                <article class="box">
-                                    <figure class="col-xs-3 col-sm-2">
-                                        <span><img alt="" src="http://placehold.it/270x160"></span>
-                                    </figure>
-                                    <div class="details col-xs-9 col-sm-10">
-                                        <div class="details-wrapper">
-                                            <div class="first-row">
-                                                <div>
-                                                    <h4 class="box-title">Indianapolis to Paris<small>Oneway flight</small></h4>
-                                                    <a class="button btn-mini stop">1 STOP</a>
-                                                    <div class="amenities">
-                                                        <i class="soap-icon-wifi circle"></i>
-                                                        <i class="soap-icon-entertainment circle"></i>
-                                                        <i class="soap-icon-fork circle"></i>
-                                                        <i class="soap-icon-suitcase circle"></i>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <span class="price"><small>AVG/PERSON</small>$620</span>
-                                                </div>
-                                            </div>
-                                            <div class="second-row">
-                                                <div class="time">
-                                                    <div class="take-off col-sm-4">
-                                                        <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
-                                                        <div>
-                                                            <span class="skin-color">Take off</span><br />Wed Nov 13, 2013 7:50 Am
-                                                        </div>
-                                                    </div>
-                                                    <div class="landing col-sm-4">
-                                                        <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
-                                                        <div>
-                                                            <span class="skin-color">landing</span><br />Wed Nov 13, 2013 9:20 am
-                                                        </div>
-                                                    </div>
-                                                    <div class="total-time col-sm-4">
-                                                        <div class="icon"><i class="soap-icon-clock yellow-color"></i></div>
-                                                        <div>
-                                                            <span class="skin-color">total time</span><br />13 Hour, 40 minutes
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="action">
-                                                    <form action="flightDetails.php" method="get">
-                                                        <button class="btn-small uppercase full-width">select</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure class="col-xs-3 col-sm-2">
-                                        <span><img alt="" src="http://placehold.it/270x160"></span>
-                                    </figure>
-                                    <div class="details col-xs-9 col-sm-10">
-                                        <div class="details-wrapper">
-                                            <div class="first-row">
-                                                <div>
-                                                    <h4 class="box-title">Indianapolis to Paris<small>Oneway flight</small></h4>
-                                                    <a class="button btn-mini stop">1 STOP</a>
-                                                    <div class="amenities">
-                                                        <i class="soap-icon-wifi circle"></i>
-                                                        <i class="soap-icon-entertainment circle"></i>
-                                                        <i class="soap-icon-fork circle"></i>
-                                                        <i class="soap-icon-suitcase circle"></i>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <span class="price"><small>AVG/PERSON</small>$170</span>
-                                                </div>
-                                            </div>
-                                            <div class="second-row">
-                                                <div class="time">
-                                                    <div class="take-off col-sm-4">
-                                                        <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
-                                                        <div>
-                                                            <span class="skin-color">Take off</span><br />Wed Nov 13, 2013 7:50 Am
-                                                        </div>
-                                                    </div>
-                                                    <div class="landing col-sm-4">
-                                                        <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
-                                                        <div>
-                                                            <span class="skin-color">landing</span><br />Wed Nov 13, 2013 9:20 am
-                                                        </div>
-                                                    </div>
-                                                    <div class="total-time col-sm-4">
-                                                        <div class="icon"><i class="soap-icon-clock yellow-color"></i></div>
-                                                        <div>
-                                                            <span class="skin-color">total time</span><br />13 Hour, 40 minutes
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="action">
-                                                    <form action="flightDetails.php" method="get">
-                                                        <button class="btn-small uppercase full-width">select</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
+                                <?php } ?>
                             </div>
                             <a class="button uppercase full-width btn-large">load more listings</a>
                         </div>

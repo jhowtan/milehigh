@@ -103,11 +103,13 @@
                                         <div class="form-group row">
                                             <div class="col-xs-6">
                                                 <label>Adults</label>
-                                                <input type="text" name="fs_adults" class="input-text full-width" value="1" />
+                                                <input type="text" name="fs_adults" class="input-text full-width" value="1" 
+                                                       onkeypress="return isNumber(event);"/>
                                             </div>
                                             <div class="col-xs-6">
                                                 <label>Children</label>
-                                                <input type="text" name="fs_children" class="input-text full-width" value="0" />
+                                                <input type="text" name="fs_children" class="input-text full-width" value="0" 
+                                                       onkeypress="return isNumber(event);"/>
                                             </div>
                                         </div>
                                     </div>
