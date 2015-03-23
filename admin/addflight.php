@@ -9,9 +9,14 @@
     $airline_query = "SELECT * FROM airline ORDER BY name ASC";
     $airline_result = mysql_query($airline_query);
     
-    $airport_query = "SELECT * FROM airport ORDER BY name ASC";
-    $airport_result = mysql_query($airport_query);
-    $airport_result2 = mysql_query($airport_query);
+    $countryArr = array();
+    $countries_query = "SELECT a.*, c.name AS countryName"
+        . " FROM country c, airport a"
+        . " WHERE a.country = c.id ORDER BY c.name ASC";
+    $countries_result = mysql_query($countries_query);
+    while($row = mysql_fetch_assoc($countries_result)){
+        $countryArr[] = $row;
+    }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -56,18 +61,22 @@
                     <div class="field">
 			<label>Departure</label>
 			<select class="medium" name="departure">
-                            <?php while($row = mysql_fetch_assoc($airport_result)){
-                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
-                            }
+                            <?php
+                                for($i=0; $i<sizeOf($countryArr); $i++){
+                                    echo "<option value=".$countryArr[$i]['id'].">".$countryArr[$i]['countryName'].
+                                        " ---- " .$countryArr[$i]['name']. "</option>";
+                                }
                             ?>
 			</select>
                     </div>
                     <div class="field">
 			<label>Arrival</label>
 			<select class="medium" name="arrival">
-                            <?php while($row = mysql_fetch_assoc($airport_result2)){
-                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
-                            }
+                            <?php
+                                for($i=0; $i<sizeOf($countryArr); $i++){
+                                    echo "<option value=".$countryArr[$i]['id'].">".$countryArr[$i]['countryName'].
+                                        " ---- " .$countryArr[$i]['name']. "</option>";
+                                }
                             ?>
 			</select>
                     </div>

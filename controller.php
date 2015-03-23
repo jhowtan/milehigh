@@ -76,7 +76,6 @@
             $fs_to = $_GET['fs_to'];
             $fs_fromDate = $_GET['fs_fromDate'];
             $fs_toDate = $_GET['fs_toDate'];
-            //$fs_promo = $_GET['fs_promo'];
             
             $fromDate = date_create($_GET['fs_fromDate']);
             $fromDate_sql = date_format($fromDate, 'Y-m-d');
@@ -89,6 +88,14 @@
                     . " AND (f.arrival = ap.id AND ap.country = '$fs_to')"
                     . " AND f.airline = a.id";
             $airline_result = mysql_query($airline_query);
+            
+            $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
+                    . " al.name AS airlineName"
+                    . " FROM flight f, airport a, country c1, country c2, airline al"
+                    . " WHERE f.departure = a.id AND a.country = '$fs_from'"
+                    . " AND f.arrival = a.id AND a.country = '$fs_to'"
+                    . " AND c1.id = '$fs_from' AND c2.id = '$fs_to' AND f.airline = al.id"
+                    . " AND f.departureDate = '$fromDate_sql' AND f.arrivalDate = '$toDate_sql'";
             
             if(isset($_GET['filter'])){
                 $price_sql = "";
@@ -141,26 +148,7 @@
                     $airline_sql = " AND f.airline = '$airline_filter'";
                 }
                 
-                $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
-                        . " al.name AS airlineName"
-                        . " FROM flight f, airport a, country c1, country c2, airline al"
-                        . " WHERE f.departure = a.id AND a.country = '$fs_from'"
-                        . " AND f.arrival = a.id AND a.country = '$fs_to'"
-                        . " AND c1.id = '$fs_from' AND c2.id = '$fs_to' AND f.airline = al.id"
-                        . " AND f.departureDate = '$fromDate_sql' AND f.arrivalDate = '$toDate_sql'"
-                        . $price_sql . $departTime_sql . $arrivalTime_sql . $airline_sql;
-                //echo $flightArr_query;
-             
-            }
-            else{
-                $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
-                        . " al.name AS airlineName"
-                        . " FROM flight f, airport a, country c1, country c2, airline al"
-                        . " WHERE f.departure = a.id AND a.country = '$fs_from'"
-                        . " AND f.arrival = a.id AND a.country = '$fs_to'"
-                        . " AND c1.id = '$fs_from' AND c2.id = '$fs_to' AND f.airline = al.id"
-                        . " AND f.departureDate = '$fromDate_sql' AND f.arrivalDate = '$toDate_sql'";
-                //echo $flightArr_query;
+                $flightArr_query .= $price_sql . $departTime_sql . $arrivalTime_sql . $airline_sql;
             }
             
             $flightArr_result = mysql_query($flightArr_query);

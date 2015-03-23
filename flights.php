@@ -242,8 +242,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="action">
-                                                    <form action="booking.php" method="get">
-                                                        <button class="btn-small uppercase full-width" name="<?php echo $flightArr[$i]['id']; ?>">select</button>
+                                                    <form action="booking.php" method="GET">
+                                                        <button class="btn-small uppercase full-width" name="flightId" 
+                                                                value="<?php echo $flightArr[$i]['id']; ?>">select</button>
                                                     </form>
                                                 </div>
                                             </div>

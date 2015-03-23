@@ -5,9 +5,17 @@
 
     include 'controller.php';
 
-    $countries_query = "SELECT * FROM country";
+    $countryArr = array();
+    $countries_query = "SELECT c.*, a.name AS airportName"
+            . " FROM country c, airport a"
+            . " WHERE a.country = c.id ORDER BY c.name ASC";
     $countries_result = mysql_query($countries_query);
-    $countries_result2 = mysql_query($countries_query);
+    while($row = mysql_fetch_assoc($countries_result)){
+        $countryArr[] = $row;
+    }
+    //echo "<pre>";
+    //echo print_r($countryArr);
+    //echo "</pre>"
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,12 +57,14 @@
                                                 <div class="selector">
                                                     <select name="fs_from" class="full-width">
                                                         <?php
-                                                            while($row = mysql_fetch_assoc($countries_result)){
-                                                                if($row['name'] == "Singapore"){
-                                                                    echo "<option value=".$row['id']." selected>".$row['name']."</option>";
+                                                            for($i=0; $i<sizeof($countryArr); $i++){
+                                                                if($countryArr[$i]['name'] == "Singapore"){
+                                                                    echo "<option value=".$countryArr[$i]['id']." selected >".
+                                                                        $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
                                                                 }
                                                                 else{
-                                                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                                    echo "<option value=".$countryArr[$i]['id'].">".
+                                                                        $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
                                                                 }
                                                             }
                                                         ?>
@@ -68,8 +78,9 @@
                                                 <div class="selector">
                                                     <select name="fs_to" class="full-width">
                                                         <?php
-                                                            while($row = mysql_fetch_assoc($countries_result2)){
-                                                                echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                            for($i=0; $i<sizeof($countryArr); $i++){
+                                                                echo "<option value=".$countryArr[$i]['id'].">".
+                                                                    $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
                                                             }
                                                         ?>
                                                     </select>
@@ -99,13 +110,9 @@
                                     </div>
                                     
                                     <div class="col-md-4">
-                                        <h4 class="title">Offer</h4>
+                                        <h4 class="title"></h4>
                                         <div class="form-group row">
                                             <div class="col-xs-6">
-                                                <label>Promo Code</label>
-                                                <input type="text" name="fs_promo" class="input-text full-width" placeholder="type here" />
-                                            </div>
-                                            <div class="col-xs-6 pull-right">
                                                 <label>&nbsp;</label>
                                                 <button class="full-width icon-check">SEARCH NOW</button>
                                             </div>
