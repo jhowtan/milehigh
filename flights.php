@@ -25,9 +25,6 @@
     while($result = mysql_fetch_assoc($flightArr_result)){
         $flightArr[] = $result;
     }
-    //echo "<pre>";
-    //echo print_r($flightArr);
-    //echo "<pre>";
     
     $airline_query = "SELECT DISTINCT a.* "
             . " FROM airline a, flight f, airport ap"
@@ -115,13 +112,10 @@
                                         <div class="panel-content">
                                             <div class="selector">
                                                 <select name="price_fliter" class="full-width">
-                                                    <option value="">ALL</option>
-                                                    <?php
-                                                        for($i=0; $i<sizeOf($flightArr); $i++){
-                                                            echo "<option value=".$flightArr[$i]['price'].">SGD".
-                                                                    $flightArr[$i]['price']."</option>";
-                                                        }
-                                                    ?>
+                                                    <option value="0">ALL</option>
+                                                    <option value="1"> Below $500</option>
+                                                    <option value="2">$500 to $1000</option>
+                                                    <option value="3">$1000 and above</option>
                                                 </select>
                                             </div>
                                         </div><!-- end content -->
@@ -130,19 +124,15 @@
 
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" href="#departure-times-filter" class="collapsed">Departure Times</a>
+                                        <a data-toggle="collapse" href="#departure-times-filter" class="collapsed">Departure Times (24h)</a>
                                     </h4>
                                     <div id="departure-times-filter" class="panel-collapse collapse">
                                         <div class="panel-content">
                                             <div class="selector">
                                                 <select name="departureTime" class="full-width">
-                                                    <option value="">ALL</option>
-                                                    <?php
-                                                        for($i=0; $i<sizeOf($flightArr); $i++){
-                                                            echo "<option value=".$flightArr[$i]['departureTime'].">".
-                                                                    $flightArr[$i]['departureTime']."</option>";
-                                                        }
-                                                    ?>
+                                                    <option value="0">ALL</option>
+                                                    <option value="1">0000 to 1159 (AM)</option>
+                                                    <option value="2">1200 to 2359 (PM)</option>
                                                 </select>
                                             </div>
                                         </div><!-- end content -->
@@ -151,19 +141,15 @@
                                 
                                 <div class="panel style1 arrow-right">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" href="#arrival-times-filter" class="collapsed">Arrival Times</a>
+                                        <a data-toggle="collapse" href="#arrival-times-filter" class="collapsed">Arrival Times (24h)</a>
                                     </h4>
                                     <div id="arrival-times-filter" class="panel-collapse collapse">
                                         <div class="panel-content">
                                             <div class="selector">
                                                 <select name="arrivalTime" class="full-width">
-                                                    <option value="">ALL</option>
-                                                    <?php
-                                                        for($i=0; $i<sizeOf($flightArr); $i++){
-                                                            echo "<option value=".$flightArr[$i]['arrivalTime'].">".
-                                                                    $flightArr[$i]['arrivalTime']."</option>";
-                                                        }
-                                                    ?>
+                                                    <option value="0">ALL</option>
+                                                    <option value="1">0000 to 1159 (AM)</option>
+                                                    <option value="2">1200 to 2359 (PM)</option>
                                                 </select>
                                             </div>
                                         </div><!-- end content -->

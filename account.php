@@ -4,7 +4,7 @@
     } else{
         header("Location: login.php");
     }
-
+    
     include 'controller.php';
 ?>
 
