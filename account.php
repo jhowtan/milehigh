@@ -6,6 +6,9 @@
     }
 
     include 'controller.php';
+
+    $user_result = mysql_query("SELECT name FROM customer WHERE id = '$user'");
+    $result = mysql_fetch_assoc($user_result);
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +21,11 @@
                 <div class="container">
                     <ul class="quick-menu pull-right">
                         <li class="ribbon">
-                            <a href="#">Jessica Brown</a>
+                            <a href="#">
+                                <?php
+                                    echo $result['name'];
+                                ?>
+                            </a>
                             <ul class="menu mini uppercase">
                                 <li><a href="#dashboard" class="location-reload">Dashboard</a></li>
                                 <li><a href="#profile" class="location-reload">Profile</a></li>
@@ -110,7 +117,7 @@
                                 <div class="notification-area">
                                     <div class="info-box block">
                                         <span class="close"></span>
-                                        <p>This is your Dashboard, the place to check your Profile, respond to Reservation Requests, 
+                                        <p>This is your Dashboard, the place to check your Profile, respond to Reservation Requests,
                                             view upcoming Trip Information, and much more.</p>
                                     </div>
                                 </div>
