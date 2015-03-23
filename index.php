@@ -2,9 +2,9 @@
     if(isset($_COOKIE["user"])){
         $user = $_COOKIE["user"];
     }
-    
+
     include 'controller.php';
-        
+
     $countries_query = "SELECT * FROM country";
     $countries_result = mysql_query($countries_query);
     $countries_result2 = mysql_query($countries_query);
@@ -22,7 +22,7 @@
                         <!-- Slide1 -->
                         <li data-transition="zoomin" data-slotamount="7" data-masterspeed="1500">
                             <!-- MAIN IMAGE -->
-                            <img src="http://placehold.it/2080x646" alt="">
+                            <img src="images/carousel1.jpg" alt="">
                         </li>
 
                     </ul>
@@ -103,12 +103,12 @@
                                         <div class="form-group row">
                                             <div class="col-xs-6">
                                                 <label>Adults</label>
-                                                <input type="text" name="fs_adults" class="input-text full-width" value="1" 
+                                                <input type="text" name="fs_adults" class="input-text full-width" value="1"
                                                        onkeypress="return isNumber(event);"/>
                                             </div>
                                             <div class="col-xs-6">
                                                 <label>Children</label>
-                                                <input type="text" name="fs_children" class="input-text full-width" value="0" 
+                                                <input type="text" name="fs_children" class="input-text full-width" value="0"
                                                        onkeypress="return isNumber(event);"/>
                                             </div>
                                         </div>
