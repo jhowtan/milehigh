@@ -7,7 +7,8 @@
     
     include 'controller.php';
 
-    $user_result = mysql_query("SELECT * FROM customer WHERE id = '$user'");
+    $user_query = "SELECT * FROM customer WHERE id = '$user'";
+    $user_result = mysql_query($user_query);
     $result = mysql_fetch_assoc($user_result);
 ?>
 
@@ -21,11 +22,7 @@
                 <div class="container">
                     <ul class="quick-menu pull-right">
                         <li class="ribbon">
-                            <a href="#">
-                                <?php
-                                    echo $result['name'];
-                                ?>
-                            </a>
+                            <a href="#"><?php echo $result['name']; ?></a>
                             <ul class="menu mini uppercase">
                                 <li><a href="#dashboard" class="location-reload">Dashboard</a></li>
                                 <li><a href="#profile" class="location-reload">Profile</a></li>

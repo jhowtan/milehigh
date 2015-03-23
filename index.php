@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <h4 class="title">When</h4>
                                         <label>Departing On</label>
                                         <div class="form-group row">
@@ -97,22 +97,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-2">
-                                        <h4 class="title">Who</h4>
-                                        <div class="form-group row">
-                                            <div class="col-xs-6">
-                                                <label>Adults</label>
-                                                <input type="text" name="fs_adults" class="input-text full-width" value="1"
-                                                       onkeypress="return isNumber(event);"/>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <label>Children</label>
-                                                <input type="text" name="fs_children" class="input-text full-width" value="0"
-                                                       onkeypress="return isNumber(event);"/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-4">
                                         <h4 class="title">Offer</h4>
                                         <div class="form-group row">

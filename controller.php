@@ -65,4 +65,108 @@
             }
         }
     }
+    
+    if ($_SERVER["REQUEST_METHOD"] == "GET"){
+        
+        if($_SERVER["PHP_SELF"] == $url."flights.php"){
+            $flightArr = array();
+            $flightArr_query = "";
+            
+            $fs_from = $_GET['fs_from'];
+            $fs_to = $_GET['fs_to'];
+            $fs_fromDate = $_GET['fs_fromDate'];
+            $fs_toDate = $_GET['fs_toDate'];
+            //$fs_promo = $_GET['fs_promo'];
+            
+            $fromDate = date_create($_GET['fs_fromDate']);
+            $fromDate_sql = date_format($fromDate, 'Y-m-d');
+            $toDate = date_create($_GET['fs_toDate']);
+            $toDate_sql = date_format($toDate, 'Y-m-d');
+            
+            $airline_query = "SELECT DISTINCT a.* "
+                    . " FROM airline a, flight f, airport ap"
+                    . " WHERE (f.departure = ap.id AND ap.country = '$fs_from')"
+                    . " AND (f.arrival = ap.id AND ap.country = '$fs_to')"
+                    . " AND f.airline = a.id";
+            $airline_result = mysql_query($airline_query);
+            
+            if(isset($_GET['filter'])){
+                $price_sql = "";
+                $departTime_sql = "";
+                $arrivalTime_sql = "";
+                $airline_sql = "";
+                
+                $price_range = $_GET['price_range'];
+                $departTime_range = $_GET['departTime_range'];
+                $arrivalTime_range = $_GET['arrivalTime_range'];
+                $airline_filter = $_GET['airline_filter'];
+                
+                if($price_range != null){
+                    if($price_range == 1){
+                        $priceFrom = 0;
+                        $priceTo = 499;
+                    } else if($price_range == 2){
+                        $priceFrom = 500;
+                        $priceTo = 999;
+                    } else if($price_range == 3){
+                        $priceFrom = 1000;
+                        $priceTo = 100000;
+                    }
+                    $price_sql = " AND f.price BETWEEN $priceFrom AND $priceTo";
+                }
+                
+                if($departTime_range != null){
+                    if($departTime_range == 1){
+                        $departTimeFrom = "000000";
+                        $departTimeTo = "115900";
+                    } else if($departTime_range == 2){
+                        $departTimeFrom = "120000";
+                        $departTimeTo = "235900";
+                    }
+                    $departTime_sql = " AND f.departureTime BETWEEN $departTimeFrom AND $departTimeTo";
+                }
+                
+                if($arrivalTime_range != null){
+                    if($arrivalTime_range == 1){
+                        $arrivalTimeFrom = "000000";
+                        $arrivalTimeTo = "115900";
+                    } else if($arrivalTime_range == 2){
+                        $arrivalTimeFrom = "120000";
+                        $arrivalTimeTo = "235900";
+                    }
+                    $arrivalTime_sql = " AND f.arrivalTime BETWEEN $arrivalTimeFrom AND $arrivalTimeTo";
+                }
+                
+                if($airline_filter != null){
+                    $airline_sql = " AND f.airline = '$airline_filter'";
+                }
+                
+                $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
+                        . " al.name AS airlineName"
+                        . " FROM flight f, airport a, country c1, country c2, airline al"
+                        . " WHERE f.departure = a.id AND a.country = '$fs_from'"
+                        . " AND f.arrival = a.id AND a.country = '$fs_to'"
+                        . " AND c1.id = '$fs_from' AND c2.id = '$fs_to' AND f.airline = al.id"
+                        . " AND f.departureDate = '$fromDate_sql' AND f.arrivalDate = '$toDate_sql'"
+                        . $price_sql . $departTime_sql . $arrivalTime_sql . $airline_sql;
+                //echo $flightArr_query;
+             
+            }
+            else{
+                $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
+                        . " al.name AS airlineName"
+                        . " FROM flight f, airport a, country c1, country c2, airline al"
+                        . " WHERE f.departure = a.id AND a.country = '$fs_from'"
+                        . " AND f.arrival = a.id AND a.country = '$fs_to'"
+                        . " AND c1.id = '$fs_from' AND c2.id = '$fs_to' AND f.airline = al.id"
+                        . " AND f.departureDate = '$fromDate_sql' AND f.arrivalDate = '$toDate_sql'";
+                //echo $flightArr_query;
+            }
+            
+            $flightArr_result = mysql_query($flightArr_query);
+            while($result = mysql_fetch_assoc($flightArr_result)){
+                $flightArr[] = $result;
+            }
+        }
+    }
 ?>
