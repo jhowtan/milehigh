@@ -6,6 +6,9 @@
     }
     
     include 'controller.php';
+
+    $user_result = mysql_query("SELECT * FROM customer WHERE id = '$user'");
+    $result = mysql_fetch_assoc($user_result);
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +21,11 @@
                 <div class="container">
                     <ul class="quick-menu pull-right">
                         <li class="ribbon">
-                            <a href="#">Jessica Brown</a>
+                            <a href="#">
+                                <?php
+                                    echo $result['name'];
+                                ?>
+                            </a>
                             <ul class="menu mini uppercase">
                                 <li><a href="#dashboard" class="location-reload">Dashboard</a></li>
                                 <li><a href="#profile" class="location-reload">Profile</a></li>
@@ -85,7 +92,7 @@
                         </ul>
                         <div class="tab-content">
                             <div id="dashboard" class="tab-pane fade in active">
-                                <h1 class="no-margin skin-color">Hi Jessica, Welcome to Travelo!</h1>
+                                <h1 class="no-margin skin-color">Hi <?php echo $result['name'] ?>, Welcome to Travelo!</h1>
                                 <p>All your trips booked with us will appear here and you’ll be able to manage everything!</p>
                                 <br />
                                 <div class="row block">
@@ -110,7 +117,7 @@
                                 <div class="notification-area">
                                     <div class="info-box block">
                                         <span class="close"></span>
-                                        <p>This is your Dashboard, the place to check your Profile, respond to Reservation Requests, 
+                                        <p>This is your Dashboard, the place to check your Profile, respond to Reservation Requests,
                                             view upcoming Trip Information, and much more.</p>
                                     </div>
                                 </div>
@@ -250,16 +257,16 @@
                                         <div class="details">
                                             <a href="#" class="button btn-mini pull-right edit-profile-btn">EDIT PROFILE</a>
                                             <h2 class="box-title fullname">Jessica Brown</h2>
-                                            <dl class="term-description">
-                                                <dt>user name:</dt><dd>info@jessica.com</dd>
-                                                <dt>first name:</dt><dd>jessica</dd>
-                                                <dt>last name:</dt><dd>brown</dd>
-                                                <dt>phone number:</dt><dd>1-800-123-HELLO</dd>
-                                                <dt>Date of birth:</dt><dd>15 August 1985</dd>
-                                                <dt>Street Address and number:</dt><dd>353 Third floor Avenue</dd>
-                                                <dt>Town / City:</dt><dd>Paris,France</dd>
-                                                <dt>ZIP code:</dt><dd>75800-875</dd>
-                                                <dt>Country:</dt><dd>United States of america</dd>
+                                            <dl class="term-description"><?php
+                                                $names = explode(" ", $result['name']);
+                                                if ($result['passport'] == null)
+                                                    $result['passport'] = "BLANK";
+                                                echo "<dt>user name:</dt><dd>".$result['user']."</dd>";
+                                                echo "<dt>first name:</dt><dd>".$names[0]."</dd>";
+                                                echo "<dt>last name:</dt><dd>".$names[1]."</dd>";
+                                                echo "<dt>phone number:</dt><dd>".$result['contact']."</dd>";
+                                                echo "<dt>passport:</dt><dd>".$result['passport']."</dd>";
+                                                ?>
                                             </dl>
                                         </div>
                                     </article>
