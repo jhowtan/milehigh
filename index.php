@@ -13,9 +13,6 @@
     while($row = mysql_fetch_assoc($countries_result)){
         $countryArr[] = $row;
     }
-    //echo "<pre>";
-    //echo print_r($countryArr);
-    //echo "</pre>"
 ?>
 <!DOCTYPE html>
 <html>
@@ -110,8 +107,32 @@
                                     </div>
                                     
                                     <div class="col-md-4">
-                                        <h4 class="title"></h4>
+                                        <h4 class="title">Who</h4>
                                         <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <label>Adults</label>
+                                                <div class="selector">
+                                                    <select class="full-width" name="fs_adults">
+                                                        <?php 
+                                                            for($i=1; $i<10; $i++){ 
+                                                                echo "<option value='$i'>$i</option>";
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label>Kids</label>
+                                                <div class="selector">
+                                                    <select class="full-width" name="fs_kids">
+                                                        <?php 
+                                                            for($i=0; $i<10; $i++){ 
+                                                                echo "<option value='$i'>$i</option>";
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-xs-6">
                                                 <label>&nbsp;</label>
                                                 <button class="full-width icon-check">SEARCH NOW</button>

@@ -8,13 +8,14 @@
 
     include 'controller.php';
     
-    //echo "<pre>";
-    //echo print_r($flightArr);
-    //echo "<pre>";
-
-    $countries_query = "SELECT * FROM country";
+    $countryArr = array();
+    $countries_query = "SELECT c.*, a.name AS airportName"
+            . " FROM country c, airport a"
+            . " WHERE a.country = c.id ORDER BY c.name ASC";
     $countries_result = mysql_query($countries_query);
-    $countries_result2 = mysql_query($countries_query);
+    while($row = mysql_fetch_assoc($countries_result)){
+        $countryArr[] = $row;
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,10 +64,11 @@
 
                                     <div class="panel style1 arrow-right">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#departure-times-filter" class="collapsed">Departure Times (24h)</a>
+                                            <a data-toggle="collapse" href="#departure-times-filter" class="collapsed">Departure Times</a>
                                         </h4>
                                         <div id="departure-times-filter" class="panel-collapse collapse">
                                             <div class="panel-content">
+                                                <label>(Time in 24h)</label>
                                                 <div class="selector">
                                                     <select name="departTime_range" class="full-width">
                                                         <option value="">ALL</option>
@@ -80,10 +82,11 @@
 
                                     <div class="panel style1 arrow-right">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#arrival-times-filter" class="collapsed">Arrival Times (24h)</a>
+                                            <a data-toggle="collapse" href="#arrival-times-filter" class="collapsed">Arrival Times</a>
                                         </h4>
                                         <div id="arrival-times-filter" class="panel-collapse collapse">
                                             <div class="panel-content">
+                                                <label>(Time in 24h)</label>
                                                 <div class="selector">
                                                     <select name="arrivalTime_range" class="full-width">
                                                         <option value="">ALL</option>
@@ -114,6 +117,46 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div class="panel style1 arrow-right">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#passenger-filter" class="collapsed">Manage Passenger</a>
+                                        </h4>
+                                        <div id="passenger-filter" class="panel-collapse collapse">
+                                            <div class="panel-content">
+                                                <label>Number of Adults</label>
+                                                <div class="selector">
+                                                    <select name="fs_adults" class="full-width">
+                                                        <?php 
+                                                            for($i=1; $i<10; $i++){
+                                                                if($i == $fs_adults){
+                                                                    echo "<option value='$i' selected>$i</option>";
+                                                                }
+                                                                else{
+                                                                    echo "<option value='$i'>$i</option>";
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <label>Number of Kids</label>
+                                                <div class="selector">
+                                                    <select name="fs_kids" class="full-width">
+                                                        <?php 
+                                                            for($i=0; $i<10; $i++){ 
+                                                                if($i == $fs_kids){
+                                                                    echo "<option value='$i' selected>$i</option>";
+                                                                }
+                                                                else{
+                                                                    echo "<option value='$i'>$i</option>";
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="panel style1 arrow-right">
                                         <h4 class="panel-title">
@@ -126,12 +169,14 @@
                                                     <div class="selector">
                                                         <select name="fs_from" class="full-width">
                                                             <?php
-                                                                while($row = mysql_fetch_assoc($countries_result)){
-                                                                    if($row['id'] == $fs_from){
-                                                                        echo "<option value=".$row['id']." selected>".$row['name']."</option>";
+                                                                for($i=0; $i<sizeof($countryArr); $i++){
+                                                                    if($countryArr[$i]['id'] == $fs_from){
+                                                                        echo "<option value=".$countryArr[$i]['id']." selected>".
+                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
                                                                     }
                                                                     else{
-                                                                        echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                                        echo "<option value=".$countryArr[$i]['id'].">".
+                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
                                                                     }
                                                                 }
                                                             ?>
@@ -143,12 +188,14 @@
                                                     <div class="selector">
                                                         <select name="fs_to" class="full-width">
                                                             <?php
-                                                                while($row = mysql_fetch_assoc($countries_result2)){
-                                                                    if($row['id'] == $fs_to){
-                                                                        echo "<option value=".$row['id']." selected>".$row['name']."</option>";
+                                                                for($i=0; $i<sizeof($countryArr); $i++){
+                                                                    if($countryArr[$i]['id'] == $fs_to){
+                                                                        echo "<option value=".$countryArr[$i]['id']." selected>".
+                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
                                                                     }
                                                                     else{
-                                                                        echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                                        echo "<option value=".$countryArr[$i]['id'].">".
+                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
                                                                     }
                                                                 }
                                                             ?>
@@ -243,6 +290,8 @@
                                                 </div>
                                                 <div class="action">
                                                     <form action="booking.php" method="GET">
+                                                        <input type="hidden" name="fs_adults" value="<?php echo $fs_adults; ?>"/>
+                                                        <input type="hidden" name="fs_kids" value="<?php echo $fs_kids; ?>"/>
                                                         <button class="btn-small uppercase full-width" name="flightId" 
                                                                 value="<?php echo $flightArr[$i]['id']; ?>">select</button>
                                                     </form>

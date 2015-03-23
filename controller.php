@@ -76,6 +76,8 @@
             $fs_to = $_GET['fs_to'];
             $fs_fromDate = $_GET['fs_fromDate'];
             $fs_toDate = $_GET['fs_toDate'];
+            $fs_adults = $_GET['fs_adults'];
+            $fs_kids = $_GET['fs_kids'];
             
             $fromDate = date_create($_GET['fs_fromDate']);
             $fromDate_sql = date_format($fromDate, 'Y-m-d');
