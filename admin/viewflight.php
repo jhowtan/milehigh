@@ -5,9 +5,12 @@
         header("Location: index.php");
     }
     
-    $flight_query = "SELECT f.*, a.name AS airlineName, ap1.name AS departAirport, ap2.name AS arrivalAirport "
-            . "FROM flight f, airline a, airport ap1, airport ap2 "
-            . "WHERE f.airline = a.id AND f.departure = ap1.id AND f.arrival = ap2.id";
+    $flight_query = "SELECT f.*, al.name AS airlineName, ap1.name AS fromAirport,"
+            . " ap2.name AS toAirport, c1.name AS fromCountry, c2.name AS toCountry"
+            . " FROM flight f, airline al, airport ap1, airport ap2, country c1, country c2"
+            . " WHERE f.airline = al.id AND f.departure = ap1.id"
+            . " AND ap1.country = c1.id AND f.arrival = ap2.id"
+            . " AND ap2.country = c2.id";
     $flight_result = mysql_query($flight_query);
 ?>
 
@@ -27,9 +30,10 @@
                                 <th>FlightNum</th>
                                 <th>From</th>
                                 <th>To</th>
-                                <th>Departure Date/Time</th>
-                                <th>Arrival Date/Time</th>
+                                <th>Departure<br/>Date/Time</th>
+                                <th>Arrival<br/>Date/Time</th>
                                 <th>Airline</th>
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -44,11 +48,14 @@
                                 ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $row['flightNumber']; ?></td>
-                                    <td><?php echo $row['departAirport']; ?></td>
-                                    <td><?php echo $row['arrivalAirport']; ?></td>
-                                    <td><?php echo $row['departureDate'] ."<br/>". $row['departureTime']; ?></td>
-                                    <td><?php echo $row['arrivalDate'] ."<br/>". $row['arrivalTime']; ?></td>
+                                    <td><?php echo $row['fromCountry']."<br/>(".$row['fromAirport'].")"; ?></td>
+                                    <td><?php echo $row['toCountry']."<br/>(".$row['toAirport'].")"; ?></td>
+                                    <td><?php echo dateDisplay($row['departureDate'])."<br/>".
+                                            timeDisplay($row['departureTime']); ?></td>
+                                    <td><?php echo dateDisplay($row['arrivalDate'])."<br/>"
+                                            .timeDisplay($row['arrivalTime']); ?></td>
                                     <td><?php echo $row['airlineName']; ?></td>
+                                    <td>$<?php echo $row['price']; ?></td>
                                     <td><?php echo $row['status']; ?></td>
                                     <td>
                                         <button class="btn btn-small btn-orange" name="id" value="<?php echo $row['id']; ?>">Manage</button>

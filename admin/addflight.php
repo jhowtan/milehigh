@@ -12,7 +12,7 @@
     $countryArr = array();
     $countries_query = "SELECT a.*, c.name AS countryName"
         . " FROM country c, airport a"
-        . " WHERE a.country = c.id ORDER BY c.name ASC";
+        . " WHERE a.country = c.id ORDER BY c.name, a.name ASC";
     $countries_result = mysql_query($countries_query);
     while($row = mysql_fetch_assoc($countries_result)){
         $countryArr[] = $row;

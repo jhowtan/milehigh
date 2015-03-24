@@ -6,9 +6,9 @@
     include 'controller.php';
 
     $countryArr = array();
-    $countries_query = "SELECT c.*, a.name AS airportName"
+    $countries_query = "SELECT a.*, c.name AS countryName"
             . " FROM country c, airport a"
-            . " WHERE a.country = c.id ORDER BY c.name ASC";
+            . " WHERE a.country = c.id ORDER BY c.name, a.name ASC";
     $countries_result = mysql_query($countries_query);
     while($row = mysql_fetch_assoc($countries_result)){
         $countryArr[] = $row;
@@ -55,13 +55,13 @@
                                                     <select name="fs_from" class="full-width">
                                                         <?php
                                                             for($i=0; $i<sizeof($countryArr); $i++){
-                                                                if($countryArr[$i]['name'] == "Singapore"){
+                                                                if($countryArr[$i]['countryName'] == "Singapore"){
                                                                     echo "<option value=".$countryArr[$i]['id']." selected >".
-                                                                        $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
+                                                                        $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                                 }
                                                                 else{
                                                                     echo "<option value=".$countryArr[$i]['id'].">".
-                                                                        $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
+                                                                        $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                                 }
                                                             }
                                                         ?>
@@ -77,7 +77,7 @@
                                                         <?php
                                                             for($i=0; $i<sizeof($countryArr); $i++){
                                                                 echo "<option value=".$countryArr[$i]['id'].">".
-                                                                    $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
+                                                                    $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                             }
                                                         ?>
                                                     </select>
