@@ -1,6 +1,8 @@
 <?php
     if(isset($_COOKIE["user"])){
         $user = $_COOKIE["user"];
+    } else if(!isset($_GET['flightId'])){
+        header("Location: flights.php");
     }
     else{
         header("Location: login.php");
@@ -8,7 +10,9 @@
     
     include 'controller.php';
     
-    
+    //echo "<pre>";
+    //echo print_r($detailsArr);
+    //echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,9 +37,13 @@
                 <div class="row">
                     <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                         <div class="booking-section travelo-box">
-                            <form class="booking-form" method="post" action="confirmation.php">
+                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" 
+                                   class="booking-form" method="POST">
+                                
+                                <?php for($j=1; $j<=$numOfAdults; $j++) { ?>
                                 <div class="person-information">
-                                    <h2>Passenger Information</h2>
+                                    <h2 class="skin-color">Adult <?php echo $j; ?></h2>
+                                    <h4> Personal Particular</h4>
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
                                             <label>Title</label>
@@ -59,7 +67,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
                                             <label>email address</label>
-                                            <input type="text" name="email" class="input-text full-width" placeholder="Enter Here" required/>
+                                            <input type="text" name="email" class="input-text full-width" placeholder="Enter Here"/>
                                         </div>
                                         <div class="col-sm-6 col-md-5">
                                             <label>Contact number</label>
@@ -110,10 +118,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr />
                                 
                                 <div class="passport-information">
-                                    <h2>Passport Information</h2>
+                                    <h4>Passport Information</h4>
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
                                             <label>Nationality of Passport</label>
@@ -166,10 +173,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr/>
                                 
                                 <div class="baggage-information">
-                                    <h2>Flight Details</h2>
+                                    <h4>Flight Details</h4>
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
                                             <label>Baggage Type</label>
@@ -192,7 +198,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr/>                                
+                                <hr/>
+                                <?php } ?>
+                                
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
@@ -216,25 +224,30 @@
                             <h4>Booking Details</h4>
                             <article class="flight-booking-details">
                                 <figure class="clearfix">
-                                    <a title="" href="flight-detailed.html" class="middle-block"><img class="middle-item" alt="" src="http://placehold.it/75x75"></a>
+                                    <a title="" href="flight-detailed.html" class="middle-block">
+                                        <img class="middle-item" alt="" src="http://placehold.it/75x75">
+                                    </a>
                                     <div class="travel-title">
-                                        <h5 class="box-title">Indianapolis <br/>to<br/> paris</h5>
-                                        <a href="" class="button">EDIT</a>
+                                        <h5 class="box-title">
+                                            <?php echo $detailsArr['fromCountry']."<br/><br/>to<br/><br/>".$detailsArr['toCountry']; ?>
+                                        </h5>
                                     </div>
                                 </figure>
                                 <div class="details">
                                     <div class="constant-column-3 timing clearfix">
                                         <div class="check-in">
                                             <label>Departure</label>
-                                            <span>NOV 30,2013<br />7:50 am</span>
+                                            <span><?php echo dateDisplay($detailsArr['departureDate'])."<br/>Time: ".
+                                                    timeDisplay($detailsArr['departureTime']); ?></span>
                                         </div>
                                         <div class="duration text-center">
                                             <i class="soap-icon-clock"></i>
-                                            <span>Number of days</span>
+                                            <span><?php echo countDays($detailsArr['departureDate'], $detailsArr['arrivalDate']); ?> days</span>
                                         </div>
                                         <div class="check-out">
                                             <label>Arrival</label>
-                                            <span>Nov 13,2013<br />9:20 am</span>
+                                            <span><?php echo dateDisplay($detailsArr['arrivalDate'])."<br/>Time: ".
+                                                    timeDisplay($detailsArr['arrivalTime']); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -242,13 +255,13 @@
                             
                             <h4>Other Details</h4>
                             <dl class="other-details">
-                                <dt class="feature">Airline:</dt><dd class="value">Delta</dd>
-                                <dt class="feature">Ticket Price (Adult):</dt><dd class="value">$320</dd>
-                                <dt class="feature">Number of Adults:</dt><dd class="value"> 2 </dd>
-                                <dt class="feature">Number of Children:</dt><dd class="value"> 2 </dd>
-                                <dt class="feature">Seat Type:</dt><dd class="value">Economy / +$30</dd>
-                                <dt class="feature">Baggage Type:</dt><dd class="value">20kg / +$30</dd>
-                                <dt class="total-price">Total Price</dt><dd class="total-price-value">$620</dd>
+                                <dt class="feature">Flight Number:</dt><dd class="value"><?php echo $detailsArr['flightNumber']; ?></dd>
+                                <dt class="feature">Airline:</dt><dd class="value"><?php echo $detailsArr['airlineName']; ?></dd>
+                                <dt class="feature">Ticket Price (Adult):</dt><dd class="value">$<?php echo $detailsArr['price']; ?></dd>
+                                <dt class="feature">Number of Adults:</dt><dd class="value"><?php echo $numOfAdults; ?></dd>
+                                <dt class="feature">Number of Children:</dt><dd class="value"><?php echo $numOfKids; ?></dd>
+                                <dt class="total-price">Ticket Price:</dt><dd class="total-price-value">
+                                    $<?php echo calculateCost($detailsArr['price'], $numOfAdults, $numOfKids); ?></dd>
                             </dl>
                         </div>
                     </div>

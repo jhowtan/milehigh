@@ -9,9 +9,9 @@
     include 'controller.php';
     
     $countryArr = array();
-    $countries_query = "SELECT c.*, a.name AS airportName"
+    $countries_query = "SELECT a.*, c.name AS countryName"
             . " FROM country c, airport a"
-            . " WHERE a.country = c.id ORDER BY c.name ASC";
+            . " WHERE a.country = c.id ORDER BY c.name, a.name ASC";
     $countries_result = mysql_query($countries_query);
     while($row = mysql_fetch_assoc($countries_result)){
         $countryArr[] = $row;
@@ -172,11 +172,11 @@
                                                                 for($i=0; $i<sizeof($countryArr); $i++){
                                                                     if($countryArr[$i]['id'] == $fs_from){
                                                                         echo "<option value=".$countryArr[$i]['id']." selected>".
-                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
+                                                                            $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                                     }
                                                                     else{
                                                                         echo "<option value=".$countryArr[$i]['id'].">".
-                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
+                                                                            $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                                     }
                                                                 }
                                                             ?>
@@ -191,11 +191,11 @@
                                                                 for($i=0; $i<sizeof($countryArr); $i++){
                                                                     if($countryArr[$i]['id'] == $fs_to){
                                                                         echo "<option value=".$countryArr[$i]['id']." selected>".
-                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
+                                                                            $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                                     }
                                                                     else{
                                                                         echo "<option value=".$countryArr[$i]['id'].">".
-                                                                            $countryArr[$i]['name']." ----- ".$countryArr[$i]['airportName']." </option>";
+                                                                            $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['Name']." </option>";
                                                                     }
                                                                 }
                                                             ?>
@@ -230,6 +230,18 @@
                         
                         <!------------------ DISPLAYING START HERE ----------->                       
                         <div class="col-sm-8 col-md-9">
+                            <?php if(!isset($user)){ ?>
+                                <div class="sort-by-section clearfix box">
+                                    <h4 class="sort-by-title block-sm">You have not login. Please proceed to</h4>
+                                    <ul class="sort-bar clearfix block-sm ">
+                                        <li class="sort-by-name">
+                                            <a class="button btn-medium yellow" href="login.php">LOGIN</a>
+                                            <label> OR </label>
+                                            <a class="button btn-medium red" href="signup.php">SIGNUP</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <?php } ?>
                             <div class="flight-list listing-style3 flight">
                                 <?php for($i=0; $i<sizeOf($flightArr); $i++) { ?>
                                 <article class="box">
@@ -240,10 +252,11 @@
                                         <div class="details-wrapper">
                                             <div class="first-row">
                                                 <div>
-                                                    <h4 class="box-title"><?php echo $flightArr[$i]['fromCountry']." to ".
-                                                        $flightArr[$i]['toCountry'];?>
+                                                    <h4 class="box-title">
+                                                        <?php echo $flightArr[$i]['flightNumber']." <br/> ".$flightArr[$i]['fromCountry']." to ".
+                                                                $flightArr[$i]['toCountry'];?>
                                                         <small>Oneway flight</small></h4>
-                                                    <a class="button stop">1 STOP</a>
+                                                    <a class="button stop"></a>
                                                     <div class="amenities">
                                                         <i class="soap-icon-wifi circle"></i>
                                                         <i class="soap-icon-entertainment circle"></i>
@@ -264,20 +277,24 @@
                                                         <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
                                                         <div>
                                                             <span class="skin-color">Departure</span><br />
-                                                            Date: <?php echo $flightArr[$i]['departureDate']. "<br/> Time: " .$flightArr[$i]['departureTime'];?>
+                                                            <?php echo dateDisplay($flightArr[$i]['departureDate']). "<br/> Time: " 
+                                                                    .timeDisplay($flightArr[$i]['departureTime']);?>
                                                         </div>
                                                     </div>
                                                     <div class="landing col-sm-3">
                                                         <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
                                                         <div>
                                                             <span class="skin-color">Arrival</span><br />
-                                                            Date: <?php echo $flightArr[$i]['arrivalDate']. "<br/> Time: " .$flightArr[$i]['arrivalTime'];?>
+                                                            <?php echo dateDisplay($flightArr[$i]['arrivalDate']). "<br/> Time: " 
+                                                                    .timeDisplay($flightArr[$i]['arrivalTime']);?>
                                                         </div>
                                                     </div>
                                                     <div class="total-time col-sm-3">
                                                         <div class="icon"><i class="soap-icon-clock yellow-color"></i></div>
                                                         <div>
-                                                            <span class="skin-color">Duration</span><br />Number of day
+                                                            <span class="skin-color">Duration</span><br />
+                                                                <?php echo countDays($flightArr[$i]['departureDate'], $flightArr[$i]['arrivalDate']); ?>
+                                                            DAYS
                                                         </div>
                                                     </div>
                                                     <div class="total-time col-sm-3">
@@ -292,8 +309,16 @@
                                                     <form action="booking.php" method="GET">
                                                         <input type="hidden" name="fs_adults" value="<?php echo $fs_adults; ?>"/>
                                                         <input type="hidden" name="fs_kids" value="<?php echo $fs_kids; ?>"/>
-                                                        <button class="btn-small uppercase full-width" name="flightId" 
-                                                                value="<?php echo $flightArr[$i]['id']; ?>">select</button>
+                                                        <?php 
+                                                            if(isset($user)){
+                                                                echo "<button class='btn-small uppercase full-width' name='flightId' 
+                                                                    value='".$flightArr[$i]['id']."'>select</button>";
+                                                            }
+                                                            else{
+                                                                echo "<button class='btn-small uppercase full-width' name='flightId' 
+                                                                    value='".$flightArr[$i]['id']."' disabled>select</button>";
+                                                            } 
+                                                        ?>
                                                     </form>
                                                 </div>
                                             </div>

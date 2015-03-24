@@ -51,6 +51,7 @@
                                         <div class="form-group">
                                             <button class="btn-medium" name="loginForm">LOGIN</button>
                                         </div>
+                                        <h5>Not a registered user? <a href="signup.php" class="skin-color">Sign up</a></h5>
                                     </form>
                                 </div>
                             </div>

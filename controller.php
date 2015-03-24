@@ -68,6 +68,7 @@
     
     if ($_SERVER["REQUEST_METHOD"] == "GET"){
         
+        // flights page
         if($_SERVER["PHP_SELF"] == $url."flights.php"){
             $flightArr = array();
             $flightArr_query = "";
@@ -84,21 +85,20 @@
             $toDate = date_create($_GET['fs_toDate']);
             $toDate_sql = date_format($toDate, 'Y-m-d');
             
-            $airline_query = "SELECT DISTINCT a.* "
-                    . " FROM airline a, flight f, airport ap"
-                    . " WHERE (f.departure = ap.id AND ap.country = '$fs_from')"
-                    . " AND (f.arrival = ap.id AND ap.country = '$fs_to')"
+            $airline_query = "SELECT DISTINCT a.* FROM airline a, flight f"
+                    . " WHERE f.departure = '$fs_from' AND f.arrival = '$fs_to'"
                     . " AND f.airline = a.id";
             $airline_result = mysql_query($airline_query);
             
             $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
                     . " al.name AS airlineName"
-                    . " FROM flight f, airport a, country c1, country c2, airline al"
-                    . " WHERE f.departure = a.id AND a.country = '$fs_from'"
-                    . " AND f.arrival = a.id AND a.country = '$fs_to'"
-                    . " AND c1.id = '$fs_from' AND c2.id = '$fs_to' AND f.airline = al.id"
-                    . " AND f.departureDate = '$fromDate_sql' AND f.arrivalDate = '$toDate_sql'";
-            
+                    . " FROM flight f, airport ap1, airport ap2, country c1, country c2, airline al"
+                    . " WHERE f.departure = ap1.id AND ap1.country = c1.id"
+                    . " AND f.arrival = ap2.id AND ap2.country = c2.id"
+                    . " AND f.airline = al.id AND f.departure = '$fs_from'"
+                    . " AND f.arrival = '$fs_to' AND f.departureDate = '$fromDate_sql'"
+                    . " AND f.arrivalDate = '$toDate_sql'";
+
             if(isset($_GET['filter'])){
                 $price_sql = "";
                 $departTime_sql = "";
@@ -157,6 +157,24 @@
             while($result = mysql_fetch_assoc($flightArr_result)){
                 $flightArr[] = $result;
             }
+            
+        } else if($_SERVER["PHP_SELF"] == $url."booking.php"){           
+            //$detailsArr = array();
+            
+            $numOfAdults = $_GET['fs_adults'];
+            $numOfKids = $_GET['fs_kids'];
+            $flightId = $_GET['flightId'];
+            
+            $detailsArr_query = "SELECT f.*, c1.name AS fromCountry, ap2.name AS airportName,"
+                    . " c2.name AS toCountry, al.name AS airlineName"
+                    . " FROM flight f, airport ap1, airport ap2, country c1, country c2, airline al"
+                    . " WHERE f.departure = ap1.id AND ap1.country = c1.id"
+                    . " AND f.arrival = ap2.id AND ap2.country = c2.id"
+                    . " AND f.airline = al.id AND f.id = '$flightId'";
+
+            $detailsArr_result = mysql_query($detailsArr_query);
+            $detailsArr = mysql_fetch_assoc($detailsArr_result);
+            
         }
     }
 ?>
