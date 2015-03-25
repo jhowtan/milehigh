@@ -195,7 +195,7 @@
                                                                     }
                                                                     else{
                                                                         echo "<option value=".$countryArr[$i]['id'].">".
-                                                                            $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['Name']." </option>";
+                                                                            $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                                     }
                                                                 }
                                                             ?>

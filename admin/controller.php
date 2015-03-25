@@ -54,15 +54,30 @@
             else{
                 $message = "Error!". mysql_error();
             }
+            
+            $select_flightId_query = "SELECT id FROM flight WHERE flightNumber = '$flightNum'"
+                    . "AND departureDate = '$departureDate'";
+            $select_flightId_result = mysql_query($select_flightId_query);
+            $row = mysql_fetch_assoc($select_flightId_result);
+            
+            // add seat
+            addSeat($row['id']);
+            
         } else if($_SERVER["PHP_SELF"] == $url."manageflight.php"){
             if(isset($_POST['deleteId'])){
                 $delete_flight_query = "DELETE FROM flight WHERE id = '".$_POST['deleteId']."'";
+                $delete_seat_query = "DELETE FROM seat WHERE flight = '".$_POST['deleteId']."'";
                 
-                if(mysql_query($delete_flight_query)){
-                    header("Location: viewflight.php");
+                if(!mysql_query($delete_seat_query)){
+                    die("Error! ". mysql_error());
                 }
                 else{
-                    die("Error!". mysql_error());
+                    if(mysql_query($delete_flight_query)){
+                        header("Location: viewflight.php");
+                    }
+                    else{
+                        die("Error! ". mysql_error());
+                    }
                 }
             }
             
@@ -103,22 +118,6 @@
             else{
                 die("Error!". mysql_error());
             }
-        }
-    }
-    
-    function addSeat($flightId){
-        $add_seat_query = "INSERT INTO seat(seatNumber, flight) VALUES (A1, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (A2, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (A3, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (B1, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (B2, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (B3, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (C1, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (C2, $flightId)"
-                . "INSERT INTO seat(seatNumber, flight) VALUES (C3, $flightId)";
-        
-        if(!mysql_query($add_seat_query)){
-            die("Error!". mysql_error());
         }
     }
 ?>

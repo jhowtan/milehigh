@@ -24,7 +24,6 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Passport Num</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                             </tr>
@@ -38,7 +37,6 @@
                                 while($row = mysql_fetch_assoc($customer_result)){ ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $row['name']; ?></td>
-                                    <td><?php echo $row['passport']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['contact']; ?></td>
                                 </tr>

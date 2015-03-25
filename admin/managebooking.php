@@ -9,12 +9,12 @@
         $bookingId = $_GET["id"];
     }
     
-    $booking_query = "SELECT ft.*, c.name, f.flightNumber "
-            . "FROM flightticket ft, customer c, flight f "
-            . "WHERE ft.owner = c.id AND ft.flight = f.id";
-    //$booking_query = "SELECT ft.*, c.name, f.flightNumber "
-    //        . "FROM flightticket ft, customer c, flight f "
-    //        . "WHERE ft.owner = c.id AND ft.flight = f.id AND ft.id = '$bookingId'";
+    $booking_query = "SELECT ft.*, c.name AS owner, s.class, s.seatNumber,"
+            . " p.name AS passenger, f.flightNumber"
+            . " FROM flightticket ft, customer c, seat s, passenger p, flight f"
+            . " WHERE ft.owner = c.id AND ft.seat = s.id"
+            . " AND ft.passenger = p.id AND s.flight = f.id"
+            . " AND ft.id = '$bookingId'";
     $booking_result = mysql_query($booking_query);
     $row = mysql_fetch_assoc($booking_result);
 ?>
@@ -28,19 +28,25 @@
             <div class="portlet-content">
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="form label-inline">
                     <div class="field">
-                        <label>Customer</label> <p><?php echo $row['name']; ?></p>
+                        <label>Registered User</label> <p><?php echo $row['owner']; ?></p>
                     </div>
                     <div class="field">
                         <label>Flight Number</label> <p><?php echo $row['flightNumber']; ?></p>
                     </div>
                     <div class="field">
-                        <label>Seat Number</label> <p><?php echo $row['seatNumber']; ?></p>
+                        <label>Passenger</label> <p><?php echo $row['passenger']; ?></p>
+                    </div>
+                    <div class="field">
+                        <label>Seat</label> <p><?php echo $row['seatNumber']." (".$row['class'].")"; ?></p>
                     </div>
                     <div class="field">
                         <label>Date Purchased</label> <p><?php echo $row['datePurchased']; ?></p>
                     </div>
                     <div class="field">
-                        <label>Baggage Type</label> <p><?php echo $row['baggageType']; ?></p>
+                        <label>Baggage Type</label> <p><?php echo $row['baggageAllowance']; ?></p>
+                    </div>
+                    <div class="field">
+                        <label>Baggage Type</label> <p><?php echo $row['totalPrice']; ?></p>
                     </div>
                     <div class="controlset field">
 			<span class="label">Checked In</span>

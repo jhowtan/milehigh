@@ -5,9 +5,11 @@
         header("Location: index.php");
     }
     
-    $ticket_query = "SELECT ft.*, c.name, f.flightNumber "
-            . "FROM flightticket ft, customer c, flight f "
-            . "WHERE ft.owner = c.id AND ft.flight = f.id";
+    $ticket_query = "SELECT ft.*, c.name AS owner, s.class, s.seatNumber,"
+            . " p.name AS passenger, f.flightNumber"
+            . " FROM flightticket ft, customer c, seat s, passenger p, flight f"
+            . " WHERE ft.owner = c.id AND ft.seat = s.id"
+            . " AND ft.passenger = p.id AND s.flight = f.id";
     $ticket_result = mysql_query($ticket_query);
 ?>
 
@@ -25,11 +27,13 @@
                     <table cellpadding="0" cellspacing="0" border="0" class="display" rel="datatable" id="example">
                         <thead>
                             <tr>
-                                <th>Customer</th>
+                                <th>Registered Owner</th>
                                 <th>FlightNum</th>
-                                <th>SeatNum</th>
+                                <th>Passenger</th>
+                                <th>Seat</th>
                                 <th>Date Purchased</th>
-                                <th>Baggage Type</th>
+                                <th>Baggage</th>
+                                <th>Price</th>
                                 <th>CheckIn</th>
                                 <th>Action</th>
                             </tr>
@@ -42,11 +46,13 @@
                             else { 
                                 while($row = mysql_fetch_assoc($ticket_result)){ ?>
                                 <tr class="odd gradeX">
-                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['owner']; ?></td>
                                     <td><?php echo $row['flightNumber']; ?></td>
-                                    <td><?php echo $row['seatNumber'] ; ?></td>
-                                    <td><?php echo $row['datePurchased']; ?></td>
-                                    <td><?php echo $row['baggageType']; ?></td>
+                                    <td><?php echo $row['passenger']; ?></td>
+                                    <td><?php echo $row['seatNumber']." (".$row['class'].")" ; ?></td>
+                                    <td><?php echo dateDisplay($row['datePurchased']); ?></td>
+                                    <td><?php echo $row['baggageAllowance']; ?></td>
+                                    <td>$<?php echo $row['totalPrice']; ?></td>
                                     <td><?php
                                             if ($row['checkedIn'] == 0){
                                                 echo "No";
