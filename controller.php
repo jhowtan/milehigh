@@ -56,7 +56,7 @@
                     
                     if(mysql_query($signup_query)){
                         $message = "You have successfully signup with MileHighClub. <br/>You may now proceed to "
-                                . "<a href='login.php'>LOGIN</a>";
+                                . "<a href='login.php' class='skin-color'>LOGIN</a>";
                     }
                     else{
                         $message = "Error!". mysql_error();
@@ -87,11 +87,12 @@
             
             $airline_query = "SELECT DISTINCT a.* FROM airline a, flight f"
                     . " WHERE f.departure = '$fs_from' AND f.arrival = '$fs_to'"
-                    . " AND f.airline = a.id";
+                    . " AND f.airline = a.id AND f.departureDate = '$fromDate_sql'"
+                    . " AND f.arrivalDate = '$toDate_sql'";
             $airline_result = mysql_query($airline_query);
             
             $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
-                    . " al.name AS airlineName"
+                    . " al.name AS airlineName, ap1.name AS fromAirport, ap2.name AS toAirport"
                     . " FROM flight f, airport ap1, airport ap2, country c1, country c2, airline al"
                     . " WHERE f.departure = ap1.id AND ap1.country = c1.id"
                     . " AND f.arrival = ap2.id AND ap2.country = c2.id"
@@ -159,11 +160,12 @@
             }
             
         } else if($_SERVER["PHP_SELF"] == $url."booking.php"){           
-            //$detailsArr = array();
+            $seatArr = array();
             
             $numOfAdults = $_GET['fs_adults'];
             $numOfKids = $_GET['fs_kids'];
             $flightId = $_GET['flightId'];
+            $totalPassenger = $numOfAdults + $numOfKids;
             
             $detailsArr_query = "SELECT f.*, c1.name AS fromCountry, ap2.name AS airportName,"
                     . " c2.name AS toCountry, al.name AS airlineName"
@@ -175,6 +177,13 @@
             $detailsArr_result = mysql_query($detailsArr_query);
             $detailsArr = mysql_fetch_assoc($detailsArr_result);
             
+            $seat_query = "SELECT s.* FROM seat s, flightticket ft, flight f"
+                    . " WHERE s.flight = f.id AND s.id <> ft.seat AND f.id = '$flightId'";
+            
+            $seat_result = mysql_query($seat_query);
+            while($result = mysql_fetch_assoc($seat_result)){
+                $seatArr[] = $result;
+            }
         }
     }
 ?>

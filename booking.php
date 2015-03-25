@@ -9,10 +9,6 @@
     }
     
     include 'controller.php';
-    
-    //echo "<pre>";
-    //echo print_r($detailsArr);
-    //echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,15 +36,15 @@
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" 
                                    class="booking-form" method="POST">
                                 
-                                <?php for($j=1; $j<=$numOfAdults; $j++) { ?>
+                                <?php for($j=1; $j<=$totalPassenger; $j++) { ?>
                                 <div class="person-information">
-                                    <h2 class="skin-color">Adult <?php echo $j; ?></h2>
+                                    <h2 class="skin-color">Passenger <?php echo $j; ?></h2>
                                     <h4> Personal Particular</h4>
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
                                             <label>Title</label>
                                             <div class="selector">
-                                                <select class="full-width" name="title">
+                                                <select class="full-width" name="title<?php echo $j; ?>">
                                                     <option value="Mr">Mr</option>
                                                     <option value="Mrs">Mrs</option>
                                                     <option value="Ms">Ms</option>
@@ -60,19 +56,21 @@
                                         </div>
                                         <div class="col-sm-6 col-md-5">
                                             <label>Full name (as in passport)</label>
-                                            <input type="text" name="name" class="input-text full-width" placeholder="Enter Here" required/>
+                                            <input type="text" name="name<?php echo $j; ?>" class="input-text full-width" 
+                                                   placeholder="Enter Here" required/>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
                                             <label>email address</label>
-                                            <input type="text" name="email" class="input-text full-width" placeholder="Enter Here"/>
+                                            <input type="text" name="email<?php echo $j; ?>" class="input-text full-width" 
+                                                   placeholder="Enter Here"/>
                                         </div>
                                         <div class="col-sm-6 col-md-5">
                                             <label>Contact number</label>
-                                            <input type="text" name="contact" class="input-text full-width" placeholder="Enter Here" required 
-                                                   onkeypress="return isNumber(event);"/>
+                                            <input type="text" name="contact<?php echo $j; ?>" class="input-text full-width" 
+                                                   placeholder="Enter Here" required onkeypress="return isNumber(event);"/>
                                         </div>
                                     </div>
                                     
@@ -81,7 +79,7 @@
                                             <label>Date of birth</label>
                                             <div class="constant-column-3" >
                                                 <div class="selector">
-                                                    <select class="full-width" name="DOBDay">
+                                                    <select class="full-width" name="DOBDay<?php echo $j; ?>">
                                                         <?php 
                                                             for($i=1; $i<=31; $i++){
                                                                 echo "<option value='$i'>$i</option>";
@@ -90,7 +88,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="selector">
-                                                    <select class="full-width" name="DOBMonth">
+                                                    <select class="full-width" name="DOBMonth<?php echo $j; ?>">
                                                         <option value="1">Jan</option>
                                                         <option value="2">Feb</option>
                                                         <option value="3">Mar</option>
@@ -106,7 +104,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="selector">
-                                                    <select class="full-width" name="DOBYear">
+                                                    <select class="full-width" name="DOBYear<?php echo $j; ?>">
                                                         <?php 
                                                             for($i=2015; $i>=1920; $i--){
                                                                 echo "<option value='$i'>$i</option>";
@@ -124,11 +122,13 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
                                             <label>Nationality of Passport</label>
-                                            <input type="text" name="nationality" class="input-text full-width" placeholder="Enter Here" required/>
+                                            <input type="text" name="nationality<?php echo $j; ?>" class="input-text full-width" 
+                                                   placeholder="Enter Here" required/>
                                         </div>
                                         <div class="col-sm-6 col-md-5">
                                             <label>Passport Number</label>
-                                            <input type="text" name="passportNum" class="input-text full-width" placeholder="Enter Here" required/>
+                                            <input type="text" name="passportNum<?php echo $j; ?>" class="input-text full-width" 
+                                                   placeholder="Enter Here" required/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -136,7 +136,7 @@
                                             <label>Expiry Date</label>
                                             <div class="constant-column-3" >
                                                 <div class="selector">
-                                                    <select class="full-width" name="passportDay">
+                                                    <select class="full-width" name="passportDay<?php echo $j; ?>">
                                                         <?php 
                                                             for($i=1; $i<=31; $i++){
                                                                 echo "<option value='$i'>$i</option>";
@@ -145,7 +145,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="selector">
-                                                    <select class="full-width" name="passportMonth">
+                                                    <select class="full-width" name="passportMonth<?php echo $j; ?>">
                                                         <option value="1">Jan</option>
                                                         <option value="2">Feb</option>
                                                         <option value="3">Mar</option>
@@ -161,7 +161,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="selector">
-                                                    <select class="full-width" name="passportYear">
+                                                    <select class="full-width" name="passportYear<?php echo $j; ?>">
                                                         <?php 
                                                             for($i=2015; $i<=2031; $i++){
                                                                 echo "<option value='$i'>$i</option>";
@@ -180,19 +180,24 @@
                                         <div class="col-sm-6 col-md-5">
                                             <label>Baggage Type</label>
                                             <div class="selector">
-                                                <select class="full-width" name="baggage">
-                                                    <option value="">25kg / +$30</option>
-                                                    <option value="">30kg / +$40</option>
+                                                <select class="full-width" name="baggage<?php echo $j; ?>">
+                                                    <option value="20">20kg / +$0</option>
+                                                    <option value="25">25kg / +$20</option>
+                                                    <option value="30">30kg / +$30</option>
+                                                    <option value="35">35kg / +$40</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-5">
                                             <label>Seat Class</label>
-                                            <div class="selector" name="seat">
+                                            <div class="selector" name="seat<?php echo $j; ?>">
                                                 <select class="full-width">
-                                                    <option value="">Economy </option>
-                                                    <option value="">Business +$100</option>
-                                                    <option value="">First Class +$200</option>
+                                                    <?php 
+                                                        for($i=0; $i<sizeof($seatArr); $i++){
+                                                            echo "<option value='".$seatArr[$i]['id']."'>".$seatArr[$i]['seatNumber']." ("
+                                                                    .$seatArr[$i]['class'].")</option>";
+                                                        }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -201,19 +206,12 @@
                                 <hr/>
                                 <?php } ?>
                                 
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> By confirming, you agree to the <a href="#"><span class="skin-color">Terms and Conditions</span></a>.
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-                                        <button type="submit" class="full-width btn-large">CONFIRM BOOKING</button>
+                                        <button type="submit" class="full-width btn-large">NEXT</button>
                                     </div>
                                 </div>
-                                <a href="confirmation.php">CLICK HERE!</a> <--- Quick link to confirmation page if not you gonna fill up all the reqired field
+                                <a href="price.php">CLICK HERE!</a> <--- Quick link to confirmation page if not you gonna fill up all the reqired field
                             </form>
                         </div>
                     </div>

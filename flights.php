@@ -253,9 +253,10 @@
                                             <div class="first-row">
                                                 <div>
                                                     <h4 class="box-title">
-                                                        <?php echo $flightArr[$i]['flightNumber']." <br/> ".$flightArr[$i]['fromCountry']." to ".
-                                                                $flightArr[$i]['toCountry'];?>
-                                                        <small>Oneway flight</small></h4>
+                                                        <?php echo "<div class='skin-color'>".$flightArr[$i]['flightNumber']."</div><br/>"
+                                                                .$flightArr[$i]['fromCountry']." (".$flightArr[$i]['fromAirport'].") <b>TO</b><br/> ".
+                                                                $flightArr[$i]['toCountry']." (".$flightArr[$i]['toAirport'].")";?>
+                                                        </h4>
                                                     <a class="button stop"></a>
                                                     <div class="amenities">
                                                         <i class="soap-icon-wifi circle"></i>

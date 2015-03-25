@@ -50,18 +50,14 @@
             
             if(mysql_query($insert_flight_query)){
                 $message = "New flight added!";
+                $flightId = mysql_insert_id();
+                
+                // add seat
+                addSeat($flightId);
             }
             else{
                 $message = "Error!". mysql_error();
             }
-            
-            $select_flightId_query = "SELECT id FROM flight WHERE flightNumber = '$flightNum'"
-                    . "AND departureDate = '$departureDate'";
-            $select_flightId_result = mysql_query($select_flightId_query);
-            $row = mysql_fetch_assoc($select_flightId_result);
-            
-            // add seat
-            addSeat($row['id']);
             
         } else if($_SERVER["PHP_SELF"] == $url."manageflight.php"){
             if(isset($_POST['deleteId'])){
