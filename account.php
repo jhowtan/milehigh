@@ -5,6 +5,7 @@
         header("Location: login.php");
     }
     
+    $message = "";
     include 'controller.php';
 
     $user_query = "SELECT * FROM customer WHERE id = '$user'";
@@ -24,7 +25,6 @@
                         <li class="ribbon">
                             <a href="#"><?php echo $result['name']; ?></a>
                             <ul class="menu mini uppercase">
-                                <li><a href="#dashboard" class="location-reload">Dashboard</a></li>
                                 <li><a href="#profile" class="location-reload">Profile</a></li>
                                 <li><a href="#booking" class="location-reload">Bookings</a></li>
                                 <li><a href="#settings" class="location-reload">settings</a></li>
@@ -82,170 +82,12 @@
                 <div id="main">
                     <div class="tab-container full-width-style arrow-left dashboard">
                         <ul class="tabs">
-                            <li class="active"><a data-toggle="tab" href="#dashboard"><i class="soap-icon-anchor circle"></i>Dashboard</a></li>
-                            <li class=""><a data-toggle="tab" href="#profile"><i class="soap-icon-user circle"></i>Profile</a></li>
+                            <li class="active"><a data-toggle="tab" href="#profile"><i class="soap-icon-user circle"></i>Profile</a></li>
                             <li class=""><a data-toggle="tab" href="#booking"><i class="soap-icon-businessbag circle"></i>Booking</a></li>
                             <li class=""><a data-toggle="tab" href="#settings"><i class="soap-icon-settings circle"></i>Settings</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div id="dashboard" class="tab-pane fade in active">
-                                <h1 class="no-margin skin-color">Hi <?php echo $result['name'] ?>, Welcome to Travelo!</h1>
-                                <p>All your trips booked with us will appear here and you’ll be able to manage everything!</p>
-                                <br />
-                                <div class="row block">
-                                    <div class="col-sm-6 col-md-3">
-                                        <a href="flight-list-view.html">
-                                            <div class="fact yellow">
-                                                <div class="numbers counters-box">
-                                                    <dl>
-                                                        <dt class="display-counter" data-value="4509">0</dt>
-                                                        <dd>Airlines to Travel</dd>
-                                                    </dl>
-                                                    <i class="icon soap-icon-plane"></i>
-                                                </div>
-                                                <div class="description">
-                                                    <i class="icon soap-icon-longarrow-right"></i>
-                                                    <span>View Flights</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="notification-area">
-                                    <div class="info-box block">
-                                        <span class="close"></span>
-                                        <p>This is your Dashboard, the place to check your Profile, respond to Reservation Requests,
-                                            view upcoming Trip Information, and much more.</p>
-                                    </div>
-                                </div>
-                                <div class="row block">
-                                    <div class="col-md-6 notifications">
-                                        <h2>Notifications</h2>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-plane-right takeoff-effect yellow-bg"></i>
-                                                <span class="time pull-right">JUST NOW</span>
-                                                <p class="box-title">London to Paris flight in <span class="price">$120</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-hotel blue-bg"></i>
-                                                <span class="time pull-right">10 Mins ago</span>
-                                                <p class="box-title">Hilton hotel &amp; resorts in <span class="price">$247</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-car red-bg"></i>
-                                                <span class="time pull-right">39 Mins ago</span>
-                                                <p class="box-title">Economy car for 2 days in <span class="price">$39</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-cruise green-bg"></i>
-                                                <span class="time pull-right">1 hour ago</span>
-                                                <p class="box-title">Baja Mexico 4 nights in <span class="price">$537</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="load-more">. . . . . . . . . . . . . </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h2>Recent Activity</h2>
-                                        <div class="recent-activity">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-plane-right circle takeoff-effect yellow-color"></i>
-                                                        <span class="price"><small>avg/person</small>$120</span>
-                                                        <h4 class="box-title">
-                                                            Indianapolis to Paris<small>Oneway flight</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-car circle red-color"></i>
-                                                        <span class="price"><small>per day</small>$45.39</span>
-                                                        <h4 class="box-title">
-                                                            Economy Car<small>bmw mini</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-cruise circle green-color"></i>
-                                                        <span class="price"><small>from</small>$578</span>
-                                                        <h4 class="box-title">
-                                                            Jacksonville to Asia<small>4 nights</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-hotel circle blue-color"></i>
-                                                        <span class="price"><small>Avg/night</small>$620</span>
-                                                        <h4 class="box-title">
-                                                            Hilton Hotel &amp; Resorts<small>Paris france</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <a href="#" class="button green btn-small full-width">VIEW ALL ACTIVITIES</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4>Benefits of Milehighclub Account</h4>
-                                        <ul class="benefits triangle hover">
-                                            <li><a href="#">Faster bookings with lesser clicks</a></li>
-                                            <li><a href="#">Track travel history &amp; manage bookings</a></li>
-                                            <li class="active"><a href="#">Manage profile &amp; personalize experience</a></li>
-                                            <li><a href="#">Receive alerts &amp; recommendations</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 previous-bookings image-box style14">
-                                        <h4>Your Previous Bookings</h4>
-                                        <article class="box">
-                                            <figure class="no-padding">
-                                                <a title="" href="#">
-                                                    <img alt="" src="http://placehold.it/63x59" width="63" height="59">
-                                                </a>
-                                            </figure>
-                                            <div class="details">
-                                                <h5 class="box-title"><a href="#">Half-Day Island Tour</a><small class="fourty-space"><span class="price">$35</span> Family Package</small></h5>
-                                            </div>
-                                        </article>
-                                        <article class="box">
-                                            <figure class="no-padding">
-                                                <a title="" href="#">
-                                                    <img alt="" src="http://placehold.it/63x59" width="63" height="59">
-                                                </a>
-                                            </figure>
-                                            <div class="details">
-                                                <h5 class="box-title"><a href="#">Ocean Park Tour</a><small class="fourty-space"><span class="price">$26</span> Per Person</small></h5>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>Need Help?</h4>
-                                        <div class="contact-box">
-                                            <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
-                                            <address class="contact-details">
-                                                <span class="contact-phone"><i class="soap-icon-phone"></i> 6123 4567</span>
-                                                <br>
-                                                <a class="contact-email" href="#">help@milehighclub.com</a>
-                                            </address>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="profile" class="tab-pane fade">
+                            <div id="profile" class="tab-pane fade in active">
                                 <div class="view-profile">
                                     <article class="image-box style2 box innerstyle personal-details">
                                         <figure>
@@ -253,18 +95,14 @@
                                         </figure>
                                         <div class="details">
                                             <a href="#" class="button btn-mini pull-right edit-profile-btn">EDIT PROFILE</a>
-                                            <h2 class="box-title fullname">Jessica Brown</h2>
-                                            <dl class="term-description"><?php
-                                                $names = explode(" ", $result['name']);
-                                                if ($result['passport'] == null)
-                                                    $result['passport'] = "BLANK";
-                                                echo "<dt>user name:</dt><dd>".$result['user']."</dd>";
-                                                echo "<dt>first name:</dt><dd>".$names[0]."</dd>";
-                                                echo "<dt>last name:</dt><dd>".$names[1]."</dd>";
-                                                echo "<dt>phone number:</dt><dd>".$result['contact']."</dd>";
-                                                echo "<dt>passport:</dt><dd>".$result['passport']."</dd>";
-                                                ?>
+                                            <h3><font color="red"><?php echo $message; ?></font></h3>
+                                            <h2 class="box-title fullname"><?php echo $result['name']; ?></h2>
+                                            <dl class="term-description">
+                                                <dt>Username (for login):</dt><dd><?php echo $result['user']; ?></dd>
+                                                <dt>Email:</dt><dd><?php echo $result['email']; ?></dd>
+                                                <dt>Contact Number:</dt><dd><?php echo $result['contact']; ?></dd>
                                             </dl>
+                                            
                                         </div>
                                     </article>
                                     <hr>
@@ -362,126 +200,34 @@
                                     </div>
                                 </div>
                                 <div class="edit-profile">
-                                    <form class="edit-profile-form">
+                                    <form class="edit-profile-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" 
+                                          method="POST">
                                         <h2>Personal Details</h2>
                                         <div class="col-sm-9 no-padding no-float">
                                             <div class="row form-group">
                                                 <div class="col-sms-6 col-sm-6">
-                                                    <label>First Name</label>
-                                                    <input type="text" class="input-text full-width" placeholder="">
-                                                </div>
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>Last Name</label>
-                                                    <input type="text" class="input-text full-width" placeholder="">
+                                                    <label>Name:</label>
+                                                    <input type="text" name="name" value="<?php echo $result['name']; ?>" 
+                                                           class="input-text full-width">
                                                 </div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col-sms-6 col-sm-6">
-                                                    <label>Email Address</label>
-                                                    <input type="text" class="input-text full-width" placeholder="">
-                                                </div>
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>Verify Email Address</label>
-                                                    <input type="text" class="input-text full-width" placeholder="">
+                                                    <label>Email:</label>
+                                                    <input type="email" name="email" value="<?php echo $result['email']; ?>" 
+                                                           class="input-text full-width">
                                                 </div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col-sms-6 col-sm-6">
-                                                    <label>Country Code</label>
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option>United Kingdom (+44)</option>
-                                                            <option>United States (+1)</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>Phone Number</label>
-                                                    <input type="text" class="input-text full-width" placeholder="">
+                                                    <label>Contact Number:</label>
+                                                    <input type="text" name="contact" value="<?php echo $result['contact']; ?>" 
+                                                           class="input-text full-width" onkeypress="return isNumber(event);">
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
-                                                <label class="col-xs-12">Date of Birth</label>
-                                                <div class="col-xs-4 col-sm-2">
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="">date</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-2">
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="">month</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-2">
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="">year</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h2>Contact Details</h2>
-                                            <div class="row form-group">
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>Street Name</label>
-                                                    <input type="text" class="input-text full-width">
-                                                </div>
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>Address</label>
-                                                    <input type="text" class="input-text full-width">
-                                                </div>
-                                            </div>
-                                            <div class="row form-group">
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>City</label>
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="">Select...</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>Country</label>
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="">Select...</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row form-group">
-                                                <div class="col-sms-6 col-sm-6">
-                                                    <label>Region State</label>
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="">Select...</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h2>Upload Profile Photo</h2>
-                                            <div class="row form-group">
-                                                <div class="col-sms-12 col-sm-6 no-float">
-                                                    <div class="fileinput full-width">
-                                                        <input type="file" class="input-text" data-placeholder="select image/s">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h2>Describe Yourself</h2>
                                             <div class="form-group">
-                                                <textarea rows="5" class="input-text full-width" placeholder="please tell us about you"></textarea>
+                                                <button class="btn-medium" name="updateSetting">UPDATE SETTING</button>
                                             </div>
-                                            <div class="from-group">
-                                                <button type="submit" class="btn-medium col-sms-6 col-sm-4">UPDATE SETTINGS</button>
-                                            </div>
-
                                         </div>
                                     </form>
                                 </div>
@@ -567,76 +313,33 @@
                                 </div>
                             </div>
                             <div id="settings" class="tab-pane fade">
+                                <h3><font color="red"><?php echo $message; ?></font></h3>
                                 <h2>Account Settings</h2>
                                 <h5 class="skin-color">Change Your Password</h5>
-                                <form>
+                                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                                     <div class="row form-group">
                                         <div class="col-xs-12 col-sm-6 col-md-4">
                                             <label>Old Password</label>
-                                            <input type="text" class="input-text full-width">
+                                            <input type="password" name="oldpw" class="input-text full-width" required>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col-xs-12 col-sm-6 col-md-4">
                                             <label>Enter New Password</label>
-                                            <input type="text" class="input-text full-width">
+                                            <input type="password" name="newpw" class="input-text full-width" required>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col-xs-12 col-sm-6 col-md-4">
                                             <label>Confirm New password</label>
-                                            <input type="text" class="input-text full-width">
+                                            <input type="password" name="cfmpw" class="input-text full-width" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn-medium">UPDATE PASSWORD</button>
+                                        <button class="btn-medium" name="updatePW">UPDATE PASSWORD</button>
                                     </div>
                                 </form>
                                 <hr>
-                                <h5 class="skin-color">Change Your Email</h5>
-                                <form>
-                                    <div class="row form-group">
-                                        <div class="col-xs-12 col-sm-6 col-md-4">
-                                            <label>Old email</label>
-                                            <input type="text" class="input-text full-width">
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-xs-12 col-sm-6 col-md-4">
-                                            <label>Enter New Email</label>
-                                            <input type="text" class="input-text full-width">
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-xs-12 col-sm-6 col-md-4">
-                                            <label>Confirm New Email</label>
-                                            <input type="text" class="input-text full-width">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn-medium">UPDATE EMAIL ADDRESS</button>
-                                    </div>
-                                </form>
-                                <hr>
-                                <h5 class="skin-color">Send Me Emails When</h5>
-                                <form>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Travelo has periodic offers and deals on really cool destinations.
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Travelo has fun company news, as well as periodic emails.
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> I have an upcoming reservation.
-                                        </label>
-                                    </div>
-                                    <button class="btn-medium uppercase">Update All Settings</button>
-                                </form>
                             </div>
                         </div>
                     </div>

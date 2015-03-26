@@ -63,7 +63,49 @@
                     }
                 }
             }
-        } else if($_SERVER["PHP_SELF"] == $url."booking.php"){
+        }else if($_SERVER["PHP_SELF"] == $url."account.php"){
+            if(isset($_POST['updatePW'])){
+                $oldpw = $_POST['oldpw'];
+                $newpw = $_POST['newpw'];
+                $cfmpw = $_POST['cfmpw'];
+                
+                $customer_query = "SELECT * FROM customer WHERE id = '$user' AND password = '$oldpw'";
+                $customer_result = mysql_query($customer_query);
+                
+                if(mysql_num_rows($customer_result) > 0){
+                    if($newpw == $cfmpw){
+                        $update_customer = "UPDATE customer SET password = '$newpw' WHERE id = '$user'";
+                        if(mysql_query($update_customer)){
+                            $message = "Password updated!";
+                        }
+                        else{
+                            die("Error! ". mysql_error());
+                        }
+                    }
+                    else{
+                        $message = "New password does not match!";
+                    }     
+                }
+                else{
+                    $message = "Wrong old password!";
+                }
+            }
+            if(isset($_POST['updateSetting'])){
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $contact = $_POST['contact'];
+                
+                $update_profile = "UPDATE customer SET name = '$name', email = '$email',"
+                        . " contact = '$contact' WHERE id = '$user'";
+                if(mysql_query($update_profile)){
+                    $message = "Profile Updated!";
+                }
+                else{
+                    die("Error! ". mysql_error());
+                }
+            }
+            
+        }else if($_SERVER["PHP_SELF"] == $url."booking.php"){
             $formArr = array();
             
             $noOfAdult = $_POST['noOfAdult'];
