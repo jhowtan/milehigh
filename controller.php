@@ -114,7 +114,7 @@
             
             for($i=1; $i<=sizeOf($particularArr); $i++){
                 $baggagePrice = baggagePrice($particularArr[$i]['baggage']);
-                $seatPrice = seatPrice($particularArr[$i]['seatClass'], $ticketPrice);
+                $seatPrice = seatPrice($particularArr[$i]['seatClass'], $ticketPrice, $particularArr[$i]['title']);
                 $totalPrice = $baggagePrice + $seatPrice + $ticketPrice;
                 
                 while($row = mysql_fetch_assoc($select_passenger)){

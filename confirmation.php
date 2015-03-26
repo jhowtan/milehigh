@@ -1,3 +1,26 @@
+<?php
+    if(isset($_COOKIE["user"])){
+        $user = $_COOKIE["user"];
+    }
+    else{
+        header("Location: login.php");
+    }
+    
+    include 'controller.php';
+    
+    $confirmArr = $_SESSION['formArr'];
+    
+    $confirm_query = "SELECT f.*, c1.name AS fromCountry, ap1.name AS fromAirport,"
+            . " c2.name AS toCountry, ap2.name AS toAirport, al.name AS airlineName"
+            . " FROM flight f, airport ap1, airport ap2, country c1, country c2, airline al,"
+            . " seat s WHERE f.departure = ap1.id AND ap1.country = c1.id"
+            . " AND f.arrival = ap2.id AND ap2.country = c2.id"
+            . " AND f.airline = al.id AND s.flight = f.id AND s.id = '".$confirmArr[1]['seatClass']."'";
+    $confirm_result = mysql_query($confirm_query);
+    $result = mysql_fetch_assoc($confirm_result);
+
+?>
+
 <!DOCTYPE html>
 <html>
 <?php include 'head.php'; ?>
@@ -36,14 +59,15 @@
                             <hr />
                             <h2>Traveler Information</h2>
                             <dl class="term-description">
-                                <dt>Booking number:</dt><dd>5784-BD245</dd>
-                                <dt>First name:</dt><dd>Jessica</dd>
-                                <dt>Last name:</dt><dd>Brown</dd>
-                                <dt>E-mail address:</dt><dd>Info@Jessica.com</dd>
-                                <dt>Street Address and number:</dt><dd>353 Third floor Avenue</dd>
-                                <dt>Town / City:</dt><dd>Paris,France</dd>
-                                <dt>ZIP code:</dt><dd>75800-875</dd>
-                                <dt>Country:</dt><dd>United States of america</dd>
+                                <dt>Flight Number:</dt><dd><?php echo $result['flightNumber']; ?></dd>
+                                <dt>Airline:</dt><dd><?php echo $result['airlineName']; ?></dd>
+                                <dt>Flying From:</dt><dd><?php echo $result['fromCountry']." -- ".$result['fromAirport']; ?></dd>
+                                <dt>Going To:</dt><dd><?php echo $result['toCountry']." -- ".$result['toAirport']; ?></dd>
+                                <dt>Departure Date:</dt><dd><?php echo dateDisplay($result['departureDate']); ?></dd>
+                                <dt>Departure Time:</dt><dd><?php echo timeDisplay($result['departureTime']); ?></dd>
+                                <dt>Arrival Date:</dt><dd><?php echo dateDisplay($result['arrivalDate']); ?></dd>
+                                <dt>Arrival Time:</dt><dd><?php echo timeDisplay($result['arrivalTime']); ?></dd>
+                                <dt>Flight Status:</dt><dd><?php echo $result['status']; ?></dd>
                             </dl>
                             <hr />
                             <h2>Payment</h2>

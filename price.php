@@ -40,9 +40,6 @@
             $particularArr[1]['noOfKid'], $totalBaggage, $totalSeat);
     $totalFormat = number_format($total, 2, '.', '');
     
-    echo "<pre>";
-    echo print_r($particularArr);
-    echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html>
