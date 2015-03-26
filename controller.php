@@ -66,7 +66,9 @@
         } else if($_SERVER["PHP_SELF"] == $url."booking.php"){
             $formArr = array();
             
-            $passenger = $_POST['passenger'];
+            $noOfAdult = $_POST['noOfAdult'];
+            $noOfKid = $_POST['noOfKid'];
+            $passenger = $noOfAdult + $noOfKid;
             
             for($i=1; $i<=$passenger; $i++){
                 $formArr[$i] = array();
@@ -87,12 +89,15 @@
                 $seatClass = $_POST['seat'.$i];
             
                 $dob = $DOBYear."-".$DOBMonth."-".$DOBDay;
+                $dob = dateFormatToSQL($dob);
                 $ppExpiry = $passportYear."-".$passportMonth."-".$passportDay;
-
+                $ppExpiry = dateFormatToSQL($ppExpiry);
+                
                 $formArr[$i] = array('title' => $title, 'name' => $name, 
                     'email' => $email, 'contact' => $contact, 'passportNum' => $passportNum,
                     'ppExpiry' => $ppExpiry, 'nationality' => $nationality, 'dob' => $dob,
-                    'seatClass' => $seatClass, 'user' => $user, 'baggage' => $baggage);
+                    'seatClass' => $seatClass, 'user' => $user, 'baggage' => $baggage,
+                    'noOfAdult' => $noOfAdult, 'noOfKid' => $noOfKid);
             }
             $_SESSION['formArr'] = $formArr;
             

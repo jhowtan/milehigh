@@ -208,7 +208,8 @@
                                 
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-                                        <input type="hidden" name="passenger" value="<?php echo $totalPassenger; ?>"/>
+                                        <input type="hidden" name="noOfAdult" value="<?php echo $numOfAdults; ?>"/>
+                                        <input type="hidden" name="noOfKid" value="<?php echo $numOfKids; ?>"/>
                                         <input type="hidden" name="flight" value="<?php echo $flightId; ?>"/>
                                         <button type="submit" class="full-width btn-large">NEXT</button>
                                     </div>
@@ -257,7 +258,7 @@
                             <dl class="other-details">
                                 <dt class="feature">Flight Number:</dt><dd class="value"><?php echo $detailsArr['flightNumber']; ?></dd>
                                 <dt class="feature">Airline:</dt><dd class="value"><?php echo $detailsArr['airlineName']; ?></dd>
-                                <dt class="feature">Ticket Price (Adult):</dt><dd class="value">$<?php echo $detailsArr['price']; ?></dd>
+                                <dt class="feature">Ticket Price:</dt><dd class="value">$<?php echo $detailsArr['price']; ?></dd>
                                 <dt class="feature">Number of Adults:</dt><dd class="value"><?php echo $numOfAdults; ?></dd>
                                 <dt class="feature">Number of Children:</dt><dd class="value"><?php echo $numOfKids; ?></dd>
                                 <dt class="total-price">Ticket Price:</dt><dd class="total-price-value">
