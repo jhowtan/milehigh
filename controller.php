@@ -63,6 +63,42 @@
                     }
                 }
             }
+        } else if($_SERVER["PHP_SELF"] == $url."booking.php"){
+            $formArr = array();
+            
+            $passenger = $_POST['passenger'];
+            
+            for($i=1; $i<=$passenger; $i++){
+                $formArr[$i] = array();
+                
+                $title = $_POST['title'.$i];
+                $name = $_POST['name'.$i];
+                $email = $_POST['email'.$i];
+                $contact = $_POST['contact'.$i];
+                $DOBDay = $_POST['DOBDay'.$i];
+                $DOBMonth = $_POST['DOBMonth'.$i];
+                $DOBYear = $_POST['DOBYear'.$i];
+                $nationality = $_POST['nationality'.$i];
+                $passportNum = $_POST['passportNum'.$i];
+                $passportDay = $_POST['passportDay'.$i];
+                $passportMonth = $_POST['passportMonth'.$i];
+                $passportYear = $_POST['passportYear'.$i];
+                $baggage = $_POST['baggage'.$i];
+                $seatClass = $_POST['seat'.$i];
+            
+                $dob = $DOBYear."-".$DOBMonth."-".$DOBDay;
+                $ppExpiry = $passportYear."-".$passportMonth."-".$passportDay;
+
+                $formArr[$i] = array('title' => $title, 'name' => $name, 
+                    'email' => $email, 'contact' => $contact, 'passportNum' => $passportNum,
+                    'ppExpiry' => $ppExpiry, 'nationality' => $nationality, 'dob' => $dob,
+                    'seatClass' => $seatClass, 'user' => $user, 'baggage' => $baggage);
+            }
+            $_SESSION['formArr'] = $formArr;
+            
+            if($_SESSION['formArr'] != null){
+                header("Location: price.php");
+            }
         }
     }
     
@@ -80,10 +116,8 @@
             $fs_adults = $_GET['fs_adults'];
             $fs_kids = $_GET['fs_kids'];
             
-            $fromDate = date_create($_GET['fs_fromDate']);
-            $fromDate_sql = date_format($fromDate, 'Y-m-d');
-            $toDate = date_create($_GET['fs_toDate']);
-            $toDate_sql = date_format($toDate, 'Y-m-d');
+            $fromDate_sql = dateFormatToSQL($_GET['fs_fromDate']);
+            $toDate_sql = dateFormatToSQL($_GET['fs_toDate']);
             
             $airline_query = "SELECT DISTINCT a.* FROM airline a, flight f"
                     . " WHERE f.departure = '$fs_from' AND f.arrival = '$fs_to'"

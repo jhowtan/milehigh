@@ -29,7 +29,7 @@
             </div>
         </div>
         <section id="content" class="gray-area">
-            <div class="container">
+            <div class="container tour-detail-page">
                 <div class="row">
                     <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                         <div class="booking-section travelo-box">
@@ -190,8 +190,8 @@
                                         </div>
                                         <div class="col-sm-6 col-md-5">
                                             <label>Seat Class</label>
-                                            <div class="selector" name="seat<?php echo $j; ?>">
-                                                <select class="full-width">
+                                            <div class="selector">
+                                                <select class="full-width" name="seat<?php echo $j; ?>">
                                                     <?php 
                                                         for($i=0; $i<sizeof($seatArr); $i++){
                                                             echo "<option value='".$seatArr[$i]['id']."'>".$seatArr[$i]['seatNumber']." ("
@@ -208,10 +208,12 @@
                                 
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
+                                        <input type="hidden" name="passenger" value="<?php echo $totalPassenger; ?>"/>
+                                        <input type="hidden" name="flight" value="<?php echo $flightId; ?>"/>
                                         <button type="submit" class="full-width btn-large">NEXT</button>
                                     </div>
                                 </div>
-                                <a href="price.php">CLICK HERE!</a> <--- Quick link to confirmation page if not you gonna fill up all the reqired field
+                                <hr/>
                             </form>
                         </div>
                     </div>

@@ -19,6 +19,12 @@
         return $dateFormat;
     }
     
+    function dateFormatToSQL($theDate){
+        $thisDate = date_create($theDate);
+        $dateFormat = date_format($thisDate, 'Y-m-d');
+        return $dateFormat;
+    }
+    
     function timeDisplay($theTime){
         $thisTime = date_create($theTime);
         $timeFormat = date_format($thisTime, 'H:i');
