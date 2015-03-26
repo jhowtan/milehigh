@@ -104,6 +104,62 @@
             if($_SESSION['formArr'] != null){
                 header("Location: price.php");
             }
+        }else if($_SERVER["PHP_SELF"] == $url."price.php"){
+            $passengerId = 0;
+            $particularArr = $_SESSION['formArr'];
+            $todayDate = date("Y-m-d");
+            $ticketPrice = $_POST['totalPrice'];
+            
+            $select_passenger = mysql_query("SELECT * FROM passenger");
+            
+            for($i=1; $i<=sizeOf($particularArr); $i++){
+                $baggagePrice = baggagePrice($particularArr[$i]['baggage']);
+                $seatPrice = seatPrice($particularArr[$i]['seatClass'], $ticketPrice);
+                $totalPrice = $baggagePrice + $seatPrice + $ticketPrice;
+                
+                while($row = mysql_fetch_assoc($select_passenger)){
+                    if($row['passport'] == $particularArr[$i]['passportNum']){
+                        $passengerId = $row['id'];
+                        break;
+                    }
+                }
+                if($passengerId == 0){
+                    $insert_passenger = "INSERT INTO passenger(title, name, email, contact, passport,"
+                        . " ppexpiry, nationality, dob) VALUES ('".$particularArr[$i]['title']."', '".$particularArr[$i]['name']."',"
+                        . " '".$particularArr[$i]['email']."', '".$particularArr[$i]['contact']."', '".$particularArr[$i]['passportNum']."',"
+                        . " '".$particularArr[$i]['ppExpiry']."', '".$particularArr[$i]['nationality']."', '".$particularArr[$i]['dob']."'); ";
+
+                    if(mysql_query($insert_passenger)){
+                        $passengerId = mysql_insert_id();
+                    }
+                    else{
+                        die("Error! ". mysql_error());
+                    }
+                }
+                
+                $insert_ticket = "INSERT INTO flightticket(seat, owner, passenger, checkedIn, datePurchased, totalPrice,"
+                    . " baggageAllowance) VALUES ('".$particularArr[$i]['seatClass']."', '".$particularArr[$i]['user']."',"
+                    . " '$passengerId', 0, '$todayDate', '$totalPrice', '".$particularArr[$i]['baggage']."'); ";
+                
+                if(mysql_query($insert_ticket)){
+                    $flightticketId = mysql_insert_id();
+                }
+                else{
+                    die("Error! ". mysql_error());
+                }
+                
+                $insert_booking = "INSERT INTO booking(owner, flightTicket) VALUES ('".$particularArr[$i]['user']."',"
+                        . " '$flightticketId'); ";
+                        
+                if(mysql_query($insert_booking)){
+                    header("Location: confirmation.php");
+                }
+                else{
+                    die("Error! ". mysql_error());
+                }
+                
+                $passengerId = 0;
+            }
         }
     }
     
@@ -216,9 +272,10 @@
             $detailsArr_result = mysql_query($detailsArr_query);
             $detailsArr = mysql_fetch_assoc($detailsArr_result);
             
-            $seat_query = "SELECT s.* FROM seat s, flightticket ft, flight f"
-                    . " WHERE s.flight = f.id AND s.id <> ft.seat AND f.id = '$flightId'";
-            
+            $seat_query = "SELECT s.* FROM seat s, flight f"
+                    . " WHERE s.flight = f.id AND f.id = '$flightId' AND s.id NOT IN("
+                    . " SELECT ft.seat FROM flightticket ft)";
+
             $seat_result = mysql_query($seat_query);
             while($result = mysql_fetch_assoc($seat_result)){
                 $seatArr[] = $result;

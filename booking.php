@@ -42,17 +42,17 @@
                                     <h4> Personal Particular</h4>
                                     <div class="form-group row">
                                         <div class="col-sm-6 col-md-5">
-                                            <label>Title</label>
+                                            <label>Title </label>
                                             <div class="selector">
                                                 <select class="full-width" name="title<?php echo $j; ?>">
                                                     <option value="Mr">Mr</option>
                                                     <option value="Mrs">Mrs</option>
                                                     <option value="Ms">Ms</option>
-                                                    <option value="Mdm">Mdm</option>
-                                                    <option value="Dr">Dr</option>
-                                                    <option value="Prof">Prof</option>
+                                                    <option value="Dr">Dr</option>  
+                                                    <option value="Children">Children</option>
                                                 </select>
                                             </div>
+                                            <label>**If is a children, Choose "Children"</label>
                                         </div>
                                         <div class="col-sm-6 col-md-5">
                                             <label>Full name (as in passport)</label>

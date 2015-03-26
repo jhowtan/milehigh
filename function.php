@@ -50,8 +50,8 @@
         return $topUp;
     }
     
-    function seatPrice($seatId){
-        $multiplier = 1;
+    function seatPrice($seatId, $ticketPrice, $title){
+        $topUp = 1;
         
         $seatPrice_query = "SELECT class FROM seat WHERE id = '$seatId'";
         $seatPrice_result = mysql_query($seatPrice_query);
@@ -62,7 +62,14 @@
         } else if($result['class'] == "First Class"){
             $topUp = 2;
         }
-        return $topUp;
+        
+        if($title == "Children"){
+            $ticketPrice /= 2;
+        }
+        
+        $price = ($topUp*$ticketPrice) - $ticketPrice;
+        
+        return $price;
     }
     
     function calculateTotalPrice($unitPrice, $adults, $kids, $baggagePrice, $seatPrice){
