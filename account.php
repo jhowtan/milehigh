@@ -6,11 +6,24 @@
     }
     
     $message = "";
+    $font = "";
     include 'controller.php';
-
+    
     $user_query = "SELECT * FROM customer WHERE id = '$user'";
     $user_result = mysql_query($user_query);
     $result = mysql_fetch_assoc($user_result);
+    
+    $booking_query = "SELECT ft.datePurchased, c1.name AS fromCountry, c2.name AS toCountry,"
+            . " f.flightNumber, f.departureDate"
+            . " FROM booking b, flightticket ft, seat s, flight f, airport ap1,"
+            . " airport ap2, country c1, country c2"
+            . " WHERE b.flightTicket = ft.id AND ft.seat = s.id"
+            . " AND s.flight = f.id AND f.departure = ap1.id"
+            . " AND ap1.country = c1.id AND f.arrival = ap2.id"
+            . " AND ap2.country = c2.id AND b.owner = '$user'";
+    
+    $booking_result = mysql_query($booking_query);
+    
 ?>
 
 <!DOCTYPE html>
@@ -235,81 +248,37 @@
                             <div id="booking" class="tab-pane fade">
                                 <h2>Trips You have Booked!</h2>
                                 <div class="booking-history">
-                                    <div class="booking-info clearfix">
+                                    <?php 
+                                        while($row = mysql_fetch_assoc($booking_result)){
+                                            $dateFormat = dateDisplay($row['departureDate']);
+                                            list($date, $month, $year) = split("-", $dateFormat);
+                                            $day = date("D", strtotime($row['departureDate']));
+                                            
+                                            if(strtotime(date('Y-m-d')) < strtotime($row['departureDate'])){
+                                                $msg = "UPCOMING";
+                                            }
+                                            else{
+                                                $msg = "ENDED";
+                                                $font = "cancelled";
+                                            }
+                                    ?>
+                                    <div class="booking-info clearfix" class="<?php echo $font; ?>">
                                         <div class="date">
-                                            <label class="month">NOV</label>
-                                            <label class="date">30</label>
-                                            <label class="day">SAT</label>
+                                            <label class="month"><?php echo $month; ?></label>
+                                            <label class="date"><?php echo $date; ?></label>
+                                            <label class="day"><?php echo $day; ?></label>
                                         </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-plane-right takeoff-effect yellow-color circle"></i>England to Rome<small>you are flying</small></h4>
+                                        <h4 class="box-title"><i class="icon soap-icon-plane-right takeoff-effect yellow-color circle"></i>
+                                            <?php echo $row['fromCountry']." to ".$row['toCountry']; ?></h4>
                                         <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
+                                            <dt>flight Number</dt>
+                                            <dd><?php echo $row['flightNumber']; ?></dd>
                                             <dt>booked on</dt>
-                                            <dd>saturday, nov 30, 2013</dd>
+                                            <dd><?php echo dateDisplay($row['datePurchased']); ?></dd>
                                         </dl>
-                                        <button class="btn-mini status">UPCOMMING</button>
+                                        <button class="btn-mini status"><?php echo $msg; ?></button>
                                     </div>
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">DEC</label>
-                                            <label class="date">11</label>
-                                            <label class="day">MON</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-hotel blue-color circle"></i>Hilton Hotel &amp; Resorts<small>2 adults staying</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>monday, dec 11, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">UPCOMMING</button>
-                                    </div>
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">DEC</label>
-                                            <label class="date">18</label>
-                                            <label class="day">THU</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-car red-color circle"></i>Economy Car<small>you are driving</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>thursday, dec 18, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">UPCOMMING</button>
-                                    </div>
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">DEC</label>
-                                            <label class="date">22</label>
-                                            <label class="day">SUN</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-cruise green-color circle"></i>Baja Mexico<small>3 adults going on cruise</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>sunday, dec 22, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">UPCOMMING</button>
-                                    </div>
-                                    <div class="booking-info clearfix cancelled">
-                                        <div class="date">
-                                            <label class="month">NOV</label>
-                                            <label class="date">30</label>
-                                            <label class="day">SAT</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-plane-right takeoff-effect circle"></i>England to Rome<small>you are flying</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>saturday, nov 30, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">CANCELLED</button>
-                                    </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div id="settings" class="tab-pane fade">
