@@ -11,7 +11,7 @@
     $db = mysql_select_db($db_name, $dbhandle)
       or die("Unable to select " + $db_name);
     
-    $url = "/milehigh/";
+    $url = "/";
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
@@ -179,7 +179,7 @@
                     }
                 }
                 
-                $insert_ticket = "INSERT INTO flightticket(seat, owner, passenger, checkedIn, datePurchased, totalPrice,"
+                $insert_ticket = "INSERT INTO flightTicket(seat, owner, passenger, checkedIn, datePurchased, totalPrice,"
                     . " baggageAllowance) VALUES ('".$particularArr[$i]['seatClass']."', '".$particularArr[$i]['user']."',"
                     . " '$passengerId', 0, '$todayDate', '$totalPrice', '".$particularArr[$i]['baggage']."'); ";
                 
@@ -214,18 +214,32 @@
             
             $fs_from = $_GET['fs_from'];
             $fs_to = $_GET['fs_to'];
-            $fs_fromDate = $_GET['fs_fromDate'];
-            $fs_toDate = $_GET['fs_toDate'];
             $fs_adults = $_GET['fs_adults'];
             $fs_kids = $_GET['fs_kids'];
             
-            $fromDate_sql = dateFormatToSQL($_GET['fs_fromDate']);
-            $toDate_sql = dateFormatToSQL($_GET['fs_toDate']);
+            if($_GET['fs_fromDate'] != null){
+                $fromDate_sql = dateFormatToSQL($_GET['fs_fromDate']);
+            }
+            if($_GET['fs_toDate'] != null){
+                $toDate_sql = dateFormatToSQL($_GET['fs_toDate']);
+            }
             
             $airline_query = "SELECT DISTINCT a.* FROM airline a, flight f"
                     . " WHERE f.departure = '$fs_from' AND f.arrival = '$fs_to'"
-                    . " AND f.airline = a.id AND f.departureDate = '$fromDate_sql'"
-                    . " AND f.arrivalDate = '$toDate_sql'";
+                    . " AND f.airline = a.id";
+            
+            if(isset($fromDate_sql)){
+                $airline_query .= " AND f.departureDate = '$fromDate_sql'";
+            }else{
+                $airline_query .= " AND f.departureDate >= CURDATE()";
+            }
+            
+            if(isset($toDate_sql)){
+                $airline_query .= " AND f.arrivalDate = '$toDate_sql'";
+            }else{
+                $airline_query .= " AND f.arrivalDate >= CURDATE()";
+            }
+
             $airline_result = mysql_query($airline_query);
             
             $flightArr_query = "SELECT f.*, c1.name AS fromCountry, c2.name AS toCountry,"
@@ -234,8 +248,19 @@
                     . " WHERE f.departure = ap1.id AND ap1.country = c1.id"
                     . " AND f.arrival = ap2.id AND ap2.country = c2.id"
                     . " AND f.airline = al.id AND f.departure = '$fs_from'"
-                    . " AND f.arrival = '$fs_to' AND f.departureDate = '$fromDate_sql'"
-                    . " AND f.arrivalDate = '$toDate_sql'";
+                    . " AND f.arrival = '$fs_to'";
+            
+            if(isset($fromDate_sql)){
+                $flightArr_query .= " AND f.departureDate = '$fromDate_sql'";
+            }else{
+                $flightArr_query .= " AND f.departureDate >= CURDATE()";
+            }
+            
+            if(isset($toDate_sql)){
+                $flightArr_query .= " AND f.arrivalDate = '$toDate_sql'";
+            }else{
+                $flightArr_query .= " AND f.arrivalDate >= CURDATE()";
+            }
 
             if(isset($_GET['filter'])){
                 $price_sql = "";
@@ -316,7 +341,7 @@
             
             $seat_query = "SELECT s.* FROM seat s, flight f"
                     . " WHERE s.flight = f.id AND f.id = '$flightId' AND s.id NOT IN("
-                    . " SELECT ft.seat FROM flightticket ft)";
+                    . " SELECT ft.seat FROM flightTicket ft)";
 
             $seat_result = mysql_query($seat_query);
             while($result = mysql_fetch_assoc($seat_result)){

@@ -11,7 +11,7 @@
     $db = mysql_select_db($db_name, $dbhandle)
       or die("Unable to select " + $db_name);
     
-    $url = "/milehigh/admin/";
+    $url = "/admin/";
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
