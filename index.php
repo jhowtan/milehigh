@@ -92,7 +92,7 @@
                                         <div class="form-group row">
                                             <div class="col-xs-12">
                                                 <div class="datepicker-wrap">
-                                                    <input type="text" name="fs_fromDate" class="input-text full-width" placeholder="mm/dd/yyyy" />
+                                                    <input type="text" name="fs_fromDate" class="input-text full-width" placeholder="mm/dd/yyyy" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,7 +100,7 @@
                                         <div class="form-group row">
                                             <div class="col-xs-12">
                                                 <div class="datepicker-wrap">
-                                                    <input type="text" name="fs_toDate" class="input-text full-width" placeholder="mm/dd/yyyy" />
+                                                    <input type="text" name="fs_toDate" class="input-text full-width" placeholder="mm/dd/yyyy" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -166,7 +166,7 @@
                                         <div class="form-group">
                                             <label>Departure Date</label>
                                             <div class="datepicker-wrap">
-                                                <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                <input type="text" class="input-text full-width" placeholder="mm/dd/yyyy"/>
                                             </div>
                                         </div>
                                     </div>
