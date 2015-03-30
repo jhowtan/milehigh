@@ -15,7 +15,7 @@
     
     $booking_query = "SELECT ft.datePurchased, c1.name AS fromCountry, c2.name AS toCountry,"
             . " f.flightNumber, f.departureDate"
-            . " FROM booking b, flightticket ft, seat s, flight f, airport ap1,"
+            . " FROM booking b, flightTicket ft, seat s, flight f, airport ap1,"
             . " airport ap2, country c1, country c2"
             . " WHERE b.flightTicket = ft.id AND ft.seat = s.id"
             . " AND s.flight = f.id AND f.departure = ap1.id"
@@ -262,7 +262,7 @@
                                                 $font = "cancelled";
                                             }
                                     ?>
-                                    <div class="booking-info clearfix" class="<?php echo $font; ?>">
+                                    <div class="booking-info clearfix <?php echo $font; ?>">
                                         <div class="date">
                                             <label class="month"><?php echo $month; ?></label>
                                             <label class="date"><?php echo $date; ?></label>
