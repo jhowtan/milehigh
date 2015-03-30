@@ -106,7 +106,7 @@
             $checkIn = $_POST["checkin"];
             $id = $_POST["updateId"];
             
-            $update_booking_query = "UPDATE flightticket SET checkedIn = '$checkIn' WHERE id = '$id'";
+            $update_booking_query = "UPDATE flightTicket SET checkedIn = '$checkIn' WHERE id = '$id'";
             
             if(mysql_query($update_booking_query)){
                 header("Location: viewbooking.php");

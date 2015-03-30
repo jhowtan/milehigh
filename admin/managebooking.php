@@ -11,7 +11,7 @@
     
     $booking_query = "SELECT ft.*, c.name AS owner, s.class, s.seatNumber,"
             . " p.name AS passenger, f.flightNumber"
-            . " FROM flightticket ft, customer c, seat s, passenger p, flight f"
+            . " FROM flightTicket ft, customer c, seat s, passenger p, flight f"
             . " WHERE ft.owner = c.id AND ft.seat = s.id"
             . " AND ft.passenger = p.id AND s.flight = f.id"
             . " AND ft.id = '$bookingId'";
