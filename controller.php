@@ -252,11 +252,11 @@
                     . " AND f.airline = al.id";// AND f.departure = '$fs_from'"
                     //. " AND f.arrival = '$fs_to'";
             
-            if ($fs_from != '') {
-                $flightArr_query .= "AND f.departure = '$fs_from'";
+            if ($fs_from != " ") {
+                $flightArr_query .= " AND f.departure = '$fs_from' ";
             }
-            if ($fs_to != '') {
-                $flightArr_query .= "AND f.arrival = '$fs_to'";
+            if ($fs_to != " ") {
+                $flightArr_query .= " AND f.arrival = '$fs_to' ";
             }
 
             if(isset($fromDate_sql)){

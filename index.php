@@ -53,11 +53,11 @@
                                                 <label>Flying From</label>
                                                 <div class="selector">
                                                     <select name="fs_from" class="full-width">
-                                                        <option value="">
+                                                        <option value=" ">
                                                         <?php
                                                             for($i=0; $i<sizeof($countryArr); $i++){
                                                                 if($countryArr[$i]['countryName'] == "Singapore"){
-                                                                    echo "<option value=".$countryArr[$i]['id']." selected >".
+                                                                    echo "<option value=".$countryArr[$i]['id'].">".
                                                                         $countryArr[$i]['countryName']." ----- ".$countryArr[$i]['name']." </option>";
                                                                 }
                                                                 else{
@@ -75,7 +75,7 @@
                                                 <label>Going To</label>
                                                 <div class="selector">
                                                     <select name="fs_to" class="full-width">
-                                                        <option value="">
+                                                        <option value=" ">
                                                         <?php
                                                             for($i=0; $i<sizeof($countryArr); $i++){
                                                                 echo "<option value=".$countryArr[$i]['id'].">".
