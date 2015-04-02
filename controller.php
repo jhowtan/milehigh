@@ -249,9 +249,16 @@
                     . " FROM flight f, airport ap1, airport ap2, country c1, country c2, airline al"
                     . " WHERE f.departure = ap1.id AND ap1.country = c1.id"
                     . " AND f.arrival = ap2.id AND ap2.country = c2.id"
-                    . " AND f.airline = al.id AND f.departure = '$fs_from'"
-                    . " AND f.arrival = '$fs_to'";
+                    . " AND f.airline = al.id";// AND f.departure = '$fs_from'"
+                    //. " AND f.arrival = '$fs_to'";
             
+            if (isset($fs_from)) {
+                $flightArr_query .= "AND f.departure = '$fs_from'";
+            }
+            if (isset($fs_to)) {
+                $flightArr_query .= "AND f.arrival = '$fs_to'";
+            }
+
             if(isset($fromDate_sql)){
                 $flightArr_query .= " AND f.departureDate = '$fromDate_sql'";
             }else{
