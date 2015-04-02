@@ -198,10 +198,10 @@
                             <div class="col-sm-4">
                                 <article class="box">
                                     <figure class="animated" data-animation-type="fadeInDown">
-                                        <a title="" href=""><img alt="" src="http://placehold.it/370x160"></a>
+                                        <a title="" href=""><img alt="" src="images/christchurch.jpg"></a>
                                         <figcaption>
-                                            <h3 class="caption-title">Paris</h3>
-                                            <span>Delta airline</span>
+                                            <h3 class="caption-title">Christchurch</h3>
+                                            <span>British Airways</span>
                                         </figcaption>
                                     </figure>
                                     <div class="details">
@@ -213,7 +213,7 @@
                                                 <i class="soap-icon-plane-right takeoff-effect circle"></i>
                                             </div>
                                             <div class="details">
-                                                <h4 class="box-title">London to Paris<small>Oneway flight</small></h4>
+                                                <h4 class="box-title">London to Christchurch<small>One Way Flight</small></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -222,10 +222,10 @@
                             <div class="col-sm-4">
                                 <article class="box">
                                     <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="0.6">
-                                        <a title="" href=""><img alt="" src="http://placehold.it/370x160"></a>
+                                        <a title="" href=""><img alt="" src="images/singapore.jpg"></a>
                                         <figcaption>
-                                            <h3 class="caption-title">Spain</h3>
-                                            <span>United airline</span>
+                                            <h3 class="caption-title">Singapore</h3>
+                                            <span>Emirates Airlines</span>
                                         </figcaption>
                                     </figure>
                                     <div class="details">
@@ -237,7 +237,7 @@
                                                 <i class="soap-icon-plane-right takeoff-effect circle"></i>
                                             </div>
                                             <div class="details">
-                                                <h4 class="box-title">Dubai to Spain<small>Return flight</small></h4>
+                                                <h4 class="box-title">Dubai to Singapore<small>Return flight</small></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -246,7 +246,7 @@
                             <div class="col-sm-4">
                                 <article class="box">
                                     <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="0.9">
-                                        <a title="" href=""><img alt="" src="http://placehold.it/370x160"></a>
+                                        <a title="" href=""><img alt="" src="images/melbourne.jpg"></a>
                                         <figcaption>
                                             <h3 class="caption-title">Australia</h3>
                                             <span>air asia airline</span>
@@ -293,7 +293,7 @@
                             <li>
                                 <article class="box">
                                     <figure>
-                                        <span><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></span>
+                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
                                     </figure>
                                     <div class="details">
                                         <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
@@ -307,7 +307,7 @@
                             <li>
                                 <article class="box">
                                     <figure>
-                                        <span><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></span>
+                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
                                     </figure>
                                     <div class="details">
                                         <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
@@ -321,7 +321,7 @@
                             <li>
                                 <article class="box">
                                     <figure>
-                                        <span><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></span>
+                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
                                     </figure>
                                     <div class="details">
                                         <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
@@ -335,7 +335,7 @@
                             <li>
                                 <article class="box">
                                     <figure>
-                                        <span><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></span>
+                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
                                     </figure>
                                     <div class="details">
                                         <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
@@ -354,7 +354,7 @@
                             <h2>Before you Fly</h2>
                             <div class="toggle-container with-image block" id="accordion3" data-image-animation-type="fadeIn" data-image-animation-duration="2">
                                 <div class="panel style1">
-                                    <img src="http://placehold.it/370x160" alt="" />
+                                    <img src="images/baggage.jpg" alt="" />
                                     <h4 class="panel-title">
                                         <a href="#acc7" data-toggle="collapse" data-parent="#accordion3">Book your Bags in Advance</a>
                                     </h4>
@@ -366,7 +366,7 @@
                                 </div>
 
                                 <div class="panel style1">
-                                    <img src="http://placehold.it/370x160" alt="" />
+                                    <img src="images/meal.jpg" alt="" />
                                     <h4 class="panel-title">
                                         <a class="collapsed" href="#acc8" data-toggle="collapse" data-parent="#accordion3">Special Meal Requests</a>
                                     </h4>
@@ -378,7 +378,7 @@
                                 </div>
 
                                 <div class="panel style1">
-                                    <img src="http://placehold.it/370x160" alt="" />
+                                    <img src="images/status.jpg" alt="" />
                                     <h4 class="panel-title">
                                         <a class="collapsed" href="#acc9" data-toggle="collapse" data-parent="#accordion3">Check your Flight Status</a>
                                     </h4>
@@ -398,7 +398,7 @@
 <!--                             <div class="flight-routes image-box style13 block">
                                 <div class="box">
                                     <figure>
-                                        <a href="#"><img src="http://placehold.it/40x40" alt=""></a>
+                                        <a href="#"><img src="images/plane.png" alt=""></a>
                                     </figure>
                                     <div class="action">
                                         <a href="" class="button">BOOK</a>
@@ -410,7 +410,7 @@
                                 </div> -->
                                 <div class="box">
                                     <figure>
-                                        <a href="#"><img src="http://placehold.it/40x40" alt=""></a>
+                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
                                     </figure>
                                     <div class="action">
                                         <a href="" class="button">BOOK</a>
@@ -422,7 +422,7 @@
                                 </div>
                                 <div class="box">
                                     <figure>
-                                        <a href="#"><img src="http://placehold.it/40x40" alt=""></a>
+                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
                                     </figure>
                                     <div class="action">
                                         <a href="" class="button">BOOK</a>
@@ -434,7 +434,7 @@
                                 </div>
                                 <div class="box">
                                     <figure>
-                                        <a href="#"><img src="http://placehold.it/40x40" alt=""></a>
+                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
                                     </figure>
                                     <div class="action">
                                         <a href="" class="button">BOOK</a>
@@ -446,7 +446,7 @@
                                 </div>
                                 <div class="box">
                                     <figure>
-                                        <a href="#"><img src="http://placehold.it/40x40" alt=""></a>
+                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
                                     </figure>
                                     <div class="action">
                                         <a href="" class="button">BOOK</a>

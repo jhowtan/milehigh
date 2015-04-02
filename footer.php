@@ -7,11 +7,8 @@
                             <ul class="discover triangle hover row">
                                 <li class="active col-xs-6"><a href="#">Safety</a></li>
                                 <li class="col-xs-6"><a href="aboutus.php">About</a></li>
-                                <li class="col-xs-6"><a href="#">Our Picks</a></li>
-                                <li class="col-xs-6"><a href="#">Press Release</a></li>
-                                <li class="col-xs-6"><a href="#">Careers Prospect</a></li>
+                                <li class="col-xs-6"><a href="#">Careers</a></li>
                                 <li class="col-xs-6"><a href="#">FAQ</a></li>
-                                <li class="col-xs-6"><a href="#">Site Map</a></li>
                                 <li class="col-xs-6"><a href="policy.php">Policies</a></li>
                                 <li class="col-xs-6"><a href="contactus.php">Contact Us</a></li>
                             </ul>
@@ -29,8 +26,8 @@
                         </div>
 
                         <div class="col-sm-6 col-md-4">
-                            <h2>About Milehighclub</h2>
-                            <p>Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massaidp nequetiam lore elerisque.</p>
+                            <h2>About Mile High Club</h2>
+                            <p>Your one-stop flight booking portal for cheap and available flights globally.</p>
                             <br />
                             <address class="contact-details">
                                 <span class="contact-phone"><i class="soap-icon-phone"></i> 6123 4567</span>
