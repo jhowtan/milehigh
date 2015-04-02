@@ -213,7 +213,7 @@
                                                 <i class="soap-icon-plane-right takeoff-effect circle"></i>
                                             </div>
                                             <div class="details">
-                                                <h4 class="box-title">London to Christchurch<small>One Way Flight</small></h4>
+                                                <h4 class="box-title">London to Christchurch</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@
                                                 <i class="soap-icon-plane-right takeoff-effect circle"></i>
                                             </div>
                                             <div class="details">
-                                                <h4 class="box-title">Dubai to Singapore<small>Return flight</small></h4>
+                                                <h4 class="box-title">Dubai to Singapore</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -261,201 +261,11 @@
                                                 <i class="soap-icon-plane-right takeoff-effect circle"></i>
                                             </div>
                                             <div class="details">
-                                                <h4 class="box-title">Rome to Australia<small>Oneway flight</small></h4>
+                                                <h4 class="box-title">Rome to Australia</h4>
                                             </div>
                                         </div>
                                     </div>
                                 </article>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2>Cheap Flights &amp; Air Tickets</h2>
-                    <div class="image-carousel style2 block" data-animation="slide" data-item-width="270" data-item-margin="30">
-                        <ul class="slides image-box listing-style2 flight">
-
-            <!-- EXTRA: SELECT * FROM flights f WHERE f.price < 2000 ORDER BY DESC; -->
-            <!-- Followed by: display 5 of top results using the following code -->
-<!--                             <li>
-                                <article class="box">
-                                    <figure>
-                                        <span><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></span>
-                                    </figure>
-                                    <div class="details">
-                                        <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
-                                        <h4 class="box-title">Paris</h4>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$620</span>oneway
-                                        </label>
-                                    </div>
-                                </article>
-                            </li> -->
-                            <li>
-                                <article class="box">
-                                    <figure>
-                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
-                                    </figure>
-                                    <div class="details">
-                                        <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
-                                        <h4 class="box-title">Paris</h4>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$170</span>oneway
-                                        </label>
-                                    </div>
-                                </article>
-                            </li>
-                            <li>
-                                <article class="box">
-                                    <figure>
-                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
-                                    </figure>
-                                    <div class="details">
-                                        <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
-                                        <h4 class="box-title">Paris</h4>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$620</span>oneway
-                                        </label>
-                                    </div>
-                                </article>
-                            </li>
-                            <li>
-                                <article class="box">
-                                    <figure>
-                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
-                                    </figure>
-                                    <div class="details">
-                                        <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
-                                        <h4 class="box-title">Paris</h4>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$320</span>oneway
-                                        </label>
-                                    </div>
-                                </article>
-                            </li>
-                            <li>
-                                <article class="box">
-                                    <figure>
-                                        <span><img src="images/paris.jpg" alt="" width="270" height="160" /></span>
-                                    </figure>
-                                    <div class="details">
-                                        <a title="View all" href="" class="pull-right button btn-mini uppercase">select</a>
-                                        <h4 class="box-title">Paris</h4>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$620</span>oneway
-                                        </label>
-                                    </div>
-                                </article>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h2>Before you Fly</h2>
-                            <div class="toggle-container with-image block" id="accordion3" data-image-animation-type="fadeIn" data-image-animation-duration="2">
-                                <div class="panel style1">
-                                    <img src="images/baggage.jpg" alt="" />
-                                    <h4 class="panel-title">
-                                        <a href="#acc7" data-toggle="collapse" data-parent="#accordion3">Book your Bags in Advance</a>
-                                    </h4>
-                                    <div class="panel-collapse collapse in" id="acc7">
-                                        <div class="panel-content">
-                                            <p>Extra baggage? Book bag allowance in advance.</p>
-                                        </div><!-- end content -->
-                                    </div>
-                                </div>
-
-                                <div class="panel style1">
-                                    <img src="images/meal.jpg" alt="" />
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" href="#acc8" data-toggle="collapse" data-parent="#accordion3">Special Meal Requests</a>
-                                    </h4>
-                                    <div class="panel-collapse collapse" id="acc8">
-                                        <div class="panel-content">
-                                            <p>Plan special meal requests.</p>
-                                        </div><!-- end content -->
-                                    </div>
-                                </div>
-
-                                <div class="panel style1">
-                                    <img src="images/status.jpg" alt="" />
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" href="#acc9" data-toggle="collapse" data-parent="#accordion3">Check your Flight Status</a>
-                                    </h4>
-                                    <div class="panel-collapse collapse" id="acc9">
-                                        <div class="panel-content">
-                                            <p>Check in early, verify your flight information.</p>
-                                        </div><!-- end content -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-            <!-- EXTRA: THINK OF SQL Query for returning the top COUNT of flightTicket for a flight -->
-            <!-- Followed by: display 5 of top results using the following code -->
-                        <div class="col-md-6">
-                            <h2>Top Flight Routes</h2>
-<!--                             <div class="flight-routes image-box style13 block">
-                                <div class="box">
-                                    <figure>
-                                        <a href="#"><img src="images/plane.png" alt=""></a>
-                                    </figure>
-                                    <div class="action">
-                                        <a href="" class="button">BOOK</a>
-                                    </div>
-                                    <div class="details">
-                                        <h5 class="box-title">Rome to Dubai</h5>
-                                        <label class="price-wrapper"><span class="price-per-unit">$201</span>Oneway</label>
-                                    </div>
-                                </div> -->
-                                <div class="box">
-                                    <figure>
-                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
-                                    </figure>
-                                    <div class="action">
-                                        <a href="" class="button">BOOK</a>
-                                    </div>
-                                    <div class="details">
-                                        <h5 class="box-title">Greece to Canada</h5>
-                                        <label class="price-wrapper"><span class="price-per-unit">$478</span>return</label>
-                                    </div>
-                                </div>
-                                <div class="box">
-                                    <figure>
-                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
-                                    </figure>
-                                    <div class="action">
-                                        <a href="" class="button">BOOK</a>
-                                    </div>
-                                    <div class="details">
-                                        <h5 class="box-title">Thailand to Paris</h5>
-                                        <label class="price-wrapper"><span class="price-per-unit">$231</span>Oneway</label>
-                                    </div>
-                                </div>
-                                <div class="box">
-                                    <figure>
-                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
-                                    </figure>
-                                    <div class="action">
-                                        <a href="" class="button">BOOK</a>
-                                    </div>
-                                    <div class="details">
-                                        <h5 class="box-title">Singapore to Malaysia</h5>
-                                        <label class="price-wrapper"><span class="price-per-unit">$149</span>return</label>
-                                    </div>
-                                </div>
-                                <div class="box">
-                                    <figure>
-                                        <a href="#"><img src="images/plane.png" alt="" width="40" height="40"></a>
-                                    </figure>
-                                    <div class="action">
-                                        <a href="" class="button">BOOK</a>
-                                    </div>
-                                    <div class="details">
-                                        <h5 class="box-title">Greece to Canada</h5>
-                                        <label class="price-wrapper"><span class="price-per-unit">$478</span>return</label>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
