@@ -105,7 +105,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-4">
                                         <h4 class="title">Who</h4>
                                         <div class="form-group row">
@@ -113,8 +113,8 @@
                                                 <label>Adults</label>
                                                 <div class="selector">
                                                     <select class="full-width" name="fs_adults">
-                                                        <?php 
-                                                            for($i=1; $i<10; $i++){ 
+                                                        <?php
+                                                            for($i=1; $i<10; $i++){
                                                                 echo "<option value='$i'>$i</option>";
                                                             }
                                                         ?>
@@ -125,8 +125,8 @@
                                                 <label>Kids</label>
                                                 <div class="selector">
                                                     <select class="full-width" name="fs_kids">
-                                                        <?php 
-                                                            for($i=0; $i<10; $i++){ 
+                                                        <?php
+                                                            for($i=0; $i<10; $i++){
                                                                 echo "<option value='$i'>$i</option>";
                                                             }
                                                         ?>
@@ -273,7 +273,10 @@
                     <h2>Cheap Flights &amp; Air Tickets</h2>
                     <div class="image-carousel style2 block" data-animation="slide" data-item-width="270" data-item-margin="30">
                         <ul class="slides image-box listing-style2 flight">
-                            <li>
+
+            <!-- EXTRA: SELECT * FROM flights f WHERE f.price < 2000 ORDER BY DESC; -->
+            <!-- Followed by: display 5 of top results using the following code -->
+<!--                             <li>
                                 <article class="box">
                                     <figure>
                                         <span><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></span>
@@ -286,7 +289,7 @@
                                         </label>
                                     </div>
                                 </article>
-                            </li>
+                            </li> -->
                             <li>
                                 <article class="box">
                                     <figure>
@@ -357,7 +360,7 @@
                                     </h4>
                                     <div class="panel-collapse collapse in" id="acc7">
                                         <div class="panel-content">
-                                            <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed pulvinar massa iden porta nequetiam elerisque mi id habitant morbi tristique senectus.</p>
+                                            <p>Extra baggage? Book bag allowance in advance.</p>
                                         </div><!-- end content -->
                                     </div>
                                 </div>
@@ -369,7 +372,7 @@
                                     </h4>
                                     <div class="panel-collapse collapse" id="acc8">
                                         <div class="panel-content">
-                                            <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed pulvinar massa iden porta nequetiam elerisque mi id habitant morbi tristique senectus.</p>
+                                            <p>Plan special meal requests.</p>
                                         </div><!-- end content -->
                                     </div>
                                 </div>
@@ -381,15 +384,18 @@
                                     </h4>
                                     <div class="panel-collapse collapse" id="acc9">
                                         <div class="panel-content">
-                                            <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed pulvinar massa iden porta nequetiam elerisque mi id habitant morbi tristique senectus.</p>
+                                            <p>Check in early, verify your flight information.</p>
                                         </div><!-- end content -->
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+            <!-- EXTRA: THINK OF SQL Query for returning the top COUNT of flightTicket for a flight -->
+            <!-- Followed by: display 5 of top results using the following code -->
                         <div class="col-md-6">
                             <h2>Top Flight Routes</h2>
-                            <div class="flight-routes image-box style13 block">
+<!--                             <div class="flight-routes image-box style13 block">
                                 <div class="box">
                                     <figure>
                                         <a href="#"><img src="http://placehold.it/40x40" alt=""></a>
@@ -401,7 +407,7 @@
                                         <h5 class="box-title">Rome to Dubai</h5>
                                         <label class="price-wrapper"><span class="price-per-unit">$201</span>Oneway</label>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="box">
                                     <figure>
                                         <a href="#"><img src="http://placehold.it/40x40" alt=""></a>
