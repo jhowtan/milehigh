@@ -79,7 +79,7 @@
     }
     
     function addSeat($flightId){
-        $add_seat_query = "INSERT INTO seat(seatNumber, flight, class) VALUES ('1A', $flightId, 'First Class'), "
+        /*$add_seat_query = "INSERT INTO seat(seatNumber, flight, class) VALUES ('1A', $flightId, 'First Class'), "
             ." ('1B', $flightId, 'First Class'), ('1C', $flightId, 'First Class'), ('1D', $flightId, 'First Class'), "
             ." ('1E', $flightId, 'First Class'), ('1F', $flightId, 'First Class'), ('2A', $flightId, 'First Class'), "
             ." ('2B', $flightId, 'First Class'), ('2C', $flightId, 'First Class'), ('2D', $flightId, 'First Class'), "
@@ -101,6 +101,6 @@
         
         if(!mysql_query($add_seat_query)){
             die("Error!". mysql_error());
-        }
+        }*/
     }
 ?>
