@@ -69,16 +69,11 @@
                                 <dt>Arrival Time:</dt><dd><?php echo timeDisplay($result['arrivalTime']); ?></dd>
                                 <dt>Flight Status:</dt><dd><?php echo $result['status']; ?></dd>
                             </dl>
-                            <hr />
-                            <h2>Payment</h2>
-                            <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
-                            <br />
-                            <p class="red-color">Payment is made by Credit Card Via Paypal.</p>
+                            <p class="red-color">Payment is made by Credit Card or Paypal.</p>
                             <hr />
                             <h2>View Booking Details</h2>
-                            <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
-                            <br />
-                            <a href="#" class="red-color underline view-link">https://www.travelo.com/booking-details/?=f4acb19f-9542-4a5c-b8ee</a>
+                            <p>A detailed booking information has been send to your registered email. If there's any queries regarding on your details, 
+                                you may call our customer's service hotline at 6123 4567</p>
                         </div>
                     </div>
                     <div class="sidebar col-sm-4 col-md-3">
@@ -96,18 +91,18 @@
                             <ul>
                                 <li>
                                     <i class="soap-icon-hotel-1 circle"></i>
-                                    <h5 class="title"><a href="#">135,00+ Hotels</a></h5>
-                                    <p>Nunc cursus libero pur congue arut nimspnty.</p>
+                                    <h5 class="title"><a href="#">100+ Flights</a></h5>
+                                    <p>More than 100+ flights worldwide available to choose from.</p>
                                 </li>
                                 <li>
                                     <i class="soap-icon-savings circle"></i>
                                     <h5 class="title"><a href="#">Low Rates &amp; Savings</a></h5>
-                                    <p>Nunc cursus libero pur congue arut nimspnty.</p>
+                                    <p>We guarantee lowest rates of all!</p>
                                 </li>
                                 <li>
                                     <i class="soap-icon-support circle"></i>
-                                    <h5 class="title"><a href="#">Excellent Support</a></h5>
-                                    <p>Nunc cursus libero pur congue arut nimspnty.</p>
+                                    <h5 class="title"><a href="#">Excellent Service</a></h5>
+                                    <p>We value our customer as top priority.</p>
                                 </li>
                             </ul>
                         </div>

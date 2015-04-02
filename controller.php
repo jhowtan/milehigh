@@ -214,6 +214,8 @@
             
             $fs_from = $_GET['fs_from'];
             $fs_to = $_GET['fs_to'];
+            $fs_fromDate = $_GET['fs_fromDate'];
+            $fs_toDate = $_GET['fs_toDate'];
             $fs_adults = $_GET['fs_adults'];
             $fs_kids = $_GET['fs_kids'];
             

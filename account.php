@@ -20,7 +20,7 @@
             . " WHERE b.flightTicket = ft.id AND ft.seat = s.id"
             . " AND s.flight = f.id AND f.departure = ap1.id"
             . " AND ap1.country = c1.id AND f.arrival = ap2.id"
-            . " AND ap2.country = c2.id AND b.owner = '$user'";
+            . " AND ap2.country = c2.id AND b.owner = '$user' ORDER BY f.departureDate DESC";
     
     $booking_result = mysql_query($booking_query);
     
@@ -119,53 +119,6 @@
                                         </div>
                                     </article>
                                     <hr>
-                                    <h2>About You</h2>
-                                        <div class="intro">
-                                        <p>Vestibulum tristique, justo eu sollicitudin sagittis, metus dolor eleifend urna.</p>
-                                    </div>
-                                    <hr>
-                                    <h2>Today’s Suggestions</h2>
-                                    <div class="suggestions image-carousel style2" data-animation="slide" data-item-width="170" data-item-margin="22">
-                                        <ul class="slides">
-                                            <li>
-                                                <a href="#" class="hover-effect">
-                                                    <img src="http://placehold.it/170x170" alt="" />
-                                                </a>
-                                                <h5 class="caption">Adventure</h5>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="hover-effect">
-                                                    <img src="http://placehold.it/170x170" alt="" />
-                                                </a>
-                                                <h5 class="caption">Beaches &amp; Sun</h5>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="hover-effect">
-                                                    <img src="http://placehold.it/170x170" alt="" />
-                                                </a>
-                                                <h5 class="caption">Casinos</h5>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="hover-effect">
-                                                    <img src="http://placehold.it/170x170" alt="" />
-                                                </a>
-                                                <h5 class="caption">Family Fun</h5>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="hover-effect">
-                                                    <img src="http://placehold.it/170x170" alt="" />
-                                                </a>
-                                                <h5 class="caption">History</h5>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="hover-effect">
-                                                    <img src="http://placehold.it/170x170" alt="" />
-                                                </a>
-                                                <h5 class="caption">Adventure</h5>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <hr>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <h4>Benefits of Milehighclub Account</h4>
@@ -175,29 +128,6 @@
                                                 <li class="active"><a href="#">Manage profile &amp; personalize experience</a></li>
                                                 <li><a href="#">Receive alerts &amp; recommendations</a></li>
                                             </ul>
-                                        </div>
-                                        <div class="col-md-4 previous-bookings image-box style14">
-                                            <h4>Your Previous Bookings</h4>
-                                            <article class="box">
-                                                <figure class="no-padding">
-                                                    <a title="" href="#">
-                                                        <img alt="" src="http://placehold.it/63x59" width="63" height="59">
-                                                    </a>
-                                                </figure>
-                                                <div class="details">
-                                                    <h5 class="box-title"><a href="#">Half-Day Island Tour</a><small class="fourty-space"><span class="price">$35</span> Family Package</small></h5>
-                                                </div>
-                                            </article>
-                                            <article class="box">
-                                                <figure class="no-padding">
-                                                    <a title="" href="#">
-                                                        <img alt="" src="http://placehold.it/63x59" width="63" height="59">
-                                                    </a>
-                                                </figure>
-                                                <div class="details">
-                                                    <h5 class="box-title"><a href="#">Ocean Park Tour</a><small class="fourty-space"><span class="price">$26</span> Per Person</small></h5>
-                                                </div>
-                                            </article>
                                         </div>
                                         <div class="col-md-4">
                                             <h4>Need Help?</h4>
@@ -278,7 +208,9 @@
                                         </dl>
                                         <button class="btn-mini status"><?php echo $msg; ?></button>
                                     </div>
-                                    <?php } ?>
+                                    <?php 
+                                        $font = "";
+                                            } ?>
                                 </div>
                             </div>
                             <div id="settings" class="tab-pane fade">
